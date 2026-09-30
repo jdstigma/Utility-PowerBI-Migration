@@ -298,11 +298,25 @@ python sql/export_powerbi_data.py      # ~3 min
 
 A PBIP doesn't store data, so each fresh clone needs one refresh. Use **File → Save As → .pbix** to share a single file.
 
-**Regenerate** after changing measures, pages or exported views. Columns and types are read from the Parquet files, so the model can't drift from the data:
+### Editing the report
+
+**Where each kind of change is made:**
+
+| Change | Where | How it's saved |
+|---|---|---|
+| Formatting, layout, visuals, pages | **Power BI Desktop**, in `powerbi/UtilityReporting.pbip` | **Ctrl+S** writes the report's text files. Commit them. |
+| Measures, tables, relationships | `powerbi/build_pbip.py` (`MEASURES`, `TABLES`, `RELATIONSHIPS`) | `python powerbi/build_pbip.py --model-only` |
+
+`build_pbip.py` generated the starting report. Once the report exists, the script **won't overwrite it**. `--model-only` rebuilds just the semantic model (columns and types are re-read from the Parquet files, so the model can't drift from the data) and leaves pages and formatting untouched. Regenerating the pages from scratch requires `--overwrite-report`, which discards Desktop formatting.
+
+`--model-only` replaces the whole model folder. A measure or format changed only in Desktop's model view will be overwritten, so make model changes in the script.
 
 ```bash
-python powerbi/build_pbip.py
+python powerbi/build_pbip.py --model-only        # after changing measures or exported views
+python powerbi/build_pbip.py --overwrite-report  # start the report over (loses Desktop formatting)
 ```
+
+**Publishing a new `.pbix`:** after editing the `.pbip`, click **Refresh now** so the data is loaded, then use **File → Save as → .pbix**. Save As switches Desktop to the new `.pbix`, so reopen the `.pbip` before making further edits you want in the repo.
 
 ---
 
@@ -320,7 +334,7 @@ python lake/build_curated.py
 python lake/download_to_sql.py
 python sql/build_warehouse.py
 python sql/export_powerbi_data.py
-python powerbi/build_pbip.py          # then open powerbi/UtilityReporting.pbip and Refresh
+python powerbi/build_pbip.py --model-only   # refresh the model; then open powerbi/UtilityReporting.pbip and Refresh
 ```
 
 Generated data, lake storage and database files live under `%UTILITY_DATA_DIR%` (default `C:\Data\utility-powerbi`), outside the repo and OneDrive.

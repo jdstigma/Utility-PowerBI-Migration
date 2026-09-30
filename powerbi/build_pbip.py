@@ -10,8 +10,14 @@ model always matches the exported data. Every table loads from GitHub through
 the BaseUrl parameter (Web.Contents + Parquet.Document), so a refresh pulls the
 latest published files, the same way the Excel reports pulled from SharePoint.
 
-Re-run after changing measures, pages, or the exported views:
-  python powerbi/build_pbip.py
+Once the report exists it is formatted in Power BI Desktop, so the script
+protects it:
+  python powerbi/build_pbip.py --model-only        # tables, relationships, measures only
+  python powerbi/build_pbip.py --overwrite-report  # regenerate pages too (loses Desktop formatting)
+
+--model-only replaces the whole semantic model folder. Make model changes
+(measures, formats, relationships) here rather than in Desktop, or copy them
+into MEASURES / RELATIONSHIPS first, or they will be overwritten.
 """
 import hashlib
 import json
@@ -548,20 +554,43 @@ def check_names():
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser(description="Generate the Power BI project.",
+                                 epilog="The report is edited in Power BI Desktop once it exists, so a full "
+                                        "rebuild will not overwrite it without --overwrite-report.")
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--model-only", action="store_true",
+                      help="rebuild only the semantic model (tables, relationships, measures); "
+                           "leave the report pages and their formatting untouched")
+    mode.add_argument("--overwrite-report", action="store_true",
+                      help="rebuild the report pages too, discarding any formatting done in Power BI Desktop")
+    args = ap.parse_args()
+
     check_names()
-    for p in (OUT / f"{NAME}.SemanticModel", OUT / f"{NAME}.Report"):
-        if p.exists():
-            shutil.rmtree(p)
+    model_dir, report_dir = OUT / f"{NAME}.SemanticModel", OUT / f"{NAME}.Report"
+    build_report = not args.model_only
+    if build_report and report_dir.exists() and not args.overwrite_report:
+        raise SystemExit(f"{report_dir.name} already exists and may contain formatting edited in Power BI Desktop.\n"
+                         "  Rebuild just the model:        python powerbi/build_pbip.py --model-only\n"
+                         "  Replace the report as well:    python powerbi/build_pbip.py --overwrite-report")
+    if args.model_only and not report_dir.exists():
+        raise SystemExit(f"{report_dir.name} does not exist yet; run without --model-only first.")
+
+    if model_dir.exists():
+        shutil.rmtree(model_dir)
     write_model()
-    write_report()
-    (OUT / f"{NAME}.pbip").write_text(json.dumps({
-        "$schema": f"{SCHEMA}/pbip/pbipProperties/1.0.0/schema.json",
-        "version": "1.0", "artifacts": [{"report": {"path": f"{NAME}.Report"}}],
-        "settings": {"enableAutoRecovery": True}}, indent=2))
+    if build_report:
+        if report_dir.exists():
+            shutil.rmtree(report_dir)
+        write_report()
+        (OUT / f"{NAME}.pbip").write_text(json.dumps({
+            "$schema": f"{SCHEMA}/pbip/pbipProperties/1.0.0/schema.json",
+            "version": "1.0", "artifacts": [{"report": {"path": f"{NAME}.Report"}}],
+            "settings": {"enableAutoRecovery": True}}, indent=2))
     n_m = sum(len(v) for v in MEASURES.values())
-    n_v = sum(len(v) for _, v in PAGES)
-    print(f"wrote {NAME}.pbip: {len(TABLES)} tables, {len(RELATIONSHIPS)} relationships, {n_m} measures, "
-          f"{len(PAGES)} pages, {n_v} visuals")
+    what = (f"{len(PAGES)} pages, {sum(len(v) for _, v in PAGES)} visuals" if build_report
+            else "report left untouched")
+    print(f"wrote {NAME}: {len(TABLES)} tables, {len(RELATIONSHIPS)} relationships, {n_m} measures; {what}")
 
 
 if __name__ == "__main__":
