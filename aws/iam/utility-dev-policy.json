@@ -1,0 +1,79 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LakeBucketFullAccess",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::utility-powerbi-lake-ACCOUNT_ID",
+        "arn:aws:s3:::utility-powerbi-lake-ACCOUNT_ID/*"
+      ]
+    },
+    {
+      "Sid": "KeepLakePrivate",
+      "Effect": "Deny",
+      "Action": [
+        "s3:PutBucketPolicy",
+        "s3:DeleteBucketPolicy",
+        "s3:PutBucketAcl",
+        "s3:PutObjectAcl",
+        "s3:PutBucketPublicAccessBlock"
+      ],
+      "Resource": [
+        "arn:aws:s3:::utility-powerbi-lake-ACCOUNT_ID",
+        "arn:aws:s3:::utility-powerbi-lake-ACCOUNT_ID/*"
+      ]
+    },
+    {
+      "Sid": "ConsoleBucketListing",
+      "Effect": "Allow",
+      "Action": ["s3:ListAllMyBuckets", "s3:GetBucketLocation"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AthenaWorkgroup",
+      "Effect": "Allow",
+      "Action": "athena:*",
+      "Resource": [
+        "arn:aws:athena:us-east-1:ACCOUNT_ID:workgroup/utility-powerbi",
+        "arn:aws:athena:us-east-1:ACCOUNT_ID:datacatalog/AwsDataCatalog"
+      ]
+    },
+    {
+      "Sid": "AthenaList",
+      "Effect": "Allow",
+      "Action": ["athena:ListWorkGroups", "athena:ListDataCatalogs", "athena:ListEngineVersions"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "GlueCatalogForLakeDatabases",
+      "Effect": "Allow",
+      "Action": [
+        "glue:GetCatalog", "glue:GetCatalogs",
+        "glue:GetDatabase", "glue:GetDatabases", "glue:CreateDatabase", "glue:UpdateDatabase", "glue:DeleteDatabase",
+        "glue:GetTable", "glue:GetTables", "glue:CreateTable", "glue:UpdateTable", "glue:DeleteTable", "glue:BatchDeleteTable",
+        "glue:GetPartition", "glue:GetPartitions", "glue:BatchGetPartition", "glue:CreatePartition",
+        "glue:BatchCreatePartition", "glue:UpdatePartition", "glue:DeletePartition", "glue:BatchDeletePartition"
+      ],
+      "Resource": [
+        "arn:aws:glue:us-east-1:ACCOUNT_ID:catalog",
+        "arn:aws:glue:us-east-1:ACCOUNT_ID:database/default",
+        "arn:aws:glue:us-east-1:ACCOUNT_ID:database/utility_*",
+        "arn:aws:glue:us-east-1:ACCOUNT_ID:table/utility_*/*"
+      ]
+    },
+    {
+      "Sid": "ManageOwnPassword",
+      "Effect": "Allow",
+      "Action": ["iam:ChangePassword", "iam:GetUser"],
+      "Resource": "arn:aws:iam::ACCOUNT_ID:user/utility-dev"
+    },
+    {
+      "Sid": "ReadPasswordRules",
+      "Effect": "Allow",
+      "Action": "iam:GetAccountPasswordPolicy",
+      "Resource": "*"
+    }
+  ]
+}

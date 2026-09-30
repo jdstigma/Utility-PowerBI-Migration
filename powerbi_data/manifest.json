@@ -1,0 +1,111 @@
+{
+  "exported_at": "2026-09-30 18:41:58",
+  "source": "UtilityDW.rpt",
+  "files": {
+    "ami_daily_profile.parquet": {
+      "rows": 11680,
+      "columns": 10,
+      "mb": 0.23
+    },
+    "ar_aging_monthly.parquet": {
+      "rows": 2112,
+      "columns": 9,
+      "mb": 0.04
+    },
+    "ar_top_accounts.parquet": {
+      "rows": 2000,
+      "columns": 18,
+      "mb": 0.11
+    },
+    "billing_exceptions_monthly.parquet": {
+      "rows": 864,
+      "columns": 10,
+      "mb": 0.02
+    },
+    "collections_orders_monthly.parquet": {
+      "rows": 673,
+      "columns": 9,
+      "mb": 0.01
+    },
+    "contact_center_daily.parquet": {
+      "rows": 90744,
+      "columns": 16,
+      "mb": 1.09
+    },
+    "customer_360.parquet": {
+      "rows": 550178,
+      "columns": 31,
+      "mb": 16.58
+    },
+    "customer_bills_recent.parquet": {
+      "rows": 1507672,
+      "columns": 14,
+      "mb": 28.6
+    },
+    "data_quality.parquet": {
+      "rows": 11,
+      "columns": 7,
+      "mb": 0.01
+    },
+    "digital_adoption_monthly.parquet": {
+      "rows": 384,
+      "columns": 6,
+      "mb": 0.01
+    },
+    "dim_period.parquet": {
+      "rows": 24,
+      "columns": 9,
+      "mb": 0.01
+    },
+    "moratorium_compliance.parquet": {
+      "rows": 8,
+      "columns": 4,
+      "mb": 0.0
+    },
+    "payment_plans_monthly.parquet": {
+      "rows": 1216,
+      "columns": 10,
+      "mb": 0.03
+    },
+    "payments_monthly.parquet": {
+      "rows": 2400,
+      "columns": 6,
+      "mb": 0.04
+    },
+    "rebills_monthly.parquet": {
+      "rows": 24,
+      "columns": 3,
+      "mb": 0.0
+    },
+    "reliability_events.parquet": {
+      "rows": 14954,
+      "columns": 14,
+      "mb": 0.43
+    },
+    "revenue_commercial_monthly.parquet": {
+      "rows": 2112,
+      "columns": 18,
+      "mb": 0.13
+    },
+    "revenue_residential_monthly.parquet": {
+      "rows": 1920,
+      "columns": 18,
+      "mb": 0.1
+    },
+    "service_orders_monthly.parquet": {
+      "rows": 1161,
+      "columns": 10,
+      "mb": 0.02
+    },
+    "work_order_backlog.parquet": {
+      "rows": 19641,
+      "columns": 18,
+      "mb": 0.55
+    },
+    "work_orders_monthly.parquet": {
+      "rows": 16350,
+      "columns": 12,
+      "mb": 0.32
+    }
+  }
+}

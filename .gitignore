@@ -1,0 +1,13 @@
+# generated data lives outside the repo (UTILITY_DATA_DIR)
+data/
+*.csv.gz
+__pycache__/
+*.pyc
+.venv/
+.env
+# Power BI temp / cache
+*.pbix.bak
+~$*
+
+# local lake emulator credentials
+lake/.env

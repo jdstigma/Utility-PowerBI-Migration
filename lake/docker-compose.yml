@@ -1,0 +1,31 @@
+# Local S3-compatible data lake (stands in for AWS S3).
+#
+# Versity S3 Gateway (Apache-2.0) serves the folder below over the S3 API, so the
+# pipeline uses plain boto3 / DuckDB S3 calls exactly as it would against AWS.
+# Each top-level folder under LAKE_DIR is a bucket; objects are ordinary files.
+#
+#   docker compose -f lake/docker-compose.yml up -d
+#   S3 API:  http://localhost:7070
+#   Web UI:  http://localhost:7071   (sign in with the keys in lake/.env)
+services:
+  s3:
+    image: versity/versitygw:v1.8.0
+    container_name: utility-lake-s3
+    env_file: .env
+    command:
+      - --port=:7070
+      - --webui=:7071
+      - --webui-gateways=http://localhost:7070
+      - --cors-allow-origin=http://localhost:7071
+      - --health=/health
+      - --quiet
+      - posix
+      - --sidecar=/meta
+      - /data
+    ports:
+      - "127.0.0.1:7070:7070"
+      - "127.0.0.1:7071:7071"
+    volumes:
+      - ${LAKE_DIR:-C:/Data/utility-powerbi/lake}:/data
+      - ${LAKE_META_DIR:-C:/Data/utility-powerbi/lake-meta}:/meta
+    restart: unless-stopped
