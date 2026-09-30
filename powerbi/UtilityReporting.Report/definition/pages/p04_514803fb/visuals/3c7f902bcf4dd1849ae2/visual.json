@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "3c7f902bcf4dd1849ae2",
+  "position": {
+    "x": 1020.0,
+    "y": 70,
+    "z": 6,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date"
+                    }
+                  },
+                  "Property": "Avg Temp (F)"
+                }
+              },
+              "queryRef": "Date.Avg Temp (F)",
+              "nativeQueryRef": "Avg Temp (F)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

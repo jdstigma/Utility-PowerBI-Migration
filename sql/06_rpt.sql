@@ -24,6 +24,24 @@ FROM dw.dim_date
 WHERE is_in_window = 1;
 GO
 
+CREATE OR ALTER VIEW rpt.date_daily AS                       -- Power BI date table (daily facts)
+SELECT [date], YEAR(month_start) * 100 + MONTH(month_start) AS period_key, month_start, year_month,
+       [year], month_short, day_of_week, day_name, is_weekend, is_winter_moratorium, is_major_event_day,
+       daily_saidi_min, temp_avg_f, temp_max_f, temp_min_f, precip_in, max_gust_mph,
+       heating_degree_days, cooling_degree_days
+FROM dw.dim_date
+WHERE is_in_window = 1;
+GO
+
+CREATE OR ALTER VIEW rpt.division AS                         -- shared division dimension
+SELECT division,
+       SUM(customers_served)     AS customers_served,
+       SUM(gas_customers_served) AS gas_customers_served,
+       COUNT(*)                  AS towns
+FROM dw.dim_geography
+GROUP BY division;
+GO
+
 CREATE OR ALTER VIEW dw.v_revenue_monthly AS
 SELECT YEAR(b.bill_month) * 100 + MONTH(b.bill_month)  AS period_key,
        b.bill_month,

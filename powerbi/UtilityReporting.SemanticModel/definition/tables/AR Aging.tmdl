@@ -1,0 +1,115 @@
+table 'AR Aging'
+	lineageTag: be99bd9b-e2f6-204e-18d9-be098b1cec84
+
+	measure 'AR Balance' = VAR me = MAX('AR Aging'[month_end]) RETURN CALCULATE(SUM('AR Aging'[open_amt]), 'AR Aging'[month_end] = me, 'AR Aging'[is_receivable] = TRUE())
+		formatString: \$#,0
+		displayFolder: AR
+		lineageTag: 046c2ef7-4ed8-bd73-62ae-68799e78fc69
+
+	measure 'AR Past Due' = VAR me = MAX('AR Aging'[month_end]) RETURN CALCULATE(SUM('AR Aging'[open_amt]), 'AR Aging'[month_end] = me, 'AR Aging'[is_receivable] = TRUE(), 'AR Aging'[bucket_order] > 1)
+		formatString: \$#,0
+		displayFolder: AR
+		lineageTag: 1d2f20bf-b2b5-22d8-29eb-ba8718f6aba6
+
+	measure 'AR % Past Due' = DIVIDE([AR Past Due], [AR Balance])
+		formatString: 0.0%
+		displayFolder: AR
+		lineageTag: 29cca504-7cc8-8197-47e3-6d907f7899c7
+
+	measure 'AR 91-180 Days' = VAR me = MAX('AR Aging'[month_end]) RETURN CALCULATE(SUM('AR Aging'[open_amt]), 'AR Aging'[month_end] = me, 'AR Aging'[bucket_order] = 5)
+		formatString: \$#,0
+		displayFolder: AR
+		lineageTag: 43f4d502-f8e4-debd-e950-c9160e99c21c
+
+	measure 'Written Off to Date' = VAR me = MAX('AR Aging'[month_end]) RETURN CALCULATE(SUM('AR Aging'[open_amt]), 'AR Aging'[month_end] = me, 'AR Aging'[is_receivable] = FALSE())
+		formatString: \$#,0
+		displayFolder: AR
+		lineageTag: a47b9c94-40e1-6f0a-c621-42ac186fc655
+
+	column month_end
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 20cfc7c9-a8c2-5224-3b18-9ce219c8fff9
+		summarizeBy: none
+		sourceColumn: month_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 20ca75bd-fa91-cfce-97da-0dc697e81f53
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 428dbf77-c993-5505-7571-d7789af04bfb
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column aging_bucket
+		dataType: string
+		lineageTag: 56962589-4b5b-90d3-2741-b6a16ba58f0d
+		summarizeBy: none
+		sourceColumn: aging_bucket
+
+		annotation SummarizationSetBy = Automatic
+
+	column bucket_order
+		dataType: int64
+		formatString: 0
+		lineageTag: 6ed89caf-edde-a955-a45c-1da36ca8ae4f
+		summarizeBy: none
+		sourceColumn: bucket_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_receivable
+		dataType: boolean
+		lineageTag: cfc87f12-10dd-59f8-3d45-9939e72fb984
+		summarizeBy: none
+		sourceColumn: is_receivable
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_amt
+		dataType: double
+		lineageTag: 3078f148-528f-7088-7fa4-bf498420685a
+		summarizeBy: sum
+		sourceColumn: open_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_bills
+		dataType: int64
+		formatString: #,0
+		lineageTag: 22703634-76ff-4a89-39ed-82f8b63463b7
+		summarizeBy: sum
+		sourceColumn: open_bills
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_accounts
+		dataType: int64
+		formatString: #,0
+		lineageTag: 2d55084a-e66b-46d0-d339-ab832be9b687
+		summarizeBy: sum
+		sourceColumn: open_accounts
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'AR Aging' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "ar_aging_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"month_end", type date}, {"segment", type text}, {"division", type text}, {"aging_bucket", type text}, {"bucket_order", Int64.Type}, {"is_receivable", type logical}, {"open_amt", type number}, {"open_bills", Int64.Type}, {"open_accounts", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

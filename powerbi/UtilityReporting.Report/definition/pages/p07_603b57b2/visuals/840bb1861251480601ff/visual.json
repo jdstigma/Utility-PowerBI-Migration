@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "840bb1861251480601ff",
+  "position": {
+    "x": 20,
+    "y": 445,
+    "z": 9,
+    "width": 610,
+    "height": 255,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Contact Center"
+                    }
+                  },
+                  "Property": "reason"
+                }
+              },
+              "queryRef": "Contact Center.reason",
+              "nativeQueryRef": "reason"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Contact Center"
+                    }
+                  },
+                  "Property": "Contacts"
+                }
+              },
+              "queryRef": "Contact Center.Contacts",
+              "nativeQueryRef": "Contacts"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Contact Center"
+                  }
+                },
+                "Property": "Contacts"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Contacts by reason'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

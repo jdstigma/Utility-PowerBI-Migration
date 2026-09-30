@@ -1,0 +1,84 @@
+table Payments
+	lineageTag: daef6496-4ee3-b9b9-04f5-d467586e217f
+
+	measure 'Payments $' = SUM(Payments[amount])
+		formatString: \$#,0
+		displayFolder: Payments
+		lineageTag: 7f22be7d-ef30-c1fc-30c0-b1c07bc8f924
+
+	measure 'Payment Count' = SUM(Payments[payments])
+		formatString: #,0
+		displayFolder: Payments
+		lineageTag: c25377c5-61b9-8985-093a-ee7234e16724
+
+	measure 'Digital Payment %' = DIVIDE(CALCULATE([Payments $], Payments[channel] IN {"Autopay (ACH)", "Online", "Mobile App"}), [Payments $])
+		formatString: 0.0%
+		displayFolder: Payments
+		lineageTag: 0c0154c6-d05f-6af3-14b2-d97e049494ad
+
+	measure 'Energy Assistance $' = CALCULATE([Payments $], Payments[channel] = "Energy Assistance")
+		formatString: \$#,0
+		displayFolder: Payments
+		lineageTag: 8af70bab-110b-4e63-da37-844042c647dc
+
+	column payment_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: cc97b126-4dcf-77dc-b2cc-95f60db7ccf8
+		summarizeBy: none
+		sourceColumn: payment_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: e12ab1d0-bf9b-f7b3-d089-dedb3a90e472
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: e7d8c214-f740-e0c7-dd4b-a9f330057602
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 5eb623d2-0e3f-15eb-b870-b9f3a87940b6
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column payments
+		dataType: int64
+		formatString: #,0
+		lineageTag: 853b9f1f-d651-a35f-7c20-9995dee65826
+		summarizeBy: sum
+		sourceColumn: payments
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount
+		dataType: double
+		lineageTag: b377d01b-d33b-a6ae-c38c-6bb185cb9f1a
+		summarizeBy: sum
+		sourceColumn: amount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Payments = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "payments_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"payment_month", type date}, {"channel", type text}, {"segment", type text}, {"division", type text}, {"payments", Int64.Type}, {"amount", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

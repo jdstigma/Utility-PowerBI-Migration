@@ -1,0 +1,171 @@
+table Outages
+	lineageTag: b0456fd2-b666-3ca8-7a0a-df9f88206b33
+
+	measure 'Outage Events' = COUNTROWS(Outages)
+		formatString: #,0
+		displayFolder: Reliability
+		lineageTag: 7c280251-ec64-dc63-c1c4-98a2acc5b445
+
+	measure 'Customer Minutes' = SUM(Outages[customer_minutes])
+		formatString: #,0
+		displayFolder: Reliability
+		lineageTag: 1070bfd3-b2f7-8319-c355-36f048844d78
+
+	measure 'Customer Interruptions' = SUM(Outages[customers_out])
+		formatString: #,0
+		displayFolder: Reliability
+		lineageTag: e157a3a3-7f27-d9de-7191-5f65211df720
+
+	measure 'SAIDI (min)' = DIVIDE([Customer Minutes], [Customers Served])
+		formatString: #,0.0
+		displayFolder: Reliability
+		lineageTag: b497feec-816b-3be8-6771-f25d62d9bb1b
+
+	measure SAIFI = DIVIDE([Customer Interruptions], [Customers Served])
+		formatString: #,0.00
+		displayFolder: Reliability
+		lineageTag: 41aed30a-4b55-06c0-d378-b90391595b61
+
+	measure 'CAIDI (min)' = DIVIDE([Customer Minutes], [Customer Interruptions])
+		formatString: #,0.0
+		displayFolder: Reliability
+		lineageTag: 482151f1-9bc7-bb3a-79ee-8260c0aa5575
+
+	measure 'SAIDI excl. MED (min)' = CALCULATE([SAIDI (min)], Outages[is_major_event_day] = FALSE())
+		formatString: #,0.0
+		displayFolder: Reliability
+		lineageTag: 045f50ef-b567-e530-ba6e-f949a78f7655
+
+	measure 'SAIFI excl. MED' = CALCULATE([SAIFI], Outages[is_major_event_day] = FALSE())
+		formatString: #,0.00
+		displayFolder: Reliability
+		lineageTag: 4436b91c-980c-eee8-5abd-e39d70f636d4
+
+	column outage_id
+		dataType: int64
+		formatString: 0
+		lineageTag: aaccd111-8822-46b3-bb27-0d4036cc2818
+		summarizeBy: none
+		sourceColumn: outage_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column outage_start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6b782c68-7f6e-61e2-7e5e-ed2ca6d34924
+		summarizeBy: none
+		sourceColumn: outage_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column restore_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2b8b794d-5934-7f82-7094-52ff4bd7f7f8
+		summarizeBy: none
+		sourceColumn: restore_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column outage_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 24a11e3a-645b-e98b-bcdc-0c4cdce85024
+		summarizeBy: none
+		sourceColumn: outage_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_min
+		dataType: double
+		lineageTag: dd71ff64-98e3-de14-14d5-2028778d8d1c
+		summarizeBy: sum
+		sourceColumn: duration_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_open
+		dataType: boolean
+		lineageTag: b56d3e1d-a850-f89f-bf73-798d852dbc3c
+		summarizeBy: none
+		sourceColumn: is_open
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: f1495de3-ecdb-388e-c5c6-1cadccaf5618
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipality
+		dataType: string
+		lineageTag: fb82cf8c-61f9-8456-b0c0-89ca31aacb7d
+		summarizeBy: none
+		sourceColumn: municipality
+
+		annotation SummarizationSetBy = Automatic
+
+	column circuit_id
+		dataType: string
+		lineageTag: a9b1d28a-e91c-d6c7-0ba8-37f4a879e180
+		summarizeBy: none
+		sourceColumn: circuit_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_type
+		dataType: string
+		lineageTag: a2f6c630-5611-7bdc-1630-733010ec34cc
+		summarizeBy: none
+		sourceColumn: device_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column cause
+		dataType: string
+		lineageTag: 960a3c88-ea1d-bd20-b983-4a2e7f163071
+		summarizeBy: none
+		sourceColumn: cause
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers_out
+		dataType: int64
+		formatString: #,0
+		lineageTag: 4246d83a-a346-ef71-a6e7-07ee81716775
+		summarizeBy: sum
+		sourceColumn: customers_out
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_minutes
+		dataType: double
+		lineageTag: c5a3c170-384f-6375-272f-748c1d62177f
+		summarizeBy: sum
+		sourceColumn: customer_minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_major_event_day
+		dataType: boolean
+		lineageTag: b92e80d9-1853-8fb9-ae85-c15f1b368968
+		summarizeBy: none
+		sourceColumn: is_major_event_day
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Outages = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "reliability_events.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"outage_id", Int64.Type}, {"outage_start", type datetime}, {"restore_time", type datetime}, {"outage_date", type date}, {"duration_min", type number}, {"is_open", type logical}, {"division", type text}, {"municipality", type text}, {"circuit_id", type text}, {"device_type", type text}, {"cause", type text}, {"customers_out", Int64.Type}, {"customer_minutes", type number}, {"is_major_event_day", type logical}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

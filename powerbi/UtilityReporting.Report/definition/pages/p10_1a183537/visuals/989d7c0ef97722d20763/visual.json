@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "989d7c0ef97722d20763",
+  "position": {
+    "x": 20,
+    "y": 175,
+    "z": 6,
+    "width": 610,
+    "height": 525,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Service Orders"
+                    }
+                  },
+                  "Property": "order_type"
+                }
+              },
+              "queryRef": "Service Orders.order_type",
+              "nativeQueryRef": "order_type"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Service Orders"
+                    }
+                  },
+                  "Property": "Avg Cycle Days"
+                }
+              },
+              "queryRef": "Service Orders.Avg Cycle Days",
+              "nativeQueryRef": "Avg Cycle Days"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Service Orders"
+                  }
+                },
+                "Property": "Avg Cycle Days"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Average cycle time (days) by order type'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

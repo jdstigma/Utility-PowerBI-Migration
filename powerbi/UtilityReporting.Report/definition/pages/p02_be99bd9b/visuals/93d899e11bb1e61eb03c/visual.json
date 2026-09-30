@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "93d899e11bb1e61eb03c",
+  "position": {
+    "x": 20.0,
+    "y": 70,
+    "z": 2,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AR Aging"
+                    }
+                  },
+                  "Property": "AR Balance"
+                }
+              },
+              "queryRef": "AR Aging.AR Balance",
+              "nativeQueryRef": "AR Balance"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

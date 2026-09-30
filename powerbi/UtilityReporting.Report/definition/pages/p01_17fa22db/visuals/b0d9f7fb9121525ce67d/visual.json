@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "b0d9f7fb9121525ce67d",
+  "position": {
+    "x": 270.0,
+    "y": 70,
+    "z": 3,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Revenue Commercial"
+                    }
+                  },
+                  "Property": "C&I Revenue"
+                }
+              },
+              "queryRef": "Revenue Commercial.C&I Revenue",
+              "nativeQueryRef": "C&I Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

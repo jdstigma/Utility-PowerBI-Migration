@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "cdc8be3cede8c6437b1e",
+  "position": {
+    "x": 645.0,
+    "y": 70,
+    "z": 4,
+    "width": 302.5,
+    "height": 90,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Service Orders"
+                    }
+                  },
+                  "Property": "Avg Cycle Days"
+                }
+              },
+              "queryRef": "Service Orders.Avg Cycle Days",
+              "nativeQueryRef": "Avg Cycle Days"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

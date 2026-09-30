@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "0a23ce317d7cd84ca579",
+  "position": {
+    "x": 645.0,
+    "y": 70,
+    "z": 5,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Contact Center"
+                    }
+                  },
+                  "Property": "AHT (min)"
+                }
+              },
+              "queryRef": "Contact Center.AHT (min)",
+              "nativeQueryRef": "AHT (min)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

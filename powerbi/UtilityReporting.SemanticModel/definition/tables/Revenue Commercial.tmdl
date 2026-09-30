@@ -1,0 +1,192 @@
+table 'Revenue Commercial'
+	lineageTag: 388519a4-24a6-99e2-baaa-9495d7f85b49
+
+	measure 'C&I Revenue' = SUM('Revenue Commercial'[total_amt])
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: 83f5e7a8-5f42-495a-2e2d-b8996464b2c2
+
+	measure 'C&I kWh' = SUM('Revenue Commercial'[kwh])
+		formatString: #,0
+		displayFolder: Usage
+		lineageTag: 7bfb2ebb-69d8-8ee1-653a-d739eecdbb6a
+
+	measure 'C&I Therms' = SUM('Revenue Commercial'[therms])
+		formatString: #,0
+		displayFolder: Usage
+		lineageTag: 653b6c63-db97-f73e-ed09-54c6e1710b92
+
+	measure 'C&I Bills' = SUM('Revenue Commercial'[bills])
+		formatString: #,0
+		displayFolder: Revenue
+		lineageTag: 6d294140-dfc5-381a-c64f-fbe3a14bf8c7
+
+	measure 'Avg C&I Bill' = DIVIDE([C&I Revenue], [C&I Bills])
+		formatString: \$#,0.00
+		displayFolder: Revenue
+		lineageTag: 64bd71a8-e909-48b7-9cc6-3bf60011c19b
+
+	measure 'C&I Revenue YoY %' = VAR firstKey = MINX(ALL('Period'), 'Period'[period_key]) VAR keys = FILTER(VALUES('Period'[period_key]), 'Period'[period_key] - 100 >= firstKey) VAR cur = CALCULATE([C&I Revenue], TREATAS(keys, 'Period'[period_key])) VAR py = CALCULATE([C&I Revenue], REMOVEFILTERS('Period'), TREATAS(SELECTCOLUMNS(keys, "k", 'Period'[period_key] - 100), 'Period'[period_key])) RETURN IF(NOT ISBLANK(py), DIVIDE(cur - py, py))
+		formatString: 0.0%
+		displayFolder: Revenue
+		lineageTag: 86ed1f5b-2aea-981c-aa69-9f4659accdb9
+
+	column period_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d65ca50-bb71-341a-996d-a2bb02ac4043
+		summarizeBy: none
+		sourceColumn: period_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column bill_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 9fe1962a-1dde-08d1-080a-b74be6f58cd6
+		summarizeBy: none
+		sourceColumn: bill_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_class
+		dataType: string
+		lineageTag: 482a3f69-d18a-c5a8-9760-16ac3ccfbbdc
+		summarizeBy: none
+		sourceColumn: customer_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: a20138d9-45d0-d2b2-31f4-55bd77e8991e
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: b8b77330-7a8c-6b12-3fdb-a31df60250b9
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_rate_code
+		dataType: string
+		lineageTag: d0034567-4259-7d61-64c7-e84a791d29b3
+		summarizeBy: none
+		sourceColumn: elec_rate_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_rate_code
+		dataType: string
+		lineageTag: 640c696f-3a55-458e-672e-07e2e485571e
+		summarizeBy: none
+		sourceColumn: gas_rate_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_supplier
+		dataType: string
+		lineageTag: 252865c0-d72a-fd25-1070-d8301f175596
+		summarizeBy: none
+		sourceColumn: elec_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column bills
+		dataType: int64
+		formatString: #,0
+		lineageTag: db1e42e5-42e5-e125-b905-db5e30355212
+		summarizeBy: sum
+		sourceColumn: bills
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers_billed
+		dataType: int64
+		formatString: #,0
+		lineageTag: 60a87c92-95fe-4368-f27e-5f8082a2e061
+		summarizeBy: sum
+		sourceColumn: customers_billed
+
+		annotation SummarizationSetBy = Automatic
+
+	column kwh
+		dataType: double
+		lineageTag: af92a0bb-5192-5d44-0ed7-43bd3fd4b76d
+		summarizeBy: sum
+		sourceColumn: kwh
+
+		annotation SummarizationSetBy = Automatic
+
+	column therms
+		dataType: double
+		lineageTag: e336e8f8-7497-71c0-86a2-444f076481d7
+		summarizeBy: sum
+		sourceColumn: therms
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_delivery_amt
+		dataType: double
+		lineageTag: 490eb153-c6cd-095e-80c3-c04b0d7f4cc8
+		summarizeBy: sum
+		sourceColumn: elec_delivery_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_supply_amt
+		dataType: double
+		lineageTag: b631db7d-ea62-5a8e-90c1-6f20a1be89ee
+		summarizeBy: sum
+		sourceColumn: elec_supply_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_delivery_amt
+		dataType: double
+		lineageTag: 3f06fb0c-70c2-ba1e-b25d-cf4ac3c38203
+		summarizeBy: sum
+		sourceColumn: gas_delivery_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_supply_amt
+		dataType: double
+		lineageTag: 84a04995-641a-606f-f9ac-0b142453d5dc
+		summarizeBy: sum
+		sourceColumn: gas_supply_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column tax_amt
+		dataType: double
+		lineageTag: 072f807b-4616-310b-3784-db20b69d8f67
+		summarizeBy: sum
+		sourceColumn: tax_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_amt
+		dataType: double
+		lineageTag: d888a8e9-f6cf-c153-f7c3-aa7ae91f3602
+		summarizeBy: sum
+		sourceColumn: total_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Revenue Commercial' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "revenue_commercial_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"period_key", Int64.Type}, {"bill_month", type date}, {"customer_class", type text}, {"division", type text}, {"segment", type text}, {"elec_rate_code", type text}, {"gas_rate_code", type text}, {"elec_supplier", type text}, {"bills", Int64.Type}, {"customers_billed", Int64.Type}, {"kwh", type number}, {"therms", type number}, {"elec_delivery_amt", type number}, {"elec_supply_amt", type number}, {"gas_delivery_amt", type number}, {"gas_supply_amt", type number}, {"tax_amt", type number}, {"total_amt", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

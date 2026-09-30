@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "66355ef13b948d6e59e3",
+  "position": {
+    "x": 228.33,
+    "y": 70,
+    "z": 3,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "Estimated Bill %"
+                }
+              },
+              "queryRef": "Billing Exceptions.Estimated Bill %",
+              "nativeQueryRef": "Estimated Bill %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

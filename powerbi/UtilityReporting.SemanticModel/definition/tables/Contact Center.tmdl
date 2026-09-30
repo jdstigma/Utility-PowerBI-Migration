@@ -1,0 +1,188 @@
+table 'Contact Center'
+	lineageTag: 603b57b2-e34c-eac6-51d2-a0fd533bf716
+
+	measure Contacts = SUM('Contact Center'[contacts])
+		formatString: #,0
+		displayFolder: Contact Center
+		lineageTag: 1da0bbbf-a294-1797-564b-9e30e6af44e1
+
+	measure 'ASA (sec)' = DIVIDE(CALCULATE(SUM('Contact Center'[wait_sec_total]), 'Contact Center'[channel] = "Phone - Agent"), SUM('Contact Center'[agent_calls]))
+		formatString: #,0.0
+		displayFolder: Contact Center
+		lineageTag: ae583a54-8ec0-9da5-6e8d-af8944aad4a8
+
+	measure 'Service Level (30s) %' = DIVIDE(SUM('Contact Center'[answered_within_30s]), SUM('Contact Center'[agent_calls]))
+		formatString: 0.0%
+		displayFolder: Contact Center
+		lineageTag: 099a1f97-c8cf-9f6f-efce-1bedc8cf8354
+
+	measure 'AHT (min)' = DIVIDE(CALCULATE(SUM('Contact Center'[handle_sec_total]), 'Contact Center'[is_assisted] = TRUE()), CALCULATE(SUM('Contact Center'[contacts]), 'Contact Center'[is_assisted] = TRUE())) / 60
+		formatString: #,0.0
+		displayFolder: Contact Center
+		lineageTag: d8f83679-c837-0a0e-ac45-19dc5383948d
+
+	measure 'FCR %' = DIVIDE(SUM('Contact Center'[resolved_first_contact]), [Contacts])
+		formatString: 0.0%
+		displayFolder: Contact Center
+		lineageTag: c0342376-24d1-da7b-641d-cbe5f1a74229
+
+	measure 'CSAT (avg)' = DIVIDE(SUM('Contact Center'[csat_total]), SUM('Contact Center'[csat_responses]))
+		formatString: #,0.00
+		displayFolder: Contact Center
+		lineageTag: f2a31d83-c005-dba2-cacd-2dbe929992ed
+
+	measure 'Self-Service %' = DIVIDE(CALCULATE([Contacts], 'Contact Center'[is_assisted] = FALSE()), [Contacts])
+		formatString: 0.0%
+		displayFolder: Contact Center
+		lineageTag: 1dde5300-b3e8-71aa-672d-d85e3265d4b2
+
+	column interaction_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e57eb85a-6f29-c21b-b0a8-58adb35b8878
+		summarizeBy: none
+		sourceColumn: interaction_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: 2fb3871f-7436-ee8c-f142-578bd1530e57
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason
+		dataType: string
+		lineageTag: 4a8ad32b-f5ef-41e8-c33c-66a14f41da06
+		summarizeBy: none
+		sourceColumn: reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column site
+		dataType: string
+		lineageTag: 91b0d90b-7259-67e3-3a40-9a133a8e0b9e
+		summarizeBy: none
+		sourceColumn: site
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_assisted
+		dataType: boolean
+		lineageTag: 259437b7-3d34-27e3-c8fb-ea7bd357c090
+		summarizeBy: none
+		sourceColumn: is_assisted
+
+		annotation SummarizationSetBy = Automatic
+
+	column contacts
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5b0d4a8d-16dc-ac1b-cd2d-7ef34a50cd0b
+		summarizeBy: sum
+		sourceColumn: contacts
+
+		annotation SummarizationSetBy = Automatic
+
+	column identified_contacts
+		dataType: int64
+		formatString: #,0
+		lineageTag: 1a33b16c-5874-51e2-aadb-317e3327ec02
+		summarizeBy: sum
+		sourceColumn: identified_contacts
+
+		annotation SummarizationSetBy = Automatic
+
+	column wait_sec_total
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3279c2f1-ab10-4618-b3f3-5456d73ad862
+		summarizeBy: sum
+		sourceColumn: wait_sec_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column answered_within_30s
+		dataType: int64
+		formatString: #,0
+		lineageTag: 102c9930-d1ca-1d84-78ed-6fc74dc0d16a
+		summarizeBy: sum
+		sourceColumn: answered_within_30s
+
+		annotation SummarizationSetBy = Automatic
+
+	column agent_calls
+		dataType: int64
+		formatString: #,0
+		lineageTag: 94b8b58c-8353-4f22-86f5-545c83aebdc8
+		summarizeBy: sum
+		sourceColumn: agent_calls
+
+		annotation SummarizationSetBy = Automatic
+
+	column handle_sec_total
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3d3c4e11-7622-c9ed-5a5e-add4ee5f07e2
+		summarizeBy: sum
+		sourceColumn: handle_sec_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column resolved_first_contact
+		dataType: int64
+		formatString: #,0
+		lineageTag: c22e2373-bcf8-8a4d-02e2-ffe2ef4c0899
+		summarizeBy: sum
+		sourceColumn: resolved_first_contact
+
+		annotation SummarizationSetBy = Automatic
+
+	column transferred
+		dataType: int64
+		formatString: #,0
+		lineageTag: 7450d189-ee8b-70d2-e12b-402bba0377cb
+		summarizeBy: sum
+		sourceColumn: transferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column csat_responses
+		dataType: int64
+		formatString: #,0
+		lineageTag: 11342394-be11-4f20-91a4-78f7e2583480
+		summarizeBy: sum
+		sourceColumn: csat_responses
+
+		annotation SummarizationSetBy = Automatic
+
+	column csat_total
+		dataType: double
+		lineageTag: b37c1d82-fd27-0a27-efd0-a91ba08c7fcc
+		summarizeBy: sum
+		sourceColumn: csat_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column csat_satisfied
+		dataType: int64
+		formatString: #,0
+		lineageTag: ae530f3f-4597-22de-93f3-040c48b73ca8
+		summarizeBy: sum
+		sourceColumn: csat_satisfied
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Contact Center' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "contact_center_daily.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"interaction_date", type date}, {"channel", type text}, {"reason", type text}, {"site", type text}, {"is_assisted", type logical}, {"contacts", Int64.Type}, {"identified_contacts", Int64.Type}, {"wait_sec_total", Int64.Type}, {"answered_within_30s", Int64.Type}, {"agent_calls", Int64.Type}, {"handle_sec_total", Int64.Type}, {"resolved_first_contact", Int64.Type}, {"transferred", Int64.Type}, {"csat_responses", Int64.Type}, {"csat_total", type number}, {"csat_satisfied", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

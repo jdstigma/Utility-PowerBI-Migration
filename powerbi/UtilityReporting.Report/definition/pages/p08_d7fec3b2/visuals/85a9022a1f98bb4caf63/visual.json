@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "85a9022a1f98bb4caf63",
+  "position": {
+    "x": 228.33,
+    "y": 70,
+    "z": 3,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Collections Orders"
+                    }
+                  },
+                  "Property": "Reconnect Rate %"
+                }
+              },
+              "queryRef": "Collections Orders.Reconnect Rate %",
+              "nativeQueryRef": "Reconnect Rate %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

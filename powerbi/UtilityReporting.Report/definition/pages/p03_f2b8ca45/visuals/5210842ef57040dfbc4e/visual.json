@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "5210842ef57040dfbc4e",
+  "position": {
+    "x": 1020.0,
+    "y": 70,
+    "z": 6,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Digital Adoption"
+                    }
+                  },
+                  "Property": "Paperless %"
+                }
+              },
+              "queryRef": "Digital Adoption.Paperless %",
+              "nativeQueryRef": "Paperless %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "9a54a96ae206692aa88a",
+  "position": {
+    "x": 436.67,
+    "y": 70,
+    "z": 4,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Contact Center"
+                    }
+                  },
+                  "Property": "Service Level (30s) %"
+                }
+              },
+              "queryRef": "Contact Center.Service Level (30s) %",
+              "nativeQueryRef": "Service Level (30s) %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

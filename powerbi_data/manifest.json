@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-09-30 18:41:58",
+  "exported_at": "2026-09-30 18:48:58",
   "source": "UtilityDW.rpt",
   "files": {
     "ami_daily_profile.parquet": {
@@ -47,6 +47,11 @@
       "columns": 7,
       "mb": 0.01
     },
+    "date_daily.parquet": {
+      "rows": 730,
+      "columns": 19,
+      "mb": 0.03
+    },
     "digital_adoption_monthly.parquet": {
       "rows": 384,
       "columns": 6,
@@ -56,6 +61,11 @@
       "rows": 24,
       "columns": 9,
       "mb": 0.01
+    },
+    "division.parquet": {
+      "rows": 4,
+      "columns": 4,
+      "mb": 0.0
     },
     "moratorium_compliance.parquet": {
       "rows": 8,

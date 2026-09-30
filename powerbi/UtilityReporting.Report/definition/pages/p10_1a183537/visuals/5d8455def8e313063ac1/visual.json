@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "5d8455def8e313063ac1",
+  "position": {
+    "x": 957.5,
+    "y": 70,
+    "z": 5,
+    "width": 302.5,
+    "height": 90,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Service Orders"
+                    }
+                  },
+                  "Property": "Open Service Orders"
+                }
+              },
+              "queryRef": "Service Orders.Open Service Orders",
+              "nativeQueryRef": "Open Service Orders"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

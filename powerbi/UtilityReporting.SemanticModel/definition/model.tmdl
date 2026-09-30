@@ -1,0 +1,34 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["BaseUrl", "Period", "Date", "Division", "Revenue Residential", "Revenue Commercial", "AR Aging", "AR Top Accounts", "Payments", "Digital Adoption", "AMI Daily", "Outages", "Work Orders", "Work Order Backlog", "Contact Center", "Collections Orders", "Moratorium Compliance", "Payment Plans", "Billing Exceptions", "Rebills", "Service Orders", "Customer 360", "Customer Bills", "Data Quality"]
+
+ref table Period
+ref table Date
+ref table Division
+ref table 'Revenue Residential'
+ref table 'Revenue Commercial'
+ref table 'AR Aging'
+ref table 'AR Top Accounts'
+ref table Payments
+ref table 'Digital Adoption'
+ref table 'AMI Daily'
+ref table Outages
+ref table 'Work Orders'
+ref table 'Work Order Backlog'
+ref table 'Contact Center'
+ref table 'Collections Orders'
+ref table 'Moratorium Compliance'
+ref table 'Payment Plans'
+ref table 'Billing Exceptions'
+ref table Rebills
+ref table 'Service Orders'
+ref table 'Customer 360'
+ref table 'Customer Bills'
+ref table 'Data Quality'
+

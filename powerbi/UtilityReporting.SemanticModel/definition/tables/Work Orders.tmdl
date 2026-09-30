@@ -1,0 +1,135 @@
+table 'Work Orders'
+	lineageTag: 70283691-65f1-efe6-df69-b37da513b917
+
+	measure 'Work Orders Created' = SUM('Work Orders'[work_orders])
+		formatString: #,0
+		displayFolder: Work Orders
+		lineageTag: b04e4367-2bb9-a51b-004e-ef22d0ff6e06
+
+	measure 'On-Time Completion %' = DIVIDE(SUM('Work Orders'[finished_on_time]), SUM('Work Orders'[finished]))
+		formatString: 0.0%
+		displayFolder: Work Orders
+		lineageTag: a8e1cf09-ac34-aaf8-3e80-522778521422
+
+	measure 'Planned Cost' = SUM('Work Orders'[planned_cost])
+		formatString: \$#,0
+		displayFolder: Work Orders
+		lineageTag: e156936a-47eb-b400-78a9-f66b89ae8285
+
+	measure 'Actual Cost' = SUM('Work Orders'[actual_cost])
+		formatString: \$#,0
+		displayFolder: Work Orders
+		lineageTag: 22817929-3f4a-7348-cafc-e04dddda7fb5
+
+	column created_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 3c60296a-a82d-84b7-bbf8-6447149c30f1
+		summarizeBy: none
+		sourceColumn: created_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_type
+		dataType: string
+		lineageTag: 3ce4396b-783a-0fb9-c01d-db256c19cccd
+		summarizeBy: none
+		sourceColumn: order_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column commodity
+		dataType: string
+		lineageTag: 30876e9c-e35b-6693-007b-d380a374a41f
+		summarizeBy: none
+		sourceColumn: commodity
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_class
+		dataType: string
+		lineageTag: 4d5e5562-b142-0a61-d4e0-e073e3288945
+		summarizeBy: none
+		sourceColumn: asset_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 20fda011-ff78-fdf9-b0bb-4a4aab22810d
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority
+		dataType: int64
+		formatString: 0
+		lineageTag: ad09d85d-a38f-c29f-f486-43aa6b59f7af
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 90b9bda6-9e20-ccc8-a804-41b224c10082
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column work_orders
+		dataType: int64
+		formatString: #,0
+		lineageTag: 36d7a4a0-18a9-ac94-78e7-be8d93ac2a0e
+		summarizeBy: sum
+		sourceColumn: work_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column finished_on_time
+		dataType: int64
+		formatString: #,0
+		lineageTag: bc05b3f3-08cc-6d01-cd62-7994ad316260
+		summarizeBy: sum
+		sourceColumn: finished_on_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column finished
+		dataType: int64
+		formatString: #,0
+		lineageTag: f6033e2b-80c5-32b7-a2ac-010b9dba1b1f
+		summarizeBy: sum
+		sourceColumn: finished
+
+		annotation SummarizationSetBy = Automatic
+
+	column planned_cost
+		dataType: double
+		lineageTag: 9240ff64-f0ff-0de9-5ea3-3f972bf9453f
+		summarizeBy: sum
+		sourceColumn: planned_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_cost
+		dataType: double
+		lineageTag: f566a5a3-c91e-807f-fe3a-d833de8aa22f
+		summarizeBy: sum
+		sourceColumn: actual_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Work Orders' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "work_orders_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"created_month", type date}, {"order_type", type text}, {"commodity", type text}, {"asset_class", type text}, {"division", type text}, {"priority", Int64.Type}, {"status", type text}, {"work_orders", Int64.Type}, {"finished_on_time", Int64.Type}, {"finished", Int64.Type}, {"planned_cost", type number}, {"actual_cost", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "c5ec23b2337227d93f77",
+  "position": {
+    "x": 228.33,
+    "y": 70,
+    "z": 3,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Contact Center"
+                    }
+                  },
+                  "Property": "ASA (sec)"
+                }
+              },
+              "queryRef": "Contact Center.ASA (sec)",
+              "nativeQueryRef": "ASA (sec)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

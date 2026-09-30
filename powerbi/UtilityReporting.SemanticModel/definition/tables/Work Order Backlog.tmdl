@@ -1,0 +1,179 @@
+table 'Work Order Backlog'
+	lineageTag: 4369b386-744f-f62a-6607-1ddb9deebebd
+
+	measure 'Open Backlog' = COUNTROWS('Work Order Backlog')
+		formatString: #,0
+		displayFolder: Work Orders
+		lineageTag: b76da628-ce14-aed4-59b5-c0597d0b63c3
+
+	measure 'Overdue Work Orders' = CALCULATE(COUNTROWS('Work Order Backlog'), 'Work Order Backlog'[is_overdue] = TRUE()) + 0
+		formatString: #,0
+		displayFolder: Work Orders
+		lineageTag: 16c42637-1fbb-7e77-b1da-fbc3426d877b
+
+	measure 'Avg Backlog Age (days)' = AVERAGE('Work Order Backlog'[open_age_days])
+		formatString: #,0.0
+		displayFolder: Work Orders
+		lineageTag: 2c72637e-59b9-3794-6607-a5a37c8f2def
+
+	column work_order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5bc1ea37-1d6a-5ddd-7753-138154cd527c
+		summarizeBy: none
+		sourceColumn: work_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_type
+		dataType: string
+		lineageTag: f160bc21-5518-25e4-f43e-a8bf534e9699
+		summarizeBy: none
+		sourceColumn: order_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 47df0b4b-a6ce-0845-696e-fdd274603cdc
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_class
+		dataType: string
+		lineageTag: 54c5f6d6-9a33-e391-c299-80817e2e7f3d
+		summarizeBy: none
+		sourceColumn: asset_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column commodity
+		dataType: string
+		lineageTag: 213b075d-f107-945b-b15e-b94c13239064
+		summarizeBy: none
+		sourceColumn: commodity
+
+		annotation SummarizationSetBy = Automatic
+
+	column functional_location
+		dataType: string
+		lineageTag: 166a2059-aed0-0005-fa5b-749a9a506ee8
+		summarizeBy: none
+		sourceColumn: functional_location
+
+		annotation SummarizationSetBy = Automatic
+
+	column work_center
+		dataType: string
+		lineageTag: 403858ae-10f4-01e0-35bb-c0e15519dba2
+		summarizeBy: none
+		sourceColumn: work_center
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority
+		dataType: int64
+		formatString: 0
+		lineageTag: b09d2553-66af-55de-c013-9123cf351234
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: aab85817-ec84-e244-0bae-ae8b45f9a490
+		summarizeBy: none
+		sourceColumn: created_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column planned_start
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 0696683f-0322-56d0-4a4c-a9adb853c97e
+		summarizeBy: none
+		sourceColumn: planned_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column planned_finish
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: aff933de-0e02-4993-239a-24cacf54d360
+		summarizeBy: none
+		sourceColumn: planned_finish
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 7292144d-254e-353d-a48d-c94407e9021a
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column planned_cost
+		dataType: double
+		lineageTag: 036dd2a0-175c-8efa-2228-86dfb1512dd9
+		summarizeBy: sum
+		sourceColumn: planned_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_cost
+		dataType: double
+		lineageTag: a1b7acde-07dc-a30f-ae18-bf314ba6889c
+		summarizeBy: sum
+		sourceColumn: actual_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: de0ea699-bedc-d0f8-dcdf-187568139b64
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipality
+		dataType: string
+		lineageTag: 6ab2cf09-9491-3b72-a252-a3636961f02d
+		summarizeBy: none
+		sourceColumn: municipality
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_age_days
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5a3854bf-d1d3-20f9-c55b-9d285a6a6537
+		summarizeBy: sum
+		sourceColumn: open_age_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_overdue
+		dataType: boolean
+		lineageTag: 89d7a45e-c332-b954-f1bd-d336a7d4f5d7
+		summarizeBy: none
+		sourceColumn: is_overdue
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Work Order Backlog' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "work_order_backlog.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"work_order_id", Int64.Type}, {"order_type", type text}, {"description", type text}, {"asset_class", type text}, {"commodity", type text}, {"functional_location", type text}, {"work_center", type text}, {"priority", Int64.Type}, {"created_date", type date}, {"planned_start", type date}, {"planned_finish", type date}, {"status", type text}, {"planned_cost", type number}, {"actual_cost", type number}, {"division", type text}, {"municipality", type text}, {"open_age_days", Int64.Type}, {"is_overdue", type logical}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,110 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "2378e8ca8f11499f006e",
+  "position": {
+    "x": 20,
+    "y": 175,
+    "z": 7,
+    "width": 620,
+    "height": 525,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Period"
+                    }
+                  },
+                  "Property": "year_month"
+                }
+              },
+              "queryRef": "Period.year_month",
+              "nativeQueryRef": "year_month"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Digital Adoption"
+                    }
+                  },
+                  "Property": "Autopay %"
+                }
+              },
+              "queryRef": "Digital Adoption.Autopay %",
+              "nativeQueryRef": "Autopay %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Digital Adoption"
+                    }
+                  },
+                  "Property": "Paperless %"
+                }
+              },
+              "queryRef": "Digital Adoption.Paperless %",
+              "nativeQueryRef": "Paperless %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Period"
+                  }
+                },
+                "Property": "year_month"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Autopay and paperless adoption'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

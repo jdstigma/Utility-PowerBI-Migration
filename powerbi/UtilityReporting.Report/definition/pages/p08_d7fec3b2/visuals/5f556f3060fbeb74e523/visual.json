@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "5f556f3060fbeb74e523",
+  "position": {
+    "x": 853.33,
+    "y": 70,
+    "z": 6,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Moratorium Compliance"
+                    }
+                  },
+                  "Property": "Medical Cert Disconnects"
+                }
+              },
+              "queryRef": "Moratorium Compliance.Medical Cert Disconnects",
+              "nativeQueryRef": "Medical Cert Disconnects"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

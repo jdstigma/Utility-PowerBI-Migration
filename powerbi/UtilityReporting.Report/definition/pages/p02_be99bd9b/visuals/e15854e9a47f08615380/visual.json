@@ -1,0 +1,134 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e15854e9a47f08615380",
+  "position": {
+    "x": 730,
+    "y": 175,
+    "z": 8,
+    "width": 530,
+    "height": 525,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AR Top Accounts"
+                    }
+                  },
+                  "Property": "customer_name"
+                }
+              },
+              "queryRef": "AR Top Accounts.customer_name",
+              "nativeQueryRef": "customer_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AR Top Accounts"
+                    }
+                  },
+                  "Property": "segment"
+                }
+              },
+              "queryRef": "AR Top Accounts.segment",
+              "nativeQueryRef": "segment"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AR Top Accounts"
+                    }
+                  },
+                  "Property": "division"
+                }
+              },
+              "queryRef": "AR Top Accounts.division",
+              "nativeQueryRef": "division"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AR Top Accounts"
+                    }
+                  },
+                  "Property": "past_due_amt"
+                }
+              },
+              "queryRef": "AR Top Accounts.past_due_amt",
+              "nativeQueryRef": "past_due_amt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AR Top Accounts"
+                    }
+                  },
+                  "Property": "oldest_days_past_due"
+                }
+              },
+              "queryRef": "AR Top Accounts.oldest_days_past_due",
+              "nativeQueryRef": "oldest_days_past_due"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "AR Top Accounts"
+                  }
+                },
+                "Property": "past_due_amt"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top past-due accounts'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

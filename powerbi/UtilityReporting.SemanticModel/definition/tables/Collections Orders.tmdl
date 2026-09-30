@@ -1,0 +1,109 @@
+table 'Collections Orders'
+	lineageTag: 3147cf91-db7c-a32b-1f38-d8de29119bd3
+
+	measure Disconnects = CALCULATE(SUM('Collections Orders'[orders]), 'Collections Orders'[order_type] = "Disconnect for Non-Pay", 'Collections Orders'[status] = "Completed")
+		formatString: #,0
+		displayFolder: Collections
+		lineageTag: fd6036f9-1f2e-d0c3-2b67-97742324a181
+
+	measure Reconnects = CALCULATE(SUM('Collections Orders'[orders]), 'Collections Orders'[order_type] = "Reconnect", 'Collections Orders'[status] = "Completed")
+		formatString: #,0
+		displayFolder: Collections
+		lineageTag: bce5d2f8-aa46-06d5-6caf-456473019ddf
+
+	measure 'Reconnect Rate %' = DIVIDE([Reconnects], [Disconnects])
+		formatString: 0.0%
+		displayFolder: Collections
+		lineageTag: 977ad06f-3448-fce7-3904-3bab106d8dac
+
+	measure 'Reconnect Within 1 Day %' = DIVIDE(CALCULATE(SUM('Collections Orders'[completed_within_1_day]), 'Collections Orders'[order_type] = "Reconnect", 'Collections Orders'[status] = "Completed"), [Reconnects])
+		formatString: 0.0%
+		displayFolder: Collections
+		lineageTag: 508c43e3-b4b6-7e5f-9e96-9062bd6ff5dd
+
+	column created_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 92349d29-3d63-6311-bee5-d5e7da7becb1
+		summarizeBy: none
+		sourceColumn: created_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_type
+		dataType: string
+		lineageTag: c12dceaf-bab0-832c-d27c-6ce4a9b86fcf
+		summarizeBy: none
+		sourceColumn: order_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 35a0015c-d957-421e-4033-b7fe545b17d2
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: f5b3a728-bae5-03fd-b879-5eaca4b80c99
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 54b8d9d5-deec-2d2b-c72c-d39dd279fed3
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_low_income
+		dataType: boolean
+		lineageTag: 9bfdb12d-281b-100e-28f9-5f128802d5e7
+		summarizeBy: none
+		sourceColumn: is_low_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column orders
+		dataType: int64
+		formatString: #,0
+		lineageTag: b4002e0b-99cf-72fd-56f5-eece68c76a0e
+		summarizeBy: sum
+		sourceColumn: orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column completed_within_1_day
+		dataType: int64
+		formatString: #,0
+		lineageTag: 44ca2477-d2df-42ec-30dd-c081facac9b4
+		summarizeBy: sum
+		sourceColumn: completed_within_1_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_cycle_days
+		dataType: double
+		lineageTag: 944abc18-d445-7763-690a-53779a39c346
+		summarizeBy: sum
+		sourceColumn: avg_cycle_days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Collections Orders' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "collections_orders_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"created_month", type date}, {"order_type", type text}, {"status", type text}, {"division", type text}, {"segment", type text}, {"is_low_income", type logical}, {"orders", Int64.Type}, {"completed_within_1_day", Int64.Type}, {"avg_cycle_days", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

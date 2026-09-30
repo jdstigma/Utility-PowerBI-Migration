@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "b5cd33e917a420b792c0",
+  "position": {
+    "x": 520.0,
+    "y": 70,
+    "z": 4,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AMI Daily"
+                    }
+                  },
+                  "Property": "Estimated Read %"
+                }
+              },
+              "queryRef": "AMI Daily.Estimated Read %",
+              "nativeQueryRef": "Estimated Read %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

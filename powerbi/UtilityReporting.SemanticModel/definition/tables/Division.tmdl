@@ -1,0 +1,54 @@
+table Division
+	lineageTag: 3025cdaa-b2de-b0bb-2cd6-42449e570833
+
+	measure 'Customers Served' = SUM(Division[customers_served])
+		formatString: #,0
+		displayFolder: Reliability
+		lineageTag: 6bcc07f8-dbcc-6174-0c65-56c77cc903e7
+
+	column division
+		dataType: string
+		lineageTag: 4535ed52-d9b7-967c-8cde-2c2159465711
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers_served
+		dataType: int64
+		formatString: #,0
+		lineageTag: 10fedb87-f5fb-0524-c542-2f26d85229c0
+		summarizeBy: sum
+		sourceColumn: customers_served
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_customers_served
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8a337622-c3fb-0669-d6f9-461472611168
+		summarizeBy: sum
+		sourceColumn: gas_customers_served
+
+		annotation SummarizationSetBy = Automatic
+
+	column towns
+		dataType: int64
+		formatString: #,0
+		lineageTag: d4bcf887-34cf-a140-bf02-67d122c7b2b2
+		summarizeBy: sum
+		sourceColumn: towns
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Division = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "division.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"division", type text}, {"customers_served", Int64.Type}, {"gas_customers_served", Int64.Type}, {"towns", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

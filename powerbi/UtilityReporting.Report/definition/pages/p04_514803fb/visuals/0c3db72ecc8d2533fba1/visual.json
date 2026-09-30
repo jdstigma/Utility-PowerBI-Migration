@@ -1,0 +1,78 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "0c3db72ecc8d2533fba1",
+  "position": {
+    "x": 640,
+    "y": 515,
+    "z": 9,
+    "width": 620,
+    "height": 185,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AMI Daily"
+                    }
+                  },
+                  "Property": "elec_rate_code"
+                }
+              },
+              "queryRef": "AMI Daily.elec_rate_code",
+              "nativeQueryRef": "elec_rate_code"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AMI Daily"
+                    }
+                  },
+                  "Property": "Avg Daily kWh per Meter"
+                }
+              },
+              "queryRef": "AMI Daily.Avg Daily kWh per Meter",
+              "nativeQueryRef": "Avg Daily kWh per Meter"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Usage by rate'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

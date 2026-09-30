@@ -1,0 +1,126 @@
+table 'Billing Exceptions'
+	lineageTag: 4162840c-80f4-b549-b978-164f35aaebf5
+
+	measure 'Bills Reviewed' = SUM('Billing Exceptions'[bills])
+		formatString: #,0
+		displayFolder: Exceptions
+		lineageTag: 238b3cc4-6399-8087-809b-0c93f79d0c08
+
+	measure 'Estimated Bill %' = DIVIDE(SUM('Billing Exceptions'[elec_estimated]), [Bills Reviewed])
+		formatString: 0.00%
+		displayFolder: Exceptions
+		lineageTag: 8ba66bda-7ac0-6f08-6d65-50941dd44335
+
+	measure 'Consecutive Estimates' = SUM('Billing Exceptions'[consecutive_estimates])
+		formatString: #,0
+		displayFolder: Exceptions
+		lineageTag: 7b90a13d-5af6-4db5-c4aa-4781b98d6aa7
+
+	measure 'Zero-Usage Bills' = SUM('Billing Exceptions'[zero_usage_bills])
+		formatString: #,0
+		displayFolder: Exceptions
+		lineageTag: f88a47c0-5a72-b503-6518-5da4c383a6aa
+
+	measure 'High-Variance Bill %' = DIVIDE(SUM('Billing Exceptions'[high_variance_bills]), [Bills Reviewed])
+		formatString: 0.0%
+		displayFolder: Exceptions
+		lineageTag: 8ce33cc8-45a6-1e43-4f99-fce9d65e7ed7
+
+	column bill_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 8ca0ecca-7008-6605-265c-4d73c9876b3d
+		summarizeBy: none
+		sourceColumn: bill_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 137a7e29-d7da-f86b-b6a2-4c7cc638f475
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 15652b24-9fde-184a-d8d9-2683de5f7127
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_rate_code
+		dataType: string
+		lineageTag: ef01acd3-13ad-444d-863b-d1db032cc744
+		summarizeBy: none
+		sourceColumn: elec_rate_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column bills
+		dataType: int64
+		formatString: #,0
+		lineageTag: 96631391-ab4c-67c6-6e59-f773c95b445c
+		summarizeBy: sum
+		sourceColumn: bills
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_estimated
+		dataType: int64
+		formatString: #,0
+		lineageTag: 81b9e120-6b8a-6b4d-1ca6-0b47c2aa90af
+		summarizeBy: sum
+		sourceColumn: elec_estimated
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_estimated
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8a422c85-8abc-88f0-ccd0-6f1a1117c7f0
+		summarizeBy: sum
+		sourceColumn: gas_estimated
+
+		annotation SummarizationSetBy = Automatic
+
+	column consecutive_estimates
+		dataType: int64
+		formatString: #,0
+		lineageTag: 55ba2895-e6df-a2e3-b971-99abfbdfbb51
+		summarizeBy: sum
+		sourceColumn: consecutive_estimates
+
+		annotation SummarizationSetBy = Automatic
+
+	column zero_usage_bills
+		dataType: int64
+		formatString: #,0
+		lineageTag: 04a21e99-ac08-5fa2-6db3-0bd8c440deab
+		summarizeBy: sum
+		sourceColumn: zero_usage_bills
+
+		annotation SummarizationSetBy = Automatic
+
+	column high_variance_bills
+		dataType: int64
+		formatString: #,0
+		lineageTag: dbbbf318-d9b2-a36b-d093-804f1e097104
+		summarizeBy: sum
+		sourceColumn: high_variance_bills
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Billing Exceptions' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "billing_exceptions_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"bill_month", type date}, {"division", type text}, {"segment", type text}, {"elec_rate_code", type text}, {"bills", Int64.Type}, {"elec_estimated", Int64.Type}, {"gas_estimated", Int64.Type}, {"consecutive_estimates", Int64.Type}, {"zero_usage_bills", Int64.Type}, {"high_variance_bills", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

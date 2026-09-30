@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "915c237e7ae2b6a743b2",
+  "position": {
+    "x": 640,
+    "y": 175,
+    "z": 8,
+    "width": 620,
+    "height": 260,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "cause"
+                }
+              },
+              "queryRef": "Outages.cause",
+              "nativeQueryRef": "cause"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "Customer Minutes"
+                }
+              },
+              "queryRef": "Outages.Customer Minutes",
+              "nativeQueryRef": "Customer Minutes"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Outages"
+                  }
+                },
+                "Property": "Customer Minutes"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Customer minutes by cause'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

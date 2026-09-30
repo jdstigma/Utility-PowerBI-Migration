@@ -1,0 +1,124 @@
+relationship 3a1759f7-cb7d-fd00-e058-f67b76c7ece4
+	fromColumn: Date.period_key
+	toColumn: Period.period_key
+
+relationship da4f942a-7902-540c-5605-3ccef4a89e16
+	fromColumn: 'Revenue Residential'.period_key
+	toColumn: Period.period_key
+
+relationship 54266879-b438-74e8-feaf-1378f990b072
+	fromColumn: 'Revenue Commercial'.period_key
+	toColumn: Period.period_key
+
+relationship 01f259b5-b2db-861a-01bb-d96c77e998f0
+	fromColumn: 'Revenue Residential'.division
+	toColumn: Division.division
+
+relationship ccf1bd40-7733-a242-f204-7c3460c23e39
+	fromColumn: 'Revenue Commercial'.division
+	toColumn: Division.division
+
+relationship 637b3158-7f12-e1f2-4d67-b9935187d4bf
+	fromColumn: 'AR Aging'.month_end
+	toColumn: Period.month_end
+
+relationship 8899399a-9f6e-c525-b546-20ee47f92f0d
+	fromColumn: 'AR Aging'.division
+	toColumn: Division.division
+
+relationship 8c760ab1-119a-a895-7d11-f03878a73cd0
+	fromColumn: 'AR Top Accounts'.division
+	toColumn: Division.division
+
+relationship ee602283-f3f5-d4d4-9e1f-4872728ab950
+	fromColumn: Payments.payment_month
+	toColumn: Period.month_start
+
+relationship 932e2c13-1b57-2a32-9610-6af7fc780a78
+	fromColumn: Payments.division
+	toColumn: Division.division
+
+relationship 724dd067-4eb4-fed4-daca-48e26b60f22c
+	fromColumn: 'Digital Adoption'.month_end
+	toColumn: Period.month_end
+
+relationship 602d9329-9a97-847b-2818-8f5b6210faf6
+	fromColumn: 'Digital Adoption'.division
+	toColumn: Division.division
+
+relationship 73344060-de63-9981-bcd0-78c66a1026dd
+	fromColumn: 'AMI Daily'.read_date
+	toColumn: Date.date
+
+relationship 713b6871-cacc-b421-fb9f-41232d0fc90c
+	fromColumn: 'AMI Daily'.division
+	toColumn: Division.division
+
+relationship efaae4e3-87d1-a406-1185-1f18467ad5e9
+	fromColumn: Outages.outage_date
+	toColumn: Date.date
+
+relationship 9e441f42-4d12-da4d-fa84-c65eff1b4122
+	fromColumn: Outages.division
+	toColumn: Division.division
+
+relationship b34a98de-15e9-419f-c5fd-f34e051c0231
+	fromColumn: 'Work Orders'.created_month
+	toColumn: Period.month_start
+
+relationship 5e5d3790-9e5d-1efc-ae7c-8c976029f27a
+	fromColumn: 'Work Orders'.division
+	toColumn: Division.division
+
+relationship 38e28dd6-5f30-8a9b-4a5a-ef435d7860ff
+	fromColumn: 'Work Order Backlog'.division
+	toColumn: Division.division
+
+relationship bb12f70b-9c02-d251-831e-368d6762bcf6
+	fromColumn: 'Contact Center'.interaction_date
+	toColumn: Date.date
+
+relationship b05eca4f-f713-c35d-2247-6c60fcf40fde
+	fromColumn: 'Collections Orders'.created_month
+	toColumn: Period.month_start
+
+relationship 2a50776d-6ded-e123-dd8b-b401ae2d1c71
+	fromColumn: 'Collections Orders'.division
+	toColumn: Division.division
+
+relationship c7d3f887-5888-d135-0702-218146f1665b
+	fromColumn: 'Payment Plans'.created_month
+	toColumn: Period.month_start
+
+relationship 45f7e087-f43d-c92f-caba-e8489efaa6c5
+	fromColumn: 'Payment Plans'.division
+	toColumn: Division.division
+
+relationship 93753bdb-c403-b2dd-5cbb-3666e654c799
+	fromColumn: 'Billing Exceptions'.bill_month
+	toColumn: Period.month_start
+
+relationship 5d5a306f-685c-b663-ca71-e034820e48e6
+	fromColumn: 'Billing Exceptions'.division
+	toColumn: Division.division
+
+relationship 79da000c-d9b5-88b2-3187-a70af94329cb
+	fromColumn: Rebills.reversal_month
+	toColumn: Period.month_start
+
+relationship b886b45f-aa5f-9889-9e5b-e27788d90479
+	fromColumn: 'Service Orders'.created_month
+	toColumn: Period.month_start
+
+relationship 0a098eb6-a27f-e4b1-cd15-bb20a0917cde
+	fromColumn: 'Service Orders'.division
+	toColumn: Division.division
+
+relationship e780ee33-bea9-f386-c771-bb9f6df25033
+	fromColumn: 'Customer 360'.division
+	toColumn: Division.division
+
+relationship eb747e4d-accb-a30e-2190-e51e52628e59
+	fromColumn: 'Customer Bills'.customer_id
+	toColumn: 'Customer 360'.customer_id
+

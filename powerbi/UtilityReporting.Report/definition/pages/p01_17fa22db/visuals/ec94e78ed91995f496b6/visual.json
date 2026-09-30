@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "ec94e78ed91995f496b6",
+  "position": {
+    "x": 770.0,
+    "y": 70,
+    "z": 5,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Revenue Residential"
+                    }
+                  },
+                  "Property": "Residential Revenue YoY %"
+                }
+              },
+              "queryRef": "Revenue Residential.Residential Revenue YoY %",
+              "nativeQueryRef": "Residential Revenue YoY %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

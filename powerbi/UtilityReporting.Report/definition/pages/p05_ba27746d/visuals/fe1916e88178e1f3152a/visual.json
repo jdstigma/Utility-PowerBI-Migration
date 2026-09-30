@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "fe1916e88178e1f3152a",
+  "position": {
+    "x": 20.0,
+    "y": 70,
+    "z": 2,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "SAIDI excl. MED (min)"
+                }
+              },
+              "queryRef": "Outages.SAIDI excl. MED (min)",
+              "nativeQueryRef": "SAIDI excl. MED (min)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,57 @@
+table 'Moratorium Compliance'
+	lineageTag: 32b999d1-2447-c2d7-77d5-b97fd0fa2632
+
+	measure 'Moratorium Exceptions' = CALCULATE(SUM('Moratorium Compliance'[disconnects_completed]), 'Moratorium Compliance'[is_winter_moratorium] = TRUE(), 'Moratorium Compliance'[segment] = "Residential") + 0
+		formatString: #,0
+		displayFolder: Collections
+		lineageTag: 7d707d73-a91b-e998-a61d-f927bf04b75c
+
+	measure 'Medical Cert Disconnects' = CALCULATE(SUM('Moratorium Compliance'[disconnects_completed]), 'Moratorium Compliance'[has_medical_cert] = TRUE()) + 0
+		formatString: #,0
+		displayFolder: Collections
+		lineageTag: 45825473-302f-15bc-9c12-39dbd87c0fc8
+
+	column is_winter_moratorium
+		dataType: boolean
+		lineageTag: dda965d1-5eb0-fb47-a0e4-a722492e7324
+		summarizeBy: none
+		sourceColumn: is_winter_moratorium
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 5d54c05b-dcc7-cc97-7c31-7117ba2dac10
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_medical_cert
+		dataType: boolean
+		lineageTag: 2df8b763-f397-fb99-0856-5e10d01aad0e
+		summarizeBy: none
+		sourceColumn: has_medical_cert
+
+		annotation SummarizationSetBy = Automatic
+
+	column disconnects_completed
+		dataType: int64
+		formatString: #,0
+		lineageTag: 852c426d-dae5-d4f1-ef1c-7305b932cacf
+		summarizeBy: sum
+		sourceColumn: disconnects_completed
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Moratorium Compliance' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "moratorium_compliance.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"is_winter_moratorium", type logical}, {"segment", type text}, {"has_medical_cert", type logical}, {"disconnects_completed", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,110 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "3ea574b6aa39ddf97a1f",
+  "position": {
+    "x": 20,
+    "y": 175,
+    "z": 8,
+    "width": 820,
+    "height": 525,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Period"
+                    }
+                  },
+                  "Property": "year_month"
+                }
+              },
+              "queryRef": "Period.year_month",
+              "nativeQueryRef": "year_month"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "Estimated Bill %"
+                }
+              },
+              "queryRef": "Billing Exceptions.Estimated Bill %",
+              "nativeQueryRef": "Estimated Bill %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "High-Variance Bill %"
+                }
+              },
+              "queryRef": "Billing Exceptions.High-Variance Bill %",
+              "nativeQueryRef": "High-Variance Bill %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Period"
+                  }
+                },
+                "Property": "year_month"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Exception rates by bill month'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

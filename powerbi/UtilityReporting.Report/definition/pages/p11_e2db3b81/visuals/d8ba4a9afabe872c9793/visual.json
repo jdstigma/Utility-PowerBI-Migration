@@ -1,0 +1,162 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "d8ba4a9afabe872c9793",
+  "position": {
+    "x": 20,
+    "y": 440,
+    "z": 10,
+    "width": 1240,
+    "height": 260,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer Bills"
+                    }
+                  },
+                  "Property": "bill_date"
+                }
+              },
+              "queryRef": "Customer Bills.bill_date",
+              "nativeQueryRef": "bill_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer Bills"
+                    }
+                  },
+                  "Property": "bill_type"
+                }
+              },
+              "queryRef": "Customer Bills.bill_type",
+              "nativeQueryRef": "bill_type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer Bills"
+                    }
+                  },
+                  "Property": "kwh"
+                }
+              },
+              "queryRef": "Customer Bills.kwh",
+              "nativeQueryRef": "kwh"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer Bills"
+                    }
+                  },
+                  "Property": "therms"
+                }
+              },
+              "queryRef": "Customer Bills.therms",
+              "nativeQueryRef": "therms"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer Bills"
+                    }
+                  },
+                  "Property": "total_amt"
+                }
+              },
+              "queryRef": "Customer Bills.total_amt",
+              "nativeQueryRef": "total_amt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer Bills"
+                    }
+                  },
+                  "Property": "paid_amt"
+                }
+              },
+              "queryRef": "Customer Bills.paid_amt",
+              "nativeQueryRef": "paid_amt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer Bills"
+                    }
+                  },
+                  "Property": "due_date"
+                }
+              },
+              "queryRef": "Customer Bills.due_date",
+              "nativeQueryRef": "due_date"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Customer Bills"
+                  }
+                },
+                "Property": "bill_date"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Recent bills'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

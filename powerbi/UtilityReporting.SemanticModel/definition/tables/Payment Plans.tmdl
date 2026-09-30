@@ -1,0 +1,106 @@
+table 'Payment Plans'
+	lineageTag: 9444da82-b560-5524-4af4-aae1253ca56a
+
+	measure 'Payment Plans Created' = SUM('Payment Plans'[plans])
+		formatString: #,0
+		displayFolder: Collections
+		lineageTag: bf7c247b-7395-1dd5-ecd6-847fd1ea56d7
+
+	measure 'Plan Default %' = DIVIDE(CALCULATE(SUM('Payment Plans'[plans]), 'Payment Plans'[status] = "Defaulted"), CALCULATE(SUM('Payment Plans'[plans]), 'Payment Plans'[status] IN {"Completed", "Defaulted"}))
+		formatString: 0.0%
+		displayFolder: Collections
+		lineageTag: 7fc4839b-a989-0bf7-8bd2-ee955e1031d5
+
+	column created_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 46d5fa51-0722-54c3-1797-e4f2877849c4
+		summarizeBy: none
+		sourceColumn: created_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column plan_type
+		dataType: string
+		lineageTag: c6bc7590-f0a3-629a-7754-b7182075e540
+		summarizeBy: none
+		sourceColumn: plan_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: af5f1cfc-57c2-6579-1be5-568857f50745
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 03de01f2-6da4-3503-144d-56a4bee48e3f
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: f538b25c-7051-f6c3-7898-1de80196d4d1
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_low_income
+		dataType: boolean
+		lineageTag: 09aa6b64-bc4e-921f-01fa-2eeb328bb13c
+		summarizeBy: none
+		sourceColumn: is_low_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column plans
+		dataType: int64
+		formatString: #,0
+		lineageTag: bd252106-6e3b-4333-662d-48c5c97d235c
+		summarizeBy: sum
+		sourceColumn: plans
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_amt
+		dataType: double
+		lineageTag: 6817cc58-63c7-9898-126a-049c6bead1c6
+		summarizeBy: sum
+		sourceColumn: total_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column down_payment
+		dataType: double
+		lineageTag: acec509d-c902-26ef-a329-7eeb2b328f77
+		summarizeBy: sum
+		sourceColumn: down_payment
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_installments
+		dataType: double
+		lineageTag: 82a40579-7704-cdc9-e90d-a51144e18c01
+		summarizeBy: sum
+		sourceColumn: avg_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Payment Plans' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "payment_plans_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"created_month", type date}, {"plan_type", type text}, {"status", type text}, {"segment", type text}, {"division", type text}, {"is_low_income", type logical}, {"plans", Int64.Type}, {"total_amt", type number}, {"down_payment", type number}, {"avg_installments", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

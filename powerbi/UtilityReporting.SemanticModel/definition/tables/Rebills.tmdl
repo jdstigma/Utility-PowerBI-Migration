@@ -1,0 +1,50 @@
+table Rebills
+	lineageTag: b8061745-3ec7-b6fb-2cbe-7eb742166f43
+
+	measure 'Reversed Bills' = SUM(Rebills[reversed_bills])
+		formatString: #,0
+		displayFolder: Exceptions
+		lineageTag: 79b9ad08-12a5-9803-9e4e-5f0ce3d03e19
+
+	measure 'Reversed $' = SUM(Rebills[reversed_amt])
+		formatString: \$#,0
+		displayFolder: Exceptions
+		lineageTag: 8274cd32-93a2-702f-ee26-5bed1fbd664e
+
+	column reversal_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: f45af27e-4253-dd6d-c57b-4eb9758db04b
+		summarizeBy: none
+		sourceColumn: reversal_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column reversed_bills
+		dataType: int64
+		formatString: #,0
+		lineageTag: 654e10f7-fb6c-e33b-e8e4-72342b2cdde6
+		summarizeBy: sum
+		sourceColumn: reversed_bills
+
+		annotation SummarizationSetBy = Automatic
+
+	column reversed_amt
+		dataType: double
+		lineageTag: 4afc097b-4d0e-6aca-3c2c-b5d505e5dd49
+		summarizeBy: sum
+		sourceColumn: reversed_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Rebills = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "rebills_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"reversal_month", type date}, {"reversed_bills", Int64.Type}, {"reversed_amt", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

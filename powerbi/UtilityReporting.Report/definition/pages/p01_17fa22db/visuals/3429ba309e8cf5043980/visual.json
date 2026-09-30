@@ -1,0 +1,78 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "3429ba309e8cf5043980",
+  "position": {
+    "x": 850,
+    "y": 175,
+    "z": 8,
+    "width": 410,
+    "height": 255,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Revenue Residential"
+                    }
+                  },
+                  "Property": "elec_rate_code"
+                }
+              },
+              "queryRef": "Revenue Residential.elec_rate_code",
+              "nativeQueryRef": "elec_rate_code"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Revenue Residential"
+                    }
+                  },
+                  "Property": "Residential Revenue"
+                }
+              },
+              "queryRef": "Revenue Residential.Residential Revenue",
+              "nativeQueryRef": "Residential Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Residential revenue by electric rate'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

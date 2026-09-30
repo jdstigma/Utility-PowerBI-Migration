@@ -1,0 +1,142 @@
+table 'Customer Bills'
+	lineageTag: af49baa0-eec6-5234-2197-d0a84610a4cd
+
+	measure 'Billed (Last 3 Mo)' = SUM('Customer Bills'[total_amt])
+		formatString: \$#,0.00
+		displayFolder: Customers
+		lineageTag: 3c468d93-c7c5-265f-b24c-b511ebe8aaf9
+
+	measure 'Paid (Last 3 Mo)' = SUM('Customer Bills'[paid_amt])
+		formatString: \$#,0.00
+		displayFolder: Customers
+		lineageTag: 0e0cbcb6-c605-45f6-c003-80d284c2fd18
+
+	column bill_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f58f43b-7686-e633-e35c-4ef6fd9e7d9b
+		summarizeBy: none
+		sourceColumn: bill_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 49b18779-4e26-14d4-27bc-64762b70da63
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column bill_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 8abdb032-c6fa-f163-7b61-912b9e90e793
+		summarizeBy: none
+		sourceColumn: bill_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column due_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 2c2f593d-f92c-7703-7499-5faa1e7f9365
+		summarizeBy: none
+		sourceColumn: due_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_start
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 774b6a67-8e2d-ab51-d7ed-ede3035a4427
+		summarizeBy: none
+		sourceColumn: period_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_end
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 522b63cd-570c-5a15-4dff-c7c108e60005
+		summarizeBy: none
+		sourceColumn: period_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column bill_type
+		dataType: string
+		lineageTag: f30de664-4eb0-6728-fd9a-3dbe9500cc8e
+		summarizeBy: none
+		sourceColumn: bill_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_reversed
+		dataType: boolean
+		lineageTag: cdf3fa15-99a9-b619-9ecf-afa1208f1255
+		summarizeBy: none
+		sourceColumn: is_reversed
+
+		annotation SummarizationSetBy = Automatic
+
+	column kwh
+		dataType: double
+		lineageTag: 1545ab33-2693-6983-8066-57a1b29bd521
+		summarizeBy: sum
+		sourceColumn: kwh
+
+		annotation SummarizationSetBy = Automatic
+
+	column therms
+		dataType: double
+		lineageTag: 450bd8fb-e6ce-e84e-543f-d2ec2945cfe7
+		summarizeBy: sum
+		sourceColumn: therms
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_estimated
+		dataType: boolean
+		lineageTag: a7bbbaa7-dec3-117e-5389-c3286663b3e5
+		summarizeBy: none
+		sourceColumn: elec_estimated
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_estimated
+		dataType: boolean
+		lineageTag: b9076069-d3e9-3717-9660-e67e6cd05a81
+		summarizeBy: none
+		sourceColumn: gas_estimated
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_amt
+		dataType: double
+		lineageTag: 48f95eb4-e805-e788-3c24-fae19cf8d56a
+		summarizeBy: sum
+		sourceColumn: total_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column paid_amt
+		dataType: double
+		lineageTag: ce9a9bd4-1756-07a4-3947-b928d3ceb5e4
+		summarizeBy: sum
+		sourceColumn: paid_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Customer Bills' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "customer_bills_recent.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"bill_id", Int64.Type}, {"customer_id", Int64.Type}, {"bill_date", type date}, {"due_date", type date}, {"period_start", type date}, {"period_end", type date}, {"bill_type", type text}, {"is_reversed", type logical}, {"kwh", type number}, {"therms", type number}, {"elec_estimated", type logical}, {"gas_estimated", type logical}, {"total_amt", type number}, {"paid_amt", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

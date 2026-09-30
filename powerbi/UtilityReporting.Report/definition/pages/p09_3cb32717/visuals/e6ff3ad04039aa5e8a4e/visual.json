@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e6ff3ad04039aa5e8a4e",
+  "position": {
+    "x": 645.0,
+    "y": 70,
+    "z": 5,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "Zero-Usage Bills"
+                }
+              },
+              "queryRef": "Billing Exceptions.Zero-Usage Bills",
+              "nativeQueryRef": "Zero-Usage Bills"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

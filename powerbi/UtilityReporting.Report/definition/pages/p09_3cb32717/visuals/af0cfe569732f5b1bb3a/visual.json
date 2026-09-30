@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "af0cfe569732f5b1bb3a",
+  "position": {
+    "x": 436.67,
+    "y": 70,
+    "z": 4,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "Consecutive Estimates"
+                }
+              },
+              "queryRef": "Billing Exceptions.Consecutive Estimates",
+              "nativeQueryRef": "Consecutive Estimates"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

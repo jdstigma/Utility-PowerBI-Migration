@@ -1,0 +1,119 @@
+table 'Service Orders'
+	lineageTag: 1a183537-34ee-02f9-f34a-c9891d59ad58
+
+	measure 'Service Orders Created' = SUM('Service Orders'[orders])
+		formatString: #,0
+		displayFolder: Service Orders
+		lineageTag: 17b34f7c-ae65-1ee4-fb57-eca3e3d5c363
+
+	measure 'Avg Cycle Days' = DIVIDE(SUM('Service Orders'[cycle_days_total]), SUM('Service Orders'[completed]))
+		formatString: #,0.0
+		displayFolder: Service Orders
+		lineageTag: 41f346e9-375e-25ce-55f9-7ba2cdce00f8
+
+	measure 'Completion %' = DIVIDE(SUM('Service Orders'[completed]), [Service Orders Created])
+		formatString: 0.0%
+		displayFolder: Service Orders
+		lineageTag: 22f55245-9aeb-714b-4f63-6823ecf80540
+
+	measure 'Open Service Orders' = SUM('Service Orders'[open_orders])
+		formatString: #,0
+		displayFolder: Service Orders
+		lineageTag: 38b6b245-e3b7-9dd8-f4c3-0bfbbaa1f29f
+
+	column created_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: f278e137-7b8d-475d-594d-ecf1c41c0b73
+		summarizeBy: none
+		sourceColumn: created_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_type
+		dataType: string
+		lineageTag: 7e1cb8bb-9ece-40bc-cbc1-3e6f73e3a856
+		summarizeBy: none
+		sourceColumn: order_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 8232e9cf-e082-491e-8c2e-f35ef2f4d8c8
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: def2be99-92bb-69e3-decc-bb76c2aa785f
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column work_center
+		dataType: string
+		lineageTag: 7709b25f-894e-d67e-b8a1-b7de9d07e30f
+		summarizeBy: none
+		sourceColumn: work_center
+
+		annotation SummarizationSetBy = Automatic
+
+	column orders
+		dataType: int64
+		formatString: #,0
+		lineageTag: ebf34bd0-18cd-dca9-da07-c3573af7e8dc
+		summarizeBy: sum
+		sourceColumn: orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column completed
+		dataType: int64
+		formatString: #,0
+		lineageTag: c228d2d7-ffe4-c826-5867-c44ae020de10
+		summarizeBy: sum
+		sourceColumn: completed
+
+		annotation SummarizationSetBy = Automatic
+
+	column cycle_days_total
+		dataType: int64
+		formatString: #,0
+		lineageTag: 178a6d21-f2cc-c935-1745-5766fb08b1e2
+		summarizeBy: sum
+		sourceColumn: cycle_days_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_orders
+		dataType: int64
+		formatString: #,0
+		lineageTag: ffcba40b-1dc8-6841-c53f-11c2481417d6
+		summarizeBy: sum
+		sourceColumn: open_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_open_age_days
+		dataType: double
+		lineageTag: 646b5beb-d80b-0bc0-27d4-5157ce84c2d2
+		summarizeBy: sum
+		sourceColumn: max_open_age_days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Service Orders' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "service_orders_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"created_month", type date}, {"order_type", type text}, {"status", type text}, {"division", type text}, {"work_center", type text}, {"orders", Int64.Type}, {"completed", Int64.Type}, {"cycle_days_total", Int64.Type}, {"open_orders", Int64.Type}, {"max_open_age_days", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

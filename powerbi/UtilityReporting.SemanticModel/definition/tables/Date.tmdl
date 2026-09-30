@@ -1,0 +1,194 @@
+table Date
+	lineageTag: 44749712-dbec-183e-983d-cd78a7736c41
+	dataCategory: Time
+
+	measure 'Avg Temp (F)' = AVERAGE('Date'[temp_avg_f])
+		formatString: #,0.0
+		displayFolder: Weather
+		lineageTag: 05434b52-556d-52c1-8b3a-d2ab499e47b7
+
+	measure 'Cooling Degree Days' = SUM('Date'[cooling_degree_days])
+		formatString: #,0
+		displayFolder: Weather
+		lineageTag: 947502d7-9e2b-33bc-b48a-cf93c18a3014
+
+	measure 'Heating Degree Days' = SUM('Date'[heating_degree_days])
+		formatString: #,0
+		displayFolder: Weather
+		lineageTag: 54184f7d-088f-0af6-0f43-39cf02057d37
+
+	measure 'Major Event Days' = CALCULATE(COUNTROWS('Date'), 'Date'[is_major_event_day] = TRUE()) + 0
+		formatString: #,0
+		displayFolder: Reliability
+		lineageTag: 03b72a06-e192-d16d-3d69-319494e504d8
+
+	column date
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: ac1e6442-3515-9d95-0987-73bc0419bcfe
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 83cef7e8-09c9-37e2-250f-ddc4a3b67d1b
+		summarizeBy: none
+		sourceColumn: period_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_start
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 922deda6-3363-508d-7acb-76d8796cb7a2
+		summarizeBy: none
+		sourceColumn: month_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: 492883b9-4e27-984f-9482-148cc3a01bd3
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 25fb7486-0ca4-0758-4821-903a0e3b8c61
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_short
+		dataType: string
+		lineageTag: 321dee0a-1d27-f9f5-d09a-c9175abcb12d
+		summarizeBy: none
+		sourceColumn: month_short
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 531f4482-4a25-1aea-6661-868ef4ffb026
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_name
+		dataType: string
+		lineageTag: b434ace6-ff3e-3361-2d1a-1f14ba7202d3
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: boolean
+		lineageTag: 84ff2fb2-7996-4f9c-1189-ef4fefbc1beb
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_winter_moratorium
+		dataType: boolean
+		lineageTag: a382ca93-e767-8d79-4ce4-ec83059f9e3c
+		summarizeBy: none
+		sourceColumn: is_winter_moratorium
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_major_event_day
+		dataType: boolean
+		lineageTag: 38314b5c-e9dc-59b9-ea92-7105c8b1c485
+		summarizeBy: none
+		sourceColumn: is_major_event_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column daily_saidi_min
+		dataType: double
+		lineageTag: 41edabfb-c896-e919-603b-a9358ab68409
+		summarizeBy: sum
+		sourceColumn: daily_saidi_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp_avg_f
+		dataType: double
+		lineageTag: ad169108-65bf-c298-b3d2-8dd64d27fa72
+		summarizeBy: sum
+		sourceColumn: temp_avg_f
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp_max_f
+		dataType: double
+		lineageTag: 7af58eed-5085-6477-085d-34a41ed3dd26
+		summarizeBy: sum
+		sourceColumn: temp_max_f
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp_min_f
+		dataType: double
+		lineageTag: 3ec3cdb2-0b8f-d1f5-33a1-7e54b6a32752
+		summarizeBy: sum
+		sourceColumn: temp_min_f
+
+		annotation SummarizationSetBy = Automatic
+
+	column precip_in
+		dataType: double
+		lineageTag: 12f00ded-5554-32d6-c30c-d865d61c3dfc
+		summarizeBy: sum
+		sourceColumn: precip_in
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_gust_mph
+		dataType: int64
+		formatString: #,0
+		lineageTag: 6ec3b3dc-3964-91da-31f6-2e58609fd406
+		summarizeBy: sum
+		sourceColumn: max_gust_mph
+
+		annotation SummarizationSetBy = Automatic
+
+	column heating_degree_days
+		dataType: double
+		lineageTag: 5ee67dc4-0d50-d6fb-2e26-aee830ba1f34
+		summarizeBy: sum
+		sourceColumn: heating_degree_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column cooling_degree_days
+		dataType: double
+		lineageTag: dabf72a6-16f8-3675-e084-eb46274da441
+		summarizeBy: sum
+		sourceColumn: cooling_degree_days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "date_daily.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"date", type date}, {"period_key", Int64.Type}, {"month_start", type date}, {"year_month", type text}, {"year", Int64.Type}, {"month_short", type text}, {"day_of_week", Int64.Type}, {"day_name", type text}, {"is_weekend", type logical}, {"is_winter_moratorium", type logical}, {"is_major_event_day", type logical}, {"daily_saidi_min", type number}, {"temp_avg_f", type number}, {"temp_max_f", type number}, {"temp_min_f", type number}, {"precip_in", type number}, {"max_gust_mph", Int64.Type}, {"heating_degree_days", type number}, {"cooling_degree_days", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

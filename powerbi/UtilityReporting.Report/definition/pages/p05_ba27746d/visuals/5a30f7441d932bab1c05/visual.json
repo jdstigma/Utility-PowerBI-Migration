@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "5a30f7441d932bab1c05",
+  "position": {
+    "x": 270.0,
+    "y": 70,
+    "z": 3,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "SAIFI excl. MED"
+                }
+              },
+              "queryRef": "Outages.SAIFI excl. MED",
+              "nativeQueryRef": "SAIFI excl. MED"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

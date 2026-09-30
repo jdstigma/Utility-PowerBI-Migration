@@ -1,0 +1,92 @@
+table Period
+	lineageTag: 1901606e-a069-a83d-c7be-ea17881ef95a
+
+	column period_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 1faecfab-9b47-a636-927a-b4fca1111cfd
+		summarizeBy: none
+		sourceColumn: period_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_start
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d6cacec3-6704-bd88-a8a4-f734d8eb983b
+		summarizeBy: none
+		sourceColumn: month_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_end
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 51b4deb9-982b-20aa-7f0f-e54ec138c98c
+		summarizeBy: none
+		sourceColumn: month_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: ad396e6d-8287-2b7f-32ae-1ec9fbae25cb
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: a8897a9a-882e-def5-bb69-733039839d57
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_num
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ae1285d-435b-437e-5156-c33c663d6ff7
+		summarizeBy: none
+		sourceColumn: month_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 0b7d3d4d-416d-8ef9-de84-d0be87aa651b
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_short
+		dataType: string
+		lineageTag: 14108651-e524-aa1b-ac93-330bfff70a81
+		summarizeBy: none
+		sourceColumn: month_short
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: c7dc5a46-8b64-f3c6-4d4f-d06c5a871305
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Period = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "dim_period.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"period_key", Int64.Type}, {"month_start", type date}, {"month_end", type date}, {"year", Int64.Type}, {"quarter", Int64.Type}, {"month_num", Int64.Type}, {"month_name", type text}, {"month_short", type text}, {"year_month", type text}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

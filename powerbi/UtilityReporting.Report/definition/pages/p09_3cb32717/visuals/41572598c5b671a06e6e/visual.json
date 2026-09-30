@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "41572598c5b671a06e6e",
+  "position": {
+    "x": 853.33,
+    "y": 70,
+    "z": 6,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "High-Variance Bill %"
+                }
+              },
+              "queryRef": "Billing Exceptions.High-Variance Bill %",
+              "nativeQueryRef": "High-Variance Bill %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

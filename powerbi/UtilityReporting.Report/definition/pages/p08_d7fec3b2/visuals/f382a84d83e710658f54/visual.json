@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "f382a84d83e710658f54",
+  "position": {
+    "x": 850,
+    "y": 175,
+    "z": 9,
+    "width": 410,
+    "height": 525,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Payment Plans"
+                    }
+                  },
+                  "Property": "plan_type"
+                }
+              },
+              "queryRef": "Payment Plans.plan_type",
+              "nativeQueryRef": "plan_type"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Payment Plans"
+                    }
+                  },
+                  "Property": "Payment Plans Created"
+                }
+              },
+              "queryRef": "Payment Plans.Payment Plans Created",
+              "nativeQueryRef": "Payment Plans Created"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Payment Plans"
+                    }
+                  },
+                  "Property": "status"
+                }
+              },
+              "queryRef": "Payment Plans.status",
+              "nativeQueryRef": "status"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Payment arrangements by status'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

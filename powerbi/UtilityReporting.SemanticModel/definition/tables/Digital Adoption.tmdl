@@ -1,0 +1,81 @@
+table 'Digital Adoption'
+	lineageTag: a3079c3e-2284-b606-be5f-3b3b6c84f92b
+
+	measure 'Active Customers' = VAR me = MAX('Digital Adoption'[month_end]) RETURN CALCULATE(SUM('Digital Adoption'[active_customers]), 'Digital Adoption'[month_end] = me)
+		formatString: #,0
+		displayFolder: Adoption
+		lineageTag: 30243f06-459d-cb4e-969a-ca19e6eb6eb8
+
+	measure 'Autopay %' = DIVIDE(VAR me = MAX('Digital Adoption'[month_end]) RETURN CALCULATE(SUM('Digital Adoption'[autopay_customers]), 'Digital Adoption'[month_end] = me), [Active Customers])
+		formatString: 0.0%
+		displayFolder: Adoption
+		lineageTag: d7aadcd2-3f76-2ca4-624a-b4d153b51d68
+
+	measure 'Paperless %' = DIVIDE(VAR me = MAX('Digital Adoption'[month_end]) RETURN CALCULATE(SUM('Digital Adoption'[paperless_customers]), 'Digital Adoption'[month_end] = me), [Active Customers])
+		formatString: 0.0%
+		displayFolder: Adoption
+		lineageTag: e2b3e8be-24a9-8e2a-2e1f-824ce708e43f
+
+	column month_end
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 21f78c5b-5827-be5c-d82b-ab97f6ca9bcc
+		summarizeBy: none
+		sourceColumn: month_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: a1533c8e-da9f-29cd-7f64-6c3778c66cad
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: ece6939a-b706-9d86-76ff-b7cb920c4ad4
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_customers
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9d5c224b-d3ec-bfb3-b592-a3ed745158b1
+		summarizeBy: sum
+		sourceColumn: active_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column autopay_customers
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3d6b8c0d-97e5-f5f1-5523-ecc61b83006e
+		summarizeBy: sum
+		sourceColumn: autopay_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column paperless_customers
+		dataType: int64
+		formatString: #,0
+		lineageTag: 500d7dd7-5332-4503-81a3-ff8506ccb9dc
+		summarizeBy: sum
+		sourceColumn: paperless_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Digital Adoption' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "digital_adoption_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"month_end", type date}, {"segment", type text}, {"division", type text}, {"active_customers", Int64.Type}, {"autopay_customers", Int64.Type}, {"paperless_customers", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

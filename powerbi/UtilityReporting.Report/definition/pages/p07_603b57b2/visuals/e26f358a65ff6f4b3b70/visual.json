@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e26f358a65ff6f4b3b70",
+  "position": {
+    "x": 1061.67,
+    "y": 70,
+    "z": 7,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Contact Center"
+                    }
+                  },
+                  "Property": "CSAT (avg)"
+                }
+              },
+              "queryRef": "Contact Center.CSAT (avg)",
+              "nativeQueryRef": "CSAT (avg)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

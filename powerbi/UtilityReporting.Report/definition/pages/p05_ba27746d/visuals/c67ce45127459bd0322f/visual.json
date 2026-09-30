@@ -1,0 +1,134 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "c67ce45127459bd0322f",
+  "position": {
+    "x": 20,
+    "y": 445,
+    "z": 9,
+    "width": 1240,
+    "height": 255,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "circuit_id"
+                }
+              },
+              "queryRef": "Outages.circuit_id",
+              "nativeQueryRef": "circuit_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "division"
+                }
+              },
+              "queryRef": "Outages.division",
+              "nativeQueryRef": "division"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "Outage Events"
+                }
+              },
+              "queryRef": "Outages.Outage Events",
+              "nativeQueryRef": "Outage Events"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "Customer Interruptions"
+                }
+              },
+              "queryRef": "Outages.Customer Interruptions",
+              "nativeQueryRef": "Customer Interruptions"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outages"
+                    }
+                  },
+                  "Property": "Customer Minutes"
+                }
+              },
+              "queryRef": "Outages.Customer Minutes",
+              "nativeQueryRef": "Customer Minutes"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Outages"
+                  }
+                },
+                "Property": "Customer Minutes"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Worst-performing circuits'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

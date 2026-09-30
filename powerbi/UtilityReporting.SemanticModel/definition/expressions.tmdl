@@ -1,0 +1,5 @@
+expression BaseUrl = "https://raw.githubusercontent.com/jdstigma/Utility-PowerBI-Migration/main/powerbi_data/" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: b5330bfc-7f90-eed5-a0ad-97e4b01f521e
+
+	annotation PBI_ResultType = Text
+

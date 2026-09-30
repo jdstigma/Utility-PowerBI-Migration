@@ -11,3 +11,7 @@ __pycache__/
 
 # local lake emulator credentials
 lake/.env
+
+# Power BI project local state (data cache + per-user settings)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

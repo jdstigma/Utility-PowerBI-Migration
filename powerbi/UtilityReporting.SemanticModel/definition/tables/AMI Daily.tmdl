@@ -1,0 +1,120 @@
+table 'AMI Daily'
+	lineageTag: 54803fb7-e28e-f05a-9733-9cc496b03630
+
+	measure 'Avg Daily kWh per Meter' = DIVIDE(SUM('AMI Daily'[kwh_valid]), SUM('AMI Daily'[reads_valid]))
+		formatString: #,0.0
+		displayFolder: AMI
+		lineageTag: fc82a580-f289-3715-286a-299903670c48
+
+	measure 'Read Success %' = DIVIDE(SUM('AMI Daily'[meters_reporting]), SUM('AMI Daily'[meters_expected]))
+		formatString: 0.00%
+		displayFolder: AMI
+		lineageTag: a3678f37-964b-3a81-9183-1c9ef9607d0a
+
+	measure 'Estimated Read %' = DIVIDE(SUM('AMI Daily'[reads_estimated]), SUM('AMI Daily'[meters_expected]))
+		formatString: 0.00%
+		displayFolder: AMI
+		lineageTag: 300cd5c9-5fdf-3f93-f12b-ad42db032980
+
+	measure 'Spike Reads' = SUM('AMI Daily'[reads_spike])
+		formatString: #,0
+		displayFolder: AMI
+		lineageTag: 2fb529f2-7bab-2c04-58c9-af9f4174e459
+
+	column read_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 5fd0685f-4fed-a67d-e4d0-861bf2e24e3f
+		summarizeBy: none
+		sourceColumn: read_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: f371e413-1a5c-a8c3-8874-794d90137f4e
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_rate_code
+		dataType: string
+		lineageTag: a73f038f-e19f-dcd8-72f8-323bc627fb7e
+		summarizeBy: none
+		sourceColumn: elec_rate_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column meters_expected
+		dataType: int64
+		formatString: #,0
+		lineageTag: eb197be6-bf3e-4b5e-11d7-e8beccd9b52a
+		summarizeBy: sum
+		sourceColumn: meters_expected
+
+		annotation SummarizationSetBy = Automatic
+
+	column meters_reporting
+		dataType: int64
+		formatString: #,0
+		lineageTag: eefde023-e221-fd30-d1d5-9b7cfae153f7
+		summarizeBy: sum
+		sourceColumn: meters_reporting
+
+		annotation SummarizationSetBy = Automatic
+
+	column reads_estimated
+		dataType: int64
+		formatString: #,0
+		lineageTag: 7f3ebc88-5abc-d6f6-d4c2-d136c3785feb
+		summarizeBy: sum
+		sourceColumn: reads_estimated
+
+		annotation SummarizationSetBy = Automatic
+
+	column reads_spike
+		dataType: int64
+		formatString: #,0
+		lineageTag: 2aadfb9a-00c2-3df1-cd22-ba5db4cafae3
+		summarizeBy: sum
+		sourceColumn: reads_spike
+
+		annotation SummarizationSetBy = Automatic
+
+	column kwh_valid
+		dataType: double
+		lineageTag: 2c46ec53-f989-1d87-db45-afcfe4ea90d1
+		summarizeBy: sum
+		sourceColumn: kwh_valid
+
+		annotation SummarizationSetBy = Automatic
+
+	column reads_valid
+		dataType: int64
+		formatString: #,0
+		lineageTag: 84dfa587-af36-e9a8-c654-87b28eb7c4c8
+		summarizeBy: sum
+		sourceColumn: reads_valid
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_peak_kw
+		dataType: double
+		lineageTag: c9269a09-9a41-e031-2770-7c5adf30ff4a
+		summarizeBy: sum
+		sourceColumn: max_peak_kw
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'AMI Daily' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "ami_daily_profile.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"read_date", type date}, {"division", type text}, {"elec_rate_code", type text}, {"meters_expected", Int64.Type}, {"meters_reporting", Int64.Type}, {"reads_estimated", Int64.Type}, {"reads_spike", Int64.Type}, {"kwh_valid", type number}, {"reads_valid", Int64.Type}, {"max_peak_kw", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

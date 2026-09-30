@@ -1,0 +1,167 @@
+table 'AR Top Accounts'
+	lineageTag: da90d0a5-5f68-cf4a-02dd-5343cca5ea76
+
+	measure 'Top Accounts Past Due' = SUM('AR Top Accounts'[past_due_amt])
+		formatString: \$#,0
+		displayFolder: AR
+		lineageTag: 64d4aecd-3fbc-0ca9-176f-3b620258a1da
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 643f7ab6-470c-25cb-f153-a569c2d1d60c
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c903fc60-44a3-8fbc-0fa3-0165523ae49f
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: fc43dde6-ee9e-840c-4200-9a1c0ef6ee36
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 1bae840e-b43f-b200-70d4-f5959972ebfd
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: a8e1243f-bb52-8164-fa10-84e65b08650c
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 92b98fe0-088d-8b22-6d3a-5083bc588968
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_low_income
+		dataType: boolean
+		lineageTag: ce8b6632-c799-82a3-0ac0-40c97aa93914
+		summarizeBy: none
+		sourceColumn: is_low_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_medical_cert
+		dataType: boolean
+		lineageTag: 12ff502a-e0b0-7d36-d0c7-052da2565653
+		summarizeBy: none
+		sourceColumn: has_medical_cert
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: boolean
+		lineageTag: 09f986c1-aa30-ed19-a019-63a1a72f65ce
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_amt
+		dataType: double
+		lineageTag: ce6561c9-92a4-3d71-2620-68a938abb591
+		summarizeBy: sum
+		sourceColumn: open_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column past_due_amt
+		dataType: double
+		lineageTag: 1572f93e-75d0-45c0-b540-ea0adcb3138d
+		summarizeBy: sum
+		sourceColumn: past_due_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column past_due_1_30
+		dataType: double
+		lineageTag: b6449011-c4af-dd85-16fa-8cd8cda5c55c
+		summarizeBy: sum
+		sourceColumn: past_due_1_30
+
+		annotation SummarizationSetBy = Automatic
+
+	column past_due_31_60
+		dataType: double
+		lineageTag: f48b3697-a777-8245-9adb-2686093ad28d
+		summarizeBy: sum
+		sourceColumn: past_due_31_60
+
+		annotation SummarizationSetBy = Automatic
+
+	column past_due_61_90
+		dataType: double
+		lineageTag: 689df4a2-db7f-1929-0e92-2efd1a2ca4f0
+		summarizeBy: sum
+		sourceColumn: past_due_61_90
+
+		annotation SummarizationSetBy = Automatic
+
+	column past_due_91_180
+		dataType: double
+		lineageTag: f49a7a3c-aec7-be5d-3a60-9caeb56ecbd8
+		summarizeBy: sum
+		sourceColumn: past_due_91_180
+
+		annotation SummarizationSetBy = Automatic
+
+	column written_off_amt
+		dataType: double
+		lineageTag: d7bd4992-b0b2-aeb5-afb3-339379639620
+		summarizeBy: sum
+		sourceColumn: written_off_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column oldest_days_past_due
+		dataType: int64
+		formatString: #,0
+		lineageTag: 4f41f48d-9525-e1d3-50de-34038f2f5097
+		summarizeBy: sum
+		sourceColumn: oldest_days_past_due
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_bills
+		dataType: int64
+		formatString: #,0
+		lineageTag: ef98ea0a-5ac4-f132-ac3b-26031c1ccea6
+		summarizeBy: sum
+		sourceColumn: open_bills
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'AR Top Accounts' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "ar_top_accounts.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"customer_id", Int64.Type}, {"account_id", Int64.Type}, {"customer_name", type text}, {"segment", type text}, {"division", type text}, {"city", type text}, {"is_low_income", type logical}, {"has_medical_cert", type logical}, {"is_active", type logical}, {"open_amt", type number}, {"past_due_amt", type number}, {"past_due_1_30", type number}, {"past_due_31_60", type number}, {"past_due_61_90", type number}, {"past_due_91_180", type number}, {"written_off_amt", type number}, {"oldest_days_past_due", Int64.Type}, {"open_bills", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

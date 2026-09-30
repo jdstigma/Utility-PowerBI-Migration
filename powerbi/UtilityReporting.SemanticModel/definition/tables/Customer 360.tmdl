@@ -1,0 +1,281 @@
+table 'Customer 360'
+	lineageTag: e2db3b81-38d3-73ed-9134-5e8cf860e275
+
+	measure Customers = COUNTROWS('Customer 360')
+		formatString: #,0
+		displayFolder: Customers
+		lineageTag: ad1cd1a6-de98-ead9-b803-27313ea8c1d6
+
+	measure 'Open Balance' = SUM('Customer 360'[open_amt])
+		formatString: \$#,0.00
+		displayFolder: Customers
+		lineageTag: 2903e6f1-5b03-2385-3ca2-a29474227b28
+
+	measure 'Past Due Balance' = SUM('Customer 360'[past_due_amt])
+		formatString: \$#,0.00
+		displayFolder: Customers
+		lineageTag: 502c7b17-74a3-ba75-68c3-3063238ad795
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d81e0960-322c-3ccb-ee45-1b938d4fbe3e
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: int64
+		formatString: 0
+		lineageTag: fab5ad78-a95b-7afc-11de-8eb0fc098d1f
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: d420ca56-7bf6-a9a3-368f-e0b209e982c6
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_type
+		dataType: string
+		lineageTag: fcc5e9aa-1095-9f8f-4977-19d74336bf2b
+		summarizeBy: none
+		sourceColumn: customer_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 8741feff-57a8-e03b-4ddb-85c7d50bb383
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 8f79d004-dbff-68c8-9f41-ef674a6a34a0
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: ada2d032-68e5-edbe-4153-ff6671811526
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column address_line
+		dataType: string
+		lineageTag: 90212a3b-695c-ec68-72ae-14930e7a71c4
+		summarizeBy: none
+		sourceColumn: address_line
+
+		annotation SummarizationSetBy = Automatic
+
+	column zip
+		dataType: string
+		lineageTag: d050a933-1a78-95cd-0e3a-d520602b8603
+		summarizeBy: none
+		sourceColumn: zip
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: 9f9f34f5-4ffb-f476-fb03-894367ae2f57
+		summarizeBy: none
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column longitude
+		dataType: double
+		lineageTag: ffb4128f-164f-06ce-575c-422505b4b848
+		summarizeBy: none
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column premise_type
+		dataType: string
+		lineageTag: e7cb5294-c59e-6453-dff2-62de8c876684
+		summarizeBy: none
+		sourceColumn: premise_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_rate_code
+		dataType: string
+		lineageTag: 81ba9e23-76ef-8466-0fbe-2881e860ad1a
+		summarizeBy: none
+		sourceColumn: elec_rate_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_rate_code
+		dataType: string
+		lineageTag: 4e310eae-614c-6c0d-a407-94f01e5ec485
+		summarizeBy: none
+		sourceColumn: gas_rate_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_meter_technology
+		dataType: string
+		lineageTag: 6ab1858e-2f9a-8235-7015-e3f73e74a8a0
+		summarizeBy: none
+		sourceColumn: elec_meter_technology
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_supplier
+		dataType: string
+		lineageTag: 5df33d08-0b20-5a3e-ee07-8202c48b68bd
+		summarizeBy: none
+		sourceColumn: elec_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column move_in_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e224fd93-5859-d4f8-3594-6fab21c174c3
+		summarizeBy: none
+		sourceColumn: move_in_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column move_out_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: fad00eac-881f-2fc5-85d5-45fa3869d228
+		summarizeBy: none
+		sourceColumn: move_out_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: boolean
+		lineageTag: 57e3b503-fb50-bffa-6939-0421ce5e49dd
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure_years
+		dataType: double
+		lineageTag: 2235a132-4ca2-4807-a86c-eaf99b4081bc
+		summarizeBy: none
+		sourceColumn: tenure_years
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_email
+		dataType: boolean
+		lineageTag: 51b81504-86cb-461f-db09-101195b4e88a
+		summarizeBy: none
+		sourceColumn: has_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_phone
+		dataType: boolean
+		lineageTag: 2bc4300c-5f1d-cc3e-2513-be8594e52c87
+		summarizeBy: none
+		sourceColumn: has_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_autopay
+		dataType: boolean
+		lineageTag: c5cf9286-cbc5-c9aa-0251-5db497aa1821
+		summarizeBy: none
+		sourceColumn: is_autopay
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_paperless
+		dataType: boolean
+		lineageTag: ad7c6a9e-b30a-ed93-7555-3e8dd57c868e
+		summarizeBy: none
+		sourceColumn: is_paperless
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_budget_billing
+		dataType: boolean
+		lineageTag: a35a168f-85ea-54a5-daa2-ce4f306f44d4
+		summarizeBy: none
+		sourceColumn: is_budget_billing
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_low_income
+		dataType: boolean
+		lineageTag: fe95dbf6-bfc1-19e9-59c4-0faf8466b3dc
+		summarizeBy: none
+		sourceColumn: is_low_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_medical_cert
+		dataType: boolean
+		lineageTag: eca269f6-599d-2d39-ced6-6fcb01309861
+		summarizeBy: none
+		sourceColumn: has_medical_cert
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_amt
+		dataType: double
+		lineageTag: 3a3b39d1-5b3e-970c-9fa8-cc332ddf7c61
+		summarizeBy: sum
+		sourceColumn: open_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column past_due_amt
+		dataType: double
+		lineageTag: fc322102-095f-369c-fa25-19c0ceb0e471
+		summarizeBy: sum
+		sourceColumn: past_due_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column written_off_amt
+		dataType: double
+		lineageTag: fa61c2d4-d7cd-9660-e549-1288348d4bb7
+		summarizeBy: sum
+		sourceColumn: written_off_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column oldest_days_past_due
+		dataType: double
+		lineageTag: 7b228dbe-20e6-a037-cb98-4a043a5ad717
+		summarizeBy: sum
+		sourceColumn: oldest_days_past_due
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Customer 360' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "customer_360.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"customer_id", Int64.Type}, {"account_id", Int64.Type}, {"customer_name", type text}, {"customer_type", type text}, {"segment", type text}, {"division", type text}, {"city", type text}, {"address_line", type text}, {"zip", type text}, {"latitude", type number}, {"longitude", type number}, {"premise_type", type text}, {"elec_rate_code", type text}, {"gas_rate_code", type text}, {"elec_meter_technology", type text}, {"elec_supplier", type text}, {"move_in_date", type date}, {"move_out_date", type date}, {"is_active", type logical}, {"tenure_years", type number}, {"has_email", type logical}, {"has_phone", type logical}, {"is_autopay", type logical}, {"is_paperless", type logical}, {"is_budget_billing", type logical}, {"is_low_income", type logical}, {"has_medical_cert", type logical}, {"open_amt", type number}, {"past_due_amt", type number}, {"written_off_amt", type number}, {"oldest_days_past_due", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,78 @@
+table 'Data Quality'
+	lineageTag: 74c365af-f7ca-1dee-7d22-bdad58071514
+
+	measure 'Rows Affected' = SUM('Data Quality'[rows_affected])
+		formatString: #,0
+		displayFolder: Data Quality
+		lineageTag: ac24dcee-4e22-5e57-1b80-5db899aadb8c
+
+	column check_order
+		dataType: int64
+		formatString: 0
+		lineageTag: 6381065d-c3eb-d02e-81b2-bb928733685c
+		summarizeBy: none
+		sourceColumn: check_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_table
+		dataType: string
+		lineageTag: 191d5bb8-4e61-bdc7-b3fe-dd1151933708
+		summarizeBy: none
+		sourceColumn: source_table
+
+		annotation SummarizationSetBy = Automatic
+
+	column dq_check
+		dataType: string
+		lineageTag: 1d4d241e-c5c3-2438-99ec-8aaf1565fd49
+		summarizeBy: none
+		sourceColumn: dq_check
+
+		annotation SummarizationSetBy = Automatic
+
+	column action_taken
+		dataType: string
+		lineageTag: 988cf0cb-58fc-0141-538b-b090446a857b
+		summarizeBy: none
+		sourceColumn: action_taken
+
+		annotation SummarizationSetBy = Automatic
+
+	column rows_checked
+		dataType: int64
+		formatString: #,0
+		lineageTag: 7a1a7b59-aaee-85fa-668a-dd8efa1f9122
+		summarizeBy: sum
+		sourceColumn: rows_checked
+
+		annotation SummarizationSetBy = Automatic
+
+	column rows_affected
+		dataType: int64
+		formatString: #,0
+		lineageTag: ced29e89-818b-53d3-4ecb-1885f9298004
+		summarizeBy: sum
+		sourceColumn: rows_affected
+
+		annotation SummarizationSetBy = Automatic
+
+	column pct_affected
+		dataType: double
+		lineageTag: f47a54cf-15f0-f896-b587-4af73f2ed193
+		summarizeBy: sum
+		sourceColumn: pct_affected
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Data Quality' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "data_quality.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"check_order", Int64.Type}, {"source_table", type text}, {"dq_check", type text}, {"action_taken", type text}, {"rows_checked", Int64.Type}, {"rows_affected", Int64.Type}, {"pct_affected", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

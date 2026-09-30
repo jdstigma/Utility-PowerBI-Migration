@@ -1,0 +1,102 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "f5c75a5a96934b1edfa0",
+  "position": {
+    "x": 850,
+    "y": 175,
+    "z": 9,
+    "width": 410,
+    "height": 525,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "elec_rate_code"
+                }
+              },
+              "queryRef": "Billing Exceptions.elec_rate_code",
+              "nativeQueryRef": "elec_rate_code"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "Bills Reviewed"
+                }
+              },
+              "queryRef": "Billing Exceptions.Bills Reviewed",
+              "nativeQueryRef": "Bills Reviewed"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "Estimated Bill %"
+                }
+              },
+              "queryRef": "Billing Exceptions.Estimated Bill %",
+              "nativeQueryRef": "Estimated Bill %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Billing Exceptions"
+                    }
+                  },
+                  "Property": "High-Variance Bill %"
+                }
+              },
+              "queryRef": "Billing Exceptions.High-Variance Bill %",
+              "nativeQueryRef": "High-Variance Bill %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Exceptions by rate'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

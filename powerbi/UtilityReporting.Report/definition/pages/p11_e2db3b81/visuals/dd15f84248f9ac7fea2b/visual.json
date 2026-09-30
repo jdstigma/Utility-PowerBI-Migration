@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "dd15f84248f9ac7fea2b",
+  "position": {
+    "x": 770.0,
+    "y": 70,
+    "z": 7,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer Bills"
+                    }
+                  },
+                  "Property": "Billed (Last 3 Mo)"
+                }
+              },
+              "queryRef": "Customer Bills.Billed (Last 3 Mo)",
+              "nativeQueryRef": "Billed (Last 3 Mo)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

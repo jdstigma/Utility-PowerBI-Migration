@@ -1,0 +1,202 @@
+table 'Revenue Residential'
+	lineageTag: b9b8eeb7-cc09-8a0b-fec4-d9840cc7ceca
+
+	measure 'Residential Revenue' = SUM('Revenue Residential'[total_amt])
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: b2b5de2a-142a-89fa-0ef8-52bfa2ba9bfe
+
+	measure 'Residential kWh' = SUM('Revenue Residential'[kwh])
+		formatString: #,0
+		displayFolder: Usage
+		lineageTag: 24c80d81-52f9-fd58-7216-cbb25baee190
+
+	measure 'Residential Therms' = SUM('Revenue Residential'[therms])
+		formatString: #,0
+		displayFolder: Usage
+		lineageTag: d89839d0-685f-fffd-9914-9e2bd43f98d6
+
+	measure 'Residential Bills' = SUM('Revenue Residential'[bills])
+		formatString: #,0
+		displayFolder: Revenue
+		lineageTag: 74b82597-a9f0-057f-2cb5-6ac5e3a2381d
+
+	measure 'Avg Residential Bill' = DIVIDE([Residential Revenue], [Residential Bills])
+		formatString: \$#,0.00
+		displayFolder: Revenue
+		lineageTag: 538a9301-363b-efb6-3938-5fff87d7ca95
+
+	measure 'Residential Revenue YoY %' = VAR firstKey = MINX(ALL('Period'), 'Period'[period_key]) VAR keys = FILTER(VALUES('Period'[period_key]), 'Period'[period_key] - 100 >= firstKey) VAR cur = CALCULATE([Residential Revenue], TREATAS(keys, 'Period'[period_key])) VAR py = CALCULATE([Residential Revenue], REMOVEFILTERS('Period'), TREATAS(SELECTCOLUMNS(keys, "k", 'Period'[period_key] - 100), 'Period'[period_key])) RETURN IF(NOT ISBLANK(py), DIVIDE(cur - py, py))
+		formatString: 0.0%
+		displayFolder: Revenue
+		lineageTag: ab5273d0-39ea-02da-fbbb-95c9ef278e95
+
+	measure 'Total Revenue' = [Residential Revenue] + [C&I Revenue]
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: 5230c641-bb3c-f003-f55e-5966d19d5678
+
+	measure 'Residential Share %' = DIVIDE([Residential Revenue], [Total Revenue])
+		formatString: 0.0%
+		displayFolder: Revenue
+		lineageTag: 359f6b46-d62c-a198-a975-24a73730abb3
+
+	column period_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 97685408-4bd8-9440-26b2-d16e6b1127ce
+		summarizeBy: none
+		sourceColumn: period_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column bill_month
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d2fbc043-5adc-b3d1-e234-c8e430781470
+		summarizeBy: none
+		sourceColumn: bill_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_class
+		dataType: string
+		lineageTag: b15b57bc-51e8-45df-b948-41446d21c20a
+		summarizeBy: none
+		sourceColumn: customer_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 0651c456-8396-bdb9-0255-3a33e55abc7e
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 13c4639e-0fe2-e65a-9b4c-685d615ebeb5
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_rate_code
+		dataType: string
+		lineageTag: 30c0246b-64e3-c21f-d448-bdea9b036e80
+		summarizeBy: none
+		sourceColumn: elec_rate_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_rate_code
+		dataType: string
+		lineageTag: ab73104b-7d49-85b5-07eb-0bc81256a3e3
+		summarizeBy: none
+		sourceColumn: gas_rate_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_supplier
+		dataType: string
+		lineageTag: b0e9be32-8cc9-5016-5006-51ccc31199de
+		summarizeBy: none
+		sourceColumn: elec_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column bills
+		dataType: int64
+		formatString: #,0
+		lineageTag: f78fb6cd-ff12-77ce-d4b2-5fbd6c81ecc4
+		summarizeBy: sum
+		sourceColumn: bills
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers_billed
+		dataType: int64
+		formatString: #,0
+		lineageTag: 10df7f44-48fc-33bd-2c66-20e03b6da3fe
+		summarizeBy: sum
+		sourceColumn: customers_billed
+
+		annotation SummarizationSetBy = Automatic
+
+	column kwh
+		dataType: double
+		lineageTag: 2baff010-fb44-8469-fb62-af1fe2739b88
+		summarizeBy: sum
+		sourceColumn: kwh
+
+		annotation SummarizationSetBy = Automatic
+
+	column therms
+		dataType: double
+		lineageTag: 2cad7708-8a5e-f4c2-6e26-865f9ff76a2c
+		summarizeBy: sum
+		sourceColumn: therms
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_delivery_amt
+		dataType: double
+		lineageTag: 99eb391d-24ef-0e7f-ff4a-a8d88ab9e465
+		summarizeBy: sum
+		sourceColumn: elec_delivery_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column elec_supply_amt
+		dataType: double
+		lineageTag: eec1c70e-3b4f-20c0-d647-e14c84ca5eb9
+		summarizeBy: sum
+		sourceColumn: elec_supply_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_delivery_amt
+		dataType: double
+		lineageTag: 6d8dc9aa-0d1c-9333-8d71-ee05da4d0d1b
+		summarizeBy: sum
+		sourceColumn: gas_delivery_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column gas_supply_amt
+		dataType: double
+		lineageTag: 1c08b05f-55ad-a00c-0a6e-24e69a39f048
+		summarizeBy: sum
+		sourceColumn: gas_supply_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column tax_amt
+		dataType: double
+		lineageTag: 759a55da-9be9-f27f-c701-f7a9753de644
+		summarizeBy: sum
+		sourceColumn: tax_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_amt
+		dataType: double
+		lineageTag: 76f9640f-71cc-f92a-c6a1-67884cc618d0
+		summarizeBy: sum
+		sourceColumn: total_amt
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Revenue Residential' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "revenue_residential_monthly.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"period_key", Int64.Type}, {"bill_month", type date}, {"customer_class", type text}, {"division", type text}, {"segment", type text}, {"elec_rate_code", type text}, {"gas_rate_code", type text}, {"elec_supplier", type text}, {"bills", Int64.Type}, {"customers_billed", Int64.Type}, {"kwh", type number}, {"therms", type number}, {"elec_delivery_amt", type number}, {"elec_supply_amt", type number}, {"gas_delivery_amt", type number}, {"gas_supply_amt", type number}, {"tax_amt", type number}, {"total_amt", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "8570ee66df4003b2d043",
+  "position": {
+    "x": 1020.0,
+    "y": 70,
+    "z": 6,
+    "width": 240.0,
+    "height": 90,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "AR Aging"
+                    }
+                  },
+                  "Property": "Written Off to Date"
+                }
+              },
+              "queryRef": "AR Aging.Written Off to Date",
+              "nativeQueryRef": "Written Off to Date"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
