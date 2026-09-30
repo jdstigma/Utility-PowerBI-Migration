@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1104" width="1200" height="1104" role="img" aria-label="Pipeline comparison: current environment vs this demo">
+<rect width="1200" height="1104" fill="#f7f9fa"/>
+<text x="40" y="46" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="1.5" fill="#1f6f8b">EXCEL &amp; SHAREPOINT → POWER BI · NJ COMBINED ELECTRIC &amp; GAS UTILITY</text>
+<text x="40" y="82" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="28" font-weight="700" fill="#16232d">Utility reporting pipeline: current setup vs. this demo</text>
+<rect x="40" y="98" width="90" height="20" rx="3" fill="#e3f0f5"/>
+<circle cx="50" cy="108" r="3.5" fill="#1f6f8b"/>
+<text x="58" y="112.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#1f6f8b">MIRRORED</text>
+<text x="138" y="112.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#4f5f6b">same role, same concept</text>
+<rect x="304.9" y="98" width="90" height="20" rx="3" fill="#fbeedf"/>
+<circle cx="314.9" cy="108" r="3.5" fill="#a4560f"/>
+<text x="322.9" y="112.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#a4560f">REPLACED</text>
+<text x="402.9" y="112.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#4f5f6b">swapped for a better tool</text>
+<rect x="582.4" y="98" width="66" height="20" rx="3" fill="#e6f2e2"/>
+<circle cx="592.4" cy="108" r="3.5" fill="#3d7a34"/>
+<text x="600.4" y="112.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#3d7a34">ADDED</text>
+<text x="656.4" y="112.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#4f5f6b">new layer the current setup lacks</text>
+<text x="40" y="152" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#16232d">Current environment</text>
+<text x="660" y="152" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#16232d">This demo</text>
+<rect x="40" y="160" width="500" height="3" fill="#7b8a95"/>
+<rect x="660" y="160" width="500" height="3" fill="#1f6f8b"/>
+<rect x="537" y="170" width="3" height="824" fill="#7b8a95"/>
+<rect x="660" y="170" width="3" height="824" fill="#1f6f8b"/>
+<text x="40" y="194" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">SOURCES</text>
+<text x="40" y="215" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">SAP IS-U / FI-CA, SAP PM, AMI, OMS, CRM</text>
+<text x="40" y="234" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Customer, billing, payment, work-order,</text>
+<text x="40" y="251" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">meter, outage and contact data</text>
+<line x1="540" y1="210" x2="660" y2="210" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="210" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="216" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">1</text>
+<text x="680" y="215" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Synthetic source extracts</text>
+<rect x="902.0" y="201" width="90" height="19" rx="3" fill="#e3f0f5"/>
+<circle cx="912.0" cy="210.5" r="3.5" fill="#1f6f8b"/>
+<text x="920.0" y="214.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#1f6f8b">MIRRORED</text>
+<text x="680" y="234" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Same SAP tables (BUT000, ERCH, DFKKZP, AUFK),</text>
+<text x="680" y="251" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">SAP column names, injected DQ issues</text>
+<text x="1160" y="194" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">18 tables · 49.5M rows</text>
+<line x1="40" y1="266" x2="1160" y2="266" stroke="#d5dde2" stroke-width="1"/>
+<text x="40" y="290" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">LAND</text>
+<text x="40" y="311" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">AWS data lake (S3)</text>
+<text x="40" y="330" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Source systems drop extracts</text>
+<text x="40" y="347" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">into the lake</text>
+<line x1="540" y1="306" x2="660" y2="306" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="306" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="312" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">2</text>
+<text x="680" y="311" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">S3-compatible lake · raw zone</text>
+<rect x="935.6" y="297" width="90" height="19" rx="3" fill="#e3f0f5"/>
+<circle cx="945.6" cy="306.5" r="3.5" fill="#1f6f8b"/>
+<text x="953.6" y="310.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#1f6f8b">MIRRORED</text>
+<text x="680" y="330" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Versity S3 Gateway in Docker, boto3 upload;</text>
+<text x="680" y="347" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">one endpoint setting switches to real AWS</text>
+<text x="1160" y="290" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">134 files · 872 MB csv.gz</text>
+<line x1="40" y1="362" x2="1160" y2="362" stroke="#d5dde2" stroke-width="1"/>
+<text x="40" y="386" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">PROCESS</text>
+<text x="40" y="407" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Lake processing</text>
+<text x="40" y="426" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Typically Glue / Athena</text>
+<text x="40" y="443" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">jobs inside AWS</text>
+<line x1="540" y1="402" x2="660" y2="402" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="402" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="408" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">3</text>
+<text x="680" y="407" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Raw CSV → typed Parquet</text>
+<rect x="885.2" y="393" width="90" height="19" rx="3" fill="#e3f0f5"/>
+<circle cx="895.2" cy="402.5" r="3.5" fill="#1f6f8b"/>
+<text x="903.2" y="406.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#1f6f8b">MIRRORED</text>
+<text x="680" y="426" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">DuckDB plays the Athena CTAS role: types,</text>
+<text x="680" y="443" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">SAP dates, month partitions, row checks</text>
+<text x="1160" y="386" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">534 MB zstd Parquet</text>
+<line x1="40" y1="458" x2="1160" y2="458" stroke="#d5dde2" stroke-width="1"/>
+<text x="40" y="482" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">TRANSFER</text>
+<text x="40" y="503" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Blob download into SQL Server</text>
+<text x="40" y="522" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Lake files pulled into</text>
+<text x="40" y="539" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">the reporting database</text>
+<line x1="540" y1="498" x2="660" y2="498" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="498" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="504" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">4</text>
+<text x="680" y="503" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Download + BULK INSERT</text>
+<rect x="876.8" y="489" width="90" height="19" rx="3" fill="#e3f0f5"/>
+<circle cx="886.8" cy="498.5" r="3.5" fill="#1f6f8b"/>
+<text x="894.8" y="502.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#1f6f8b">MIRRORED</text>
+<text x="680" y="522" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Landing schema per source system,</text>
+<text x="680" y="539" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">columnstore tables, etl.load_log audit</text>
+<text x="1160" y="482" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">18 tables · counts verified</text>
+<line x1="40" y1="554" x2="1160" y2="554" stroke="#d5dde2" stroke-width="1"/>
+<text x="40" y="578" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">CLEAN</text>
+<text x="40" y="599" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d" opacity="0.6">No dedicated layer</text>
+<text x="40" y="618" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Fixes live in workbook formulas;</text>
+<text x="40" y="635" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">each report cleans data its own way</text>
+<line x1="540" y1="594" x2="660" y2="594" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="594" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="600" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">5</text>
+<text x="680" y="599" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Staging views + business rules</text>
+<rect x="944.0" y="585" width="66" height="19" rx="3" fill="#e6f2e2"/>
+<circle cx="954.0" cy="594.5" r="3.5" fill="#3d7a34"/>
+<text x="962.0" y="598.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#3d7a34">ADDED</text>
+<text x="680" y="618" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">11 DQ fixes in one place: ZIPs, cities, phones,</text>
+<text x="680" y="635" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">duplicate payments, reversed bills</text>
+<text x="1160" y="578" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">14 stg views</text>
+<line x1="40" y1="650" x2="1160" y2="650" stroke="#d5dde2" stroke-width="1"/>
+<text x="40" y="674" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">MODEL</text>
+<text x="40" y="695" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d" opacity="0.6">Logic rebuilt per workbook</text>
+<text x="40" y="714" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">'Past due' or SAIDI can differ</text>
+<text x="40" y="731" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">from report to report</text>
+<line x1="540" y1="690" x2="660" y2="690" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="690" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="696" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">6</text>
+<text x="680" y="695" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Star schema warehouse</text>
+<rect x="868.4" y="681" width="66" height="19" rx="3" fill="#e6f2e2"/>
+<circle cx="878.4" cy="690.5" r="3.5" fill="#3d7a34"/>
+<text x="886.4" y="694.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#3d7a34">ADDED</text>
+<text x="680" y="714" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Month-end AR ledger with 180-day write-offs,</text>
+<text x="680" y="731" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">IEEE 1366 major event days</text>
+<text x="1160" y="674" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">5 dimensions · 11 facts</text>
+<line x1="40" y1="746" x2="1160" y2="746" stroke="#d5dde2" stroke-width="1"/>
+<text x="40" y="770" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">REPORT DATA</text>
+<text x="40" y="791" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Workbook queries against SQL</text>
+<text x="40" y="810" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Each of ~10 Excel files</text>
+<text x="40" y="827" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">pulls its own extract</text>
+<line x1="540" y1="786" x2="660" y2="786" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="786" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="792" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">7</text>
+<text x="680" y="791" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">One view per report</text>
+<rect x="851.6" y="777" width="66" height="19" rx="3" fill="#e6f2e2"/>
+<circle cx="861.6" cy="786.5" r="3.5" fill="#3d7a34"/>
+<text x="869.6" y="790.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#3d7a34">ADDED</text>
+<text x="680" y="810" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Pre-aggregated; revenue split into residential</text>
+<text x="680" y="827" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">and C&amp;I tables sharing a period key</text>
+<text x="1160" y="770" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">21 rpt views</text>
+<line x1="40" y1="842" x2="1160" y2="842" stroke="#d5dde2" stroke-width="1"/>
+<text x="40" y="866" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">STORE &amp; SHARE</text>
+<text x="40" y="887" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">SharePoint</text>
+<text x="40" y="906" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Workbooks in a document library;</text>
+<text x="40" y="923" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">versions tracked by file name</text>
+<line x1="540" y1="882" x2="660" y2="882" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="882" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="888" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">8</text>
+<text x="680" y="887" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">GitHub powerbi_data/</text>
+<rect x="860.0" y="873" width="90" height="19" rx="3" fill="#fbeedf"/>
+<circle cx="870.0" cy="882.5" r="3.5" fill="#a4560f"/>
+<text x="878.0" y="886.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#a4560f">REPLACED</text>
+<text x="680" y="906" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Parquet files, versioned by git,</text>
+<text x="680" y="923" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">read directly by Power BI</text>
+<text x="1160" y="866" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">21 files · 48 MB</text>
+<line x1="40" y1="938" x2="1160" y2="938" stroke="#d5dde2" stroke-width="1"/>
+<text x="40" y="962" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f5f6b">REPORT</text>
+<text x="40" y="983" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">~10 Excel reports</text>
+<text x="40" y="1002" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Manual refresh, row limits,</text>
+<text x="40" y="1019" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">emailed or opened from SharePoint</text>
+<line x1="540" y1="978" x2="660" y2="978" stroke="#4f5f6b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="600" cy="978" r="17" fill="#ffffff" stroke="#16232d" stroke-width="2"/>
+<text x="600" y="984" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#16232d">9</text>
+<text x="680" y="983" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="600" fill="#16232d">Power BI project (PBIP)</text>
+<rect x="885.2" y="969" width="90" height="19" rx="3" fill="#fbeedf"/>
+<circle cx="895.2" cy="978.5" r="3.5" fill="#a4560f"/>
+<text x="903.2" y="982.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#a4560f">REPLACED</text>
+<text x="680" y="1002" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">One semantic model for every page,</text>
+<text x="680" y="1019" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="13" fill="#4f5f6b">Division/Year slicers, one-click refresh</text>
+<text x="1160" y="962" text-anchor="end" font-family="Consolas, Menlo, monospace" font-size="12" fill="#16232d">83 measures · 12 pages</text>
+<text x="40" y="1064" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="12.5" fill="#4f5f6b">In production, Power BI would read SQL Server through an on-premises data gateway, removing stage 8 as a hop. GitHub stands in for it so the demo is public and free.</text>
+<text x="40" y="1084" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#4f5f6b">All data is synthetic. Not affiliated with any utility.</text>
+</svg>

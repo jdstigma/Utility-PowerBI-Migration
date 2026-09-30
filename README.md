@@ -38,6 +38,12 @@ flowchart LR
 | 8 | Publish | `sql/export_powerbi_data.py` → GitHub | SharePoint | 21 Parquet files · 48 MB |
 | 9 | Report | `powerbi/UtilityReporting.pbip` | ~10 Excel workbooks | 83 measures, 12 pages |
 
+### Current setup vs. this demo
+
+Each stage of the company's existing data flow, next to the piece of this demo that plays the same role. **Mirrored** stages keep their role and concept. **Replaced** stages swap Excel and SharePoint for Power BI and versioned data files. **Added** stages are the staging, warehouse and report layers the current setup lacks.
+
+![Process flow: current environment vs this demo](docs/pipeline_crosswalk.svg)
+
 Supporting docs: [architecture](docs/architecture.md) · [report catalog](docs/reports.md) · [source systems & data dictionary](docs/source_systems.md)
 
 ---

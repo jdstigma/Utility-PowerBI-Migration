@@ -18,6 +18,10 @@ Pain points typical of this setup (to confirm in conversation):
 - There is no single definition of measures like "past due" or SAIDI. They get re-derived in pivot tables.
 - Version history and lineage live in SharePoint file names.
 
+## Side-by-side
+
+![Process flow: current environment vs this demo](pipeline_crosswalk.svg)
+
 ## Demo implementation
 
 > **Runs locally for free.** The lake is a Versity S3 Gateway container (S3 API on `localhost:7070`, bucket `utility-lake`), and the Glue/Athena role is played by DuckDB (`lake/build_curated.py`). The diagram below shows the AWS services each local piece stands in for. The same code targets real S3 by clearing `S3_ENDPOINT_URL` (see the README).
