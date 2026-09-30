@@ -1,10 +1,10 @@
 table 'Contact Center'
 	lineageTag: 603b57b2-e34c-eac6-51d2-a0fd533bf716
 
-	measure Contacts = SUM('Contact Center'[contacts])
+	measure 'Total Contacts' = SUM('Contact Center'[contacts])
 		formatString: #,0
 		displayFolder: Contact Center
-		lineageTag: 1da0bbbf-a294-1797-564b-9e30e6af44e1
+		lineageTag: 588904a7-404a-cbc1-8d67-7542e09097aa
 
 	measure 'ASA (sec)' = DIVIDE(CALCULATE(SUM('Contact Center'[wait_sec_total]), 'Contact Center'[channel] = "Phone - Agent"), SUM('Contact Center'[agent_calls]))
 		formatString: #,0.0
@@ -21,7 +21,7 @@ table 'Contact Center'
 		displayFolder: Contact Center
 		lineageTag: d8f83679-c837-0a0e-ac45-19dc5383948d
 
-	measure 'FCR %' = DIVIDE(SUM('Contact Center'[resolved_first_contact]), [Contacts])
+	measure 'FCR %' = DIVIDE(SUM('Contact Center'[resolved_first_contact]), [Total Contacts])
 		formatString: 0.0%
 		displayFolder: Contact Center
 		lineageTag: c0342376-24d1-da7b-641d-cbe5f1a74229
@@ -31,7 +31,7 @@ table 'Contact Center'
 		displayFolder: Contact Center
 		lineageTag: f2a31d83-c005-dba2-cacd-2dbe929992ed
 
-	measure 'Self-Service %' = DIVIDE(CALCULATE([Contacts], 'Contact Center'[is_assisted] = FALSE()), [Contacts])
+	measure 'Self-Service %' = DIVIDE(CALCULATE([Total Contacts], 'Contact Center'[is_assisted] = FALSE()), [Total Contacts])
 		formatString: 0.0%
 		displayFolder: Contact Center
 		lineageTag: 1dde5300-b3e8-71aa-672d-d85e3265d4b2

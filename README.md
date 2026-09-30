@@ -36,7 +36,7 @@ flowchart LR
 | 6 | Warehouse | `sql/02–05_dw_*.sql` | One shared definition of every measure | 5 dimensions + 11 facts |
 | 7 | Report views | `sql/06_rpt.sql` | The data behind each Excel workbook | 21 `rpt` views |
 | 8 | Publish | `sql/export_powerbi_data.py` → GitHub | SharePoint | 21 Parquet files · 48 MB |
-| 9 | Report | Power BI Desktop | ~10 Excel workbooks | 10 report pages + Customer 360 |
+| 9 | Report | `powerbi/UtilityReporting.pbip` | ~10 Excel workbooks | 83 measures, 12 pages |
 
 Supporting docs: [architecture](docs/architecture.md) · [report catalog](docs/reports.md) · [source systems & data dictionary](docs/source_systems.md)
 
@@ -265,7 +265,38 @@ python sql/export_powerbi_data.py      # ~3 min
 
 ## Stage 9 · Power BI
 
-*In progress:* a semantic model over `powerbi_data/`, with one shared set of DAX measures and 10 report pages plus Customer 360 drill-through. See [docs/reports.md](docs/reports.md) for what each page shows and how it improves on the Excel version.
+**What:** a **Power BI Project** (`powerbi/UtilityReporting.pbip`) that replaces the ~10 Excel workbooks. It's stored as text files, so every change to a measure or visual shows up as a readable diff in git.
+
+- **Semantic model** (`UtilityReporting.SemanticModel/`, TMDL): 23 tables, 31 relationships, **83 DAX measures** defined once and reused on every page. Every table loads straight from this repo's `powerbi_data/` through one `BaseUrl` parameter (`Web.Contents` + `Parquet.Document`), so **Refresh pulls the latest published files**, the way the Excel reports pulled from SharePoint.
+- **Report** (`UtilityReporting.Report/`, PBIR): 12 pages, 109 visuals, with Division and Year slicers on each page.
+
+| Page | Highlights |
+|---|---|
+| Revenue & Billing | **Residential (columns, left axis) vs C&I (line, right axis)** on one month axis; YoY % for each class; revenue by rate |
+| AR Aging | Month-end receivables by aging bucket, % past due, 180-day write-offs, top past-due accounts |
+| Payments & Digital | Autopay and paperless adoption trend, payments by channel, energy-assistance credits |
+| Usage & AMI | Daily kWh per meter vs temperature (dual axis), read success %, spikes, weekday profile |
+| Outage & Reliability | SAIDI / SAIFI / CAIDI with and without major event days (IEEE 1366), causes, worst circuits |
+| Work Order Backlog | Open and overdue backlog by asset class, on-time completion, planned vs actual cost |
+| Contact Center | Volume, ASA, service level, AHT, FCR, CSAT; storm and rate-change spikes |
+| Credit & Collections | Disconnects and reconnects, winter-moratorium exceptions, medical-certificate protection, plan defaults |
+| Meter-to-Cash Exceptions | Estimated, zero-usage and high-variance bills, reversals |
+| Service Orders | Volume and cycle time by order type |
+| Customer 360 | Pick a customer: profile, balances, last 3 months of bills |
+| Data Quality | Every issue the staging layer found and fixed |
+
+**Open it:**
+1. Open `powerbi/UtilityReporting.pbip` in Power BI Desktop (Sept 2026 or later).
+2. Click **Refresh now**, then **Refresh now** again: the first click applies the relationships, the second loads data. About 1 minute for 48 MB.
+3. If prompted for credentials for `raw.githubusercontent.com`, choose **Anonymous**.
+
+A PBIP doesn't store data, so each fresh clone needs one refresh. Use **File → Save As → .pbix** to share a single file.
+
+**Regenerate** after changing measures, pages or exported views. Columns and types are read from the Parquet files, so the model can't drift from the data:
+
+```bash
+python powerbi/build_pbip.py
+```
 
 ---
 
@@ -283,6 +314,7 @@ python lake/build_curated.py
 python lake/download_to_sql.py
 python sql/build_warehouse.py
 python sql/export_powerbi_data.py
+python powerbi/build_pbip.py          # then open powerbi/UtilityReporting.pbip and Refresh
 ```
 
 Generated data, lake storage and database files live under `%UTILITY_DATA_DIR%` (default `C:\Data\utility-powerbi`), outside the repo and OneDrive.

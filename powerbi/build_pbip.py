@@ -187,13 +187,13 @@ MEASURES = {
         ("Avg Backlog Age (days)", "AVERAGE('Work Order Backlog'[open_age_days])", DEC1, "Work Orders"),
     ],
     "Contact Center": [
-        ("Contacts", "SUM('Contact Center'[contacts])", INT, "Contact Center"),
+        ("Total Contacts", "SUM('Contact Center'[contacts])", INT, "Contact Center"),
         ("ASA (sec)", "DIVIDE(CALCULATE(SUM('Contact Center'[wait_sec_total]), 'Contact Center'[channel] = \"Phone - Agent\"), SUM('Contact Center'[agent_calls]))", DEC1, "Contact Center"),
         ("Service Level (30s) %", "DIVIDE(SUM('Contact Center'[answered_within_30s]), SUM('Contact Center'[agent_calls]))", PCT, "Contact Center"),
         ("AHT (min)", "DIVIDE(CALCULATE(SUM('Contact Center'[handle_sec_total]), 'Contact Center'[is_assisted] = TRUE()), CALCULATE(SUM('Contact Center'[contacts]), 'Contact Center'[is_assisted] = TRUE())) / 60", DEC1, "Contact Center"),
-        ("FCR %", "DIVIDE(SUM('Contact Center'[resolved_first_contact]), [Contacts])", PCT, "Contact Center"),
+        ("FCR %", "DIVIDE(SUM('Contact Center'[resolved_first_contact]), [Total Contacts])", PCT, "Contact Center"),
         ("CSAT (avg)", "DIVIDE(SUM('Contact Center'[csat_total]), SUM('Contact Center'[csat_responses]))", DEC2, "Contact Center"),
-        ("Self-Service %", "DIVIDE(CALCULATE([Contacts], 'Contact Center'[is_assisted] = FALSE()), [Contacts])", PCT, "Contact Center"),
+        ("Self-Service %", "DIVIDE(CALCULATE([Total Contacts], 'Contact Center'[is_assisted] = FALSE()), [Total Contacts])", PCT, "Contact Center"),
     ],
     "Collections Orders": [
         ("Disconnects", "CALCULATE(SUM('Collections Orders'[orders]), 'Collections Orders'[order_type] = \"Disconnect for Non-Pay\", 'Collections Orders'[status] = \"Completed\")", INT, "Collections"),
@@ -420,7 +420,7 @@ PAGES = [
                {"Category": ["Date[date]"], "Y": ["[Avg Daily kWh per Meter]"], "Y2": ["[Avg Temp (F)]"]},
                "Daily kWh per meter (columns) vs temperature (line)", sort=("Date[date]", "Ascending")),
         visual("clusteredColumnChart", 20, 515, 610, 185, {"Category": ["Date[day_name]"], "Y": ["[Avg Daily kWh per Meter]"]},
-               "Usage by day of week"),
+               "Usage by day of week", sort=("Date[day_name]", "Ascending")),
         visual("clusteredBarChart", 640, 515, 620, 185, {"Category": ["AMI Daily[elec_rate_code]"],
                "Y": ["[Avg Daily kWh per Meter]"]}, "Usage by rate"),
     ]),
@@ -442,14 +442,14 @@ PAGES = [
                "Y": ["[Open Backlog]", "[Overdue Work Orders]"]}, "Open backlog by asset class",
                sort=("[Open Backlog]", "Descending")),
     ]),
-    ("Contact Center", slicers() + cards(["[Contacts]", "[ASA (sec)]", "[Service Level (30s) %]", "[AHT (min)]",
+    ("Contact Center", slicers() + cards(["[Total Contacts]", "[ASA (sec)]", "[Service Level (30s) %]", "[AHT (min)]",
                                           "[FCR %]", "[CSAT (avg)]"]) + [
-        visual("lineChart", 20, 175, 1240, 260, {"Category": ["Date[date]"], "Y": ["[Contacts]"]},
+        visual("lineChart", 20, 175, 1240, 260, {"Category": ["Date[date]"], "Y": ["[Total Contacts]"]},
                "Daily contacts (storm and rate-change spikes)", sort=("Date[date]", "Ascending")),
-        visual("clusteredBarChart", 20, 445, 610, 255, {"Category": ["Contact Center[reason]"], "Y": ["[Contacts]"]},
-               "Contacts by reason", sort=("[Contacts]", "Descending")),
+        visual("clusteredBarChart", 20, 445, 610, 255, {"Category": ["Contact Center[reason]"], "Y": ["[Total Contacts]"]},
+               "Contacts by reason", sort=("[Total Contacts]", "Descending")),
         visual("clusteredBarChart", 640, 445, 620, 255, {"Category": ["Contact Center[channel]"],
-               "Y": ["[Contacts]"]}, "Contacts by channel", sort=("[Contacts]", "Descending")),
+               "Y": ["[Total Contacts]"]}, "Contacts by channel", sort=("[Total Contacts]", "Descending")),
     ]),
     ("Credit & Collections", slicers() + cards(["[Disconnects]", "[Reconnect Rate %]", "[Reconnect Within 1 Day %]",
                                                 "[Moratorium Exceptions]", "[Medical Cert Disconnects]",
@@ -534,7 +534,21 @@ def write_report():
         "pageOrder": order, "activePageName": order[0]}, indent=2))
 
 
+def check_names():
+    """Measure names must be unique model-wide and must not match a column in their table (case-insensitive)."""
+    seen = {}
+    for table, ms in MEASURES.items():
+        cols = {f.name.lower() for f in pq.read_schema(DATA / f"{TABLES[table]}.parquet")}
+        for m, *_ in ms:
+            if m.lower() in cols:
+                raise SystemExit(f"measure '{m}' collides with a column in '{table}'")
+            if m.lower() in seen:
+                raise SystemExit(f"measure '{m}' defined in both '{seen[m.lower()]}' and '{table}'")
+            seen[m.lower()] = table
+
+
 def main():
+    check_names()
     for p in (OUT / f"{NAME}.SemanticModel", OUT / f"{NAME}.Report"):
         if p.exists():
             shutil.rmtree(p)

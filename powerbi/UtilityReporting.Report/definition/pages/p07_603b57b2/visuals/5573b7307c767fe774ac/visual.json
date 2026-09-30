@@ -41,11 +41,11 @@
                       "Entity": "Contact Center"
                     }
                   },
-                  "Property": "Contacts"
+                  "Property": "Total Contacts"
                 }
               },
-              "queryRef": "Contact Center.Contacts",
-              "nativeQueryRef": "Contacts"
+              "queryRef": "Contact Center.Total Contacts",
+              "nativeQueryRef": "Total Contacts"
             }
           ]
         }
@@ -60,7 +60,7 @@
                     "Entity": "Contact Center"
                   }
                 },
-                "Property": "Contacts"
+                "Property": "Total Contacts"
               }
             },
             "direction": "Descending"
