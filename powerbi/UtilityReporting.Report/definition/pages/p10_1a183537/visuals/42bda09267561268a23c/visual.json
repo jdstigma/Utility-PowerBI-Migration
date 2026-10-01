@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "42bda09267561268a23c",
   "position": {
     "x": 640,
     "y": 175,
     "z": 7,
-    "width": 620,
     "height": 525,
+    "width": 620,
     "tabOrder": 7
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Period.year_month",
-              "nativeQueryRef": "year_month"
+              "nativeQueryRef": "year_month",
+              "active": true
             }
           ]
         },
@@ -83,11 +84,9 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -109,6 +108,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

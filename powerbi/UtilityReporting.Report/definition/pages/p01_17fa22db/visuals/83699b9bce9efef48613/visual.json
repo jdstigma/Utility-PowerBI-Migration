@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "83699b9bce9efef48613",
   "position": {
     "x": 850,
     "y": 445,
     "z": 9,
-    "width": 410,
     "height": 255,
+    "width": 410,
     "tabOrder": 9
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Revenue Commercial.elec_rate_code",
-              "nativeQueryRef": "elec_rate_code"
+              "nativeQueryRef": "elec_rate_code",
+              "active": true
             }
           ]
         },
@@ -51,7 +52,21 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -73,6 +88,39 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0e5d1a049aa54dbec891",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Revenue Commercial"
+              }
+            },
+            "Property": "elec_rate_code"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "af75cbe75e340829c702",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Revenue Commercial"
+              }
+            },
+            "Property": "C&I Revenue"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "3429ba309e8cf5043980",
   "position": {
     "x": 850,
     "y": 175,
     "z": 8,
-    "width": 410,
     "height": 255,
+    "width": 410,
     "tabOrder": 8
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Revenue Residential.elec_rate_code",
-              "nativeQueryRef": "elec_rate_code"
+              "nativeQueryRef": "elec_rate_code",
+              "active": true
             }
           ]
         },
@@ -51,7 +52,21 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -73,6 +88,39 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b79016582c07809a24c7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Revenue Residential"
+              }
+            },
+            "Property": "elec_rate_code"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "812dac2830ebc887cb60",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Revenue Residential"
+              }
+            },
+            "Property": "Residential Revenue"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

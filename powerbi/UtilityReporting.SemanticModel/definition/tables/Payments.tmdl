@@ -30,6 +30,8 @@ table Payments
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column channel
 		dataType: string
 		lineageTag: e12ab1d0-bf9b-f7b3-d089-dedb3a90e472

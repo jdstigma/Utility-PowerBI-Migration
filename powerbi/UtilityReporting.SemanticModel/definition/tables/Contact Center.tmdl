@@ -45,6 +45,8 @@ table 'Contact Center'
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column channel
 		dataType: string
 		lineageTag: 2fb3871f-7436-ee8c-f142-578bd1530e57

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "d8ba4a9afabe872c9793",
   "position": {
     "x": 20,
     "y": 440,
     "z": 10,
-    "width": 1240,
     "height": 260,
+    "width": 1240,
     "tabOrder": 10
   },
   "visual": {
@@ -131,11 +131,9 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -157,6 +155,109 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b2f87b90d79dcd166a1b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Customer Bills"
+              }
+            },
+            "Property": "bill_date"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "fac17a0d4a0b8ec20087",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Customer Bills"
+              }
+            },
+            "Property": "bill_type"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3095910dd3d0b7b08a28",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Customer Bills"
+              }
+            },
+            "Property": "kwh"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b2b985e4805ce0107085",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Customer Bills"
+              }
+            },
+            "Property": "therms"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "641413a06d32cb70a949",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Customer Bills"
+              }
+            },
+            "Property": "total_amt"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "312e6a9426ecb977e021",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Customer Bills"
+              }
+            },
+            "Property": "paid_amt"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "054ab15bac1e71b9c058",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Customer Bills"
+              }
+            },
+            "Property": "due_date"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

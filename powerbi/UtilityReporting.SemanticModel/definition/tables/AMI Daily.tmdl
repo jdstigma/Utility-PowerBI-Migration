@@ -30,6 +30,8 @@ table 'AMI Daily'
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column division
 		dataType: string
 		lineageTag: f371e413-1a5c-a8c3-8874-794d90137f4e

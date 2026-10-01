@@ -59,6 +59,8 @@ table 'Revenue Residential'
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column customer_class
 		dataType: string
 		lineageTag: b15b57bc-51e8-45df-b948-41446d21c20a

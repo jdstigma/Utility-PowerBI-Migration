@@ -20,6 +20,8 @@ table Rebills
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column reversed_bills
 		dataType: int64
 		formatString: #,0

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "f382a84d83e710658f54",
   "position": {
     "x": 850,
     "y": 175,
     "z": 9,
-    "width": 410,
     "height": 525,
+    "width": 410,
     "tabOrder": 9
   },
   "visual": {
@@ -27,25 +27,8 @@
                 }
               },
               "queryRef": "Payment Plans.plan_type",
-              "nativeQueryRef": "plan_type"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Payment Plans"
-                    }
-                  },
-                  "Property": "Payment Plans Created"
-                }
-              },
-              "queryRef": "Payment Plans.Payment Plans Created",
-              "nativeQueryRef": "Payment Plans Created"
+              "nativeQueryRef": "plan_type",
+              "active": true
             }
           ]
         },
@@ -66,10 +49,27 @@
               "nativeQueryRef": "status"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Payment Plans"
+                    }
+                  },
+                  "Property": "Payment Plans Created"
+                }
+              },
+              "queryRef": "Payment Plans.Payment Plans Created",
+              "nativeQueryRef": "Payment Plans Created"
+            }
+          ]
         }
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -91,6 +91,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

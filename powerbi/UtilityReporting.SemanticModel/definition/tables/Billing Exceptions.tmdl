@@ -35,6 +35,8 @@ table 'Billing Exceptions'
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column division
 		dataType: string
 		lineageTag: 137a7e29-d7da-f86b-b6a2-4c7cc638f475

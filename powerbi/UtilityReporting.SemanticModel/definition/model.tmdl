@@ -8,6 +8,10 @@ model Model
 
 annotation PBI_QueryOrder = ["BaseUrl", "Period", "Date", "Division", "Revenue Residential", "Revenue Commercial", "AR Aging", "AR Top Accounts", "Payments", "Digital Adoption", "AMI Daily", "Outages", "Work Orders", "Work Order Backlog", "Contact Center", "Collections Orders", "Moratorium Compliance", "Payment Plans", "Billing Exceptions", "Rebills", "Service Orders", "Customer 360", "Customer Bills", "Data Quality"]
 
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
 ref table Period
 ref table Date
 ref table Division

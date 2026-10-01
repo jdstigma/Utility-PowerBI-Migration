@@ -32,6 +32,8 @@ table Date
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column period_key
 		dataType: int64
 		formatString: 0
@@ -49,6 +51,8 @@ table Date
 		sourceColumn: month_start
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column year_month
 		dataType: string

@@ -388,9 +388,34 @@ def cards(measures, y=70, h=90):
     return [visual("card", 20 + i * (w + 10), y, w, h, {"Values": [m]}) for i, m in enumerate(measures)]
 
 
-def slicers(y=10):
-    return [visual("slicer", 1040, y, 220, 50, {"Values": ["Division[division]"]}, "Division"),
-            visual("slicer", 800, y, 220, 50, {"Values": ["Period[year]"]}, "Year")]
+def _lit(v):
+    return {"expr": {"Literal": {"Value": v}}}
+
+
+def slicer(ref, x, w, title, kind="dropdown", search=False):
+    """Slicer row format: 82px tall at the top of the page, title and hover header hidden.
+    kind='between' is a range slider (numeric fields); 'dropdown' is single-select with Select all."""
+    v = visual("slicer", x, 0, w, 82.33, {"Values": [ref]})
+    if kind == "between":
+        objs = {"data": [{"properties": {"mode": _lit("'Between'")}}],
+                "slider": [{"properties": {"show": _lit("true")}}],
+                "header": [{"properties": {"show": _lit("false")}}]}
+    else:
+        objs = {"data": [{"properties": {"mode": _lit("'Dropdown'")}}],
+                "selection": [{"properties": {"selectAllCheckboxEnabled": _lit("true"), "singleSelect": _lit("true")}}],
+                "header": [{"properties": {"show": _lit("true"), "text": _lit(f"'{title}'")}}]}
+        if search:
+            objs["general"] = [{"properties": {"selfFilterEnabled": _lit("true")}}]
+    v["visual"]["objects"] = objs
+    v["visual"]["visualContainerObjects"] = {
+        "title": [{"properties": {"show": _lit("false"), "text": _lit(f"'{title}'")}}],
+        "visualHeader": [{"properties": {"show": _lit("false")}}]}
+    return v
+
+
+def slicers():
+    return [slicer("Division[division]", 1044.26, 215.44, "Division"),
+            slicer("Period[year]", 0, 212.69, "Year", kind="between")]
 
 
 PAGES = [
@@ -482,8 +507,8 @@ PAGES = [
                "Y": ["[Service Orders Created]"]}, "Service orders created", sort=("Period[year_month]", "Ascending")),
     ]),
     ("Customer 360", [
-        visual("slicer", 20, 10, 400, 50, {"Values": ["Customer 360[customer_name]"]}, "Customer"),
-        visual("slicer", 430, 10, 220, 50, {"Values": ["Customer 360[customer_id]"]}, "Customer ID"),
+        slicer("Customer 360[customer_name]", 224.69, 400, "Customer", search=True),
+        slicer("Customer 360[customer_id]", 636.69, 220, "Customer ID", search=True),
         ] + slicers() + cards(["[Customers]", "[Open Balance]", "[Past Due Balance]", "[Billed (Last 3 Mo)]",
                                "[Paid (Last 3 Mo)]"]) + [
         visual("tableEx", 20, 175, 1240, 255, {"Values": ["Customer 360[customer_id]", "Customer 360[customer_name]",

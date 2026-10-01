@@ -30,6 +30,8 @@ table 'Work Orders'
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column order_type
 		dataType: string
 		lineageTag: 3ce4396b-783a-0fb9-c01d-db256c19cccd

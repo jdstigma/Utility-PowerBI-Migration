@@ -29,7 +29,7 @@ table 'Customer 360'
 		dataType: int64
 		formatString: 0
 		lineageTag: fab5ad78-a95b-7afc-11de-8eb0fc098d1f
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: account_id
 
 		annotation SummarizationSetBy = Automatic
@@ -93,7 +93,7 @@ table 'Customer 360'
 	column latitude
 		dataType: double
 		lineageTag: 9f9f34f5-4ffb-f476-fb03-894367ae2f57
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: latitude
 
 		annotation SummarizationSetBy = Automatic
@@ -101,7 +101,7 @@ table 'Customer 360'
 	column longitude
 		dataType: double
 		lineageTag: ffb4128f-164f-06ce-575c-422505b4b848
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: longitude
 
 		annotation SummarizationSetBy = Automatic
@@ -155,6 +155,8 @@ table 'Customer 360'
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column move_out_date
 		dataType: dateTime
 		formatString: Short Date
@@ -163,6 +165,8 @@ table 'Customer 360'
 		sourceColumn: move_out_date
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column is_active
 		dataType: boolean
@@ -175,7 +179,7 @@ table 'Customer 360'
 	column tenure_years
 		dataType: double
 		lineageTag: 2235a132-4ca2-4807-a86c-eaf99b4081bc
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: tenure_years
 
 		annotation SummarizationSetBy = Automatic

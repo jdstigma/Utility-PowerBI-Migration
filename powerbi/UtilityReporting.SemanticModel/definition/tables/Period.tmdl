@@ -19,6 +19,8 @@ table Period
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column month_end
 		dataType: dateTime
 		formatString: Short Date
@@ -28,11 +30,13 @@ table Period
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column year
 		dataType: int64
 		formatString: 0
 		lineageTag: ad396e6d-8287-2b7f-32ae-1ec9fbae25cb
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: year
 
 		annotation SummarizationSetBy = Automatic
@@ -41,7 +45,7 @@ table Period
 		dataType: int64
 		formatString: 0
 		lineageTag: a8897a9a-882e-def5-bb69-733039839d57
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: quarter
 
 		annotation SummarizationSetBy = Automatic
@@ -50,7 +54,7 @@ table Period
 		dataType: int64
 		formatString: 0
 		lineageTag: 5ae1285d-435b-437e-5156-c33c663d6ff7
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: month_num
 
 		annotation SummarizationSetBy = Automatic

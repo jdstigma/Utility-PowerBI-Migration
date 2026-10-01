@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "6d7696ede2a5a2b2be56",
   "position": {
     "x": 20,
     "y": 515,
     "z": 8,
-    "width": 610,
     "height": 185,
+    "width": 610,
     "tabOrder": 8
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Date.day_name",
-              "nativeQueryRef": "day_name"
+              "nativeQueryRef": "day_name",
+              "active": true
             }
           ]
         },
@@ -65,11 +66,9 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -91,6 +90,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

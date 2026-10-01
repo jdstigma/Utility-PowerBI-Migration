@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "a72b94de6e05fbf3af5b",
   "position": {
     "x": 20,
     "y": 175,
     "z": 7,
-    "width": 820,
     "height": 525,
+    "width": 820,
     "tabOrder": 7
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Period.year_month",
-              "nativeQueryRef": "year_month"
+              "nativeQueryRef": "year_month",
+              "active": true
             }
           ]
         },
@@ -83,11 +84,58 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Auto'"
+                }
+              }
+            },
+            "enableDetailDataLabel": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "showMarker": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "markerSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -109,6 +157,53 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fc576fd70aa0066ea032",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Period"
+              }
+            },
+            "Property": "year_month"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "267af7aa9eaa8400757c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Revenue Residential"
+              }
+            },
+            "Property": "Residential Revenue"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "86b182aedcde8b937b33",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Revenue Commercial"
+              }
+            },
+            "Property": "C&I Revenue"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

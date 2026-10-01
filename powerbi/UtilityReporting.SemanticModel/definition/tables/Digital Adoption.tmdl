@@ -25,6 +25,8 @@ table 'Digital Adoption'
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column segment
 		dataType: string
 		lineageTag: a1533c8e-da9f-29cd-7f64-6c3778c66cad

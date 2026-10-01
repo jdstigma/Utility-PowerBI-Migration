@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "0c3db72ecc8d2533fba1",
   "position": {
     "x": 640,
     "y": 515,
     "z": 9,
-    "width": 620,
     "height": 185,
+    "width": 620,
     "tabOrder": 9
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "AMI Daily.elec_rate_code",
-              "nativeQueryRef": "elec_rate_code"
+              "nativeQueryRef": "elec_rate_code",
+              "active": true
             }
           ]
         },
@@ -51,7 +52,6 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -73,6 +73,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }
