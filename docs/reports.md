@@ -14,6 +14,7 @@ These are the ten proposed reports that replace the current Excel workbooks. Eac
 | 8 | **Credit & Collections Actions** | Credit & Collections, Regulatory | Disconnects for non-pay, reconnect rate & time, payment arrangements (DPA/WTP) and default rate, winter-moratorium compliance, medical-certificate protections | ZSRVORD, ZINSTPLAN, FKKVKP |
 | 9 | **Meter-to-Cash Exceptions** | Billing Ops | Estimated bills %, consecutive estimates, zero-usage bills on active accounts, high-bill variance (>50% vs prior), rebills/reversals | ERCH, EQUI |
 | 10 | **Service Order Activity** | Field Ops, Customer Ops | Move-ins/outs, new service connections, meter exchanges, cycle time vs target, open order aging | ZSRVORD |
+| 11 | **Outage Forecast** | Electric Operations, Emergency Management | Expected outages and customers out for the next 16 days by division, from a live weather API scored by a Poisson model trained on outage history; risk level vs a normal day; held-out back-test accuracy | Open-Meteo forecast, OMS, weather |
 | – | **Customer 360** (drill-through) | Everyone | Account profile, bill history, payments, contacts, orders, outages in their town | all |
 
 ## What Power BI improves over the Excel versions

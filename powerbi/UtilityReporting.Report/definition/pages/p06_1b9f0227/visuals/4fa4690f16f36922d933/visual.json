@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "4fa4690f16f36922d933",
+  "position": {
+    "x": 436.67,
+    "y": 70,
+    "z": 3,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "Max Gust (mph)"
+                }
+              },
+              "queryRef": "Weather Forecast.Max Gust (mph)",
+              "nativeQueryRef": "Max Gust (mph)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

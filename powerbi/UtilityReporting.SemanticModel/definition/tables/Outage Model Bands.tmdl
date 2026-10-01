@@ -1,0 +1,97 @@
+table 'Outage Model Bands'
+	lineageTag: b3b8a9fe-afe4-716a-5f82-99b045856a10
+
+	measure 'Historical Outages per 100K' = AVERAGE('Outage Model Bands'[outages_per_100k])
+		formatString: #,0.00
+		displayFolder: Outage Forecast
+		lineageTag: 19e9e7ef-288d-d477-5b59-3d874bff0712
+
+	column band
+		dataType: string
+		sortByColumn: band_order
+		lineageTag: 28e1ed4b-2aa3-da60-08e9-ef9e41fa42b6
+		summarizeBy: none
+		sourceColumn: band
+
+		annotation SummarizationSetBy = Automatic
+
+	column gust_min
+		dataType: int64
+		formatString: #,0
+		lineageTag: 93bb45a0-5124-7e63-23fa-54c8f1cc2ba8
+		summarizeBy: sum
+		sourceColumn: gust_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column gust_max
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3c8b3a54-b266-f9cc-1b04-85879333b63e
+		summarizeBy: sum
+		sourceColumn: gust_max
+
+		annotation SummarizationSetBy = Automatic
+
+	column band_order
+		dataType: int64
+		formatString: #,0
+		lineageTag: d2eb15d1-5f38-16ef-1617-a1856ed4219c
+		summarizeBy: sum
+		sourceColumn: band_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column division_days
+		dataType: int64
+		formatString: #,0
+		lineageTag: 6c9b104c-b4ba-f732-f3ba-45bdf3982d6b
+		summarizeBy: sum
+		sourceColumn: division_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column days
+		dataType: int64
+		formatString: #,0
+		lineageTag: b291f404-2a02-486d-bc2f-8321d005319f
+		summarizeBy: sum
+		sourceColumn: days
+
+		annotation SummarizationSetBy = Automatic
+
+	column outages_per_100k
+		dataType: double
+		lineageTag: 1b41059d-5af0-f992-78e1-fd98bef04ba5
+		summarizeBy: sum
+		sourceColumn: outages_per_100k
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers_per_event
+		dataType: double
+		lineageTag: 81bf3317-031b-c8ce-ff33-765cac9a91c3
+		summarizeBy: sum
+		sourceColumn: customers_per_event
+
+		annotation SummarizationSetBy = Automatic
+
+	column minutes_per_event
+		dataType: double
+		lineageTag: a7fd4dfd-db0d-1ff1-ae8a-5369720adb5c
+		summarizeBy: sum
+		sourceColumn: minutes_per_event
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Outage Model Bands' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "outage_model_bands.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"band", type text}, {"gust_min", Int64.Type}, {"gust_max", Int64.Type}, {"band_order", Int64.Type}, {"division_days", Int64.Type}, {"days", Int64.Type}, {"outages_per_100k", type number}, {"customers_per_event", type number}, {"minutes_per_event", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

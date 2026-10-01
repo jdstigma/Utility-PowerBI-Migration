@@ -1,0 +1,48 @@
+table 'Outage Risk Levels'
+	lineageTag: 1d49584c-6752-4acb-aab0-4ec010b0127e
+
+	column ratio_min
+		dataType: double
+		lineageTag: e591fbc9-227e-5b2b-d246-8c487526f1d4
+		summarizeBy: sum
+		sourceColumn: ratio_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column ratio_max
+		dataType: double
+		lineageTag: ff039094-84f9-d2da-16f0-d18fb540aaee
+		summarizeBy: sum
+		sourceColumn: ratio_max
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_level
+		dataType: string
+		sortByColumn: risk_order
+		lineageTag: a5793b95-0fe0-8a46-0ebb-70555433f4fc
+		summarizeBy: none
+		sourceColumn: risk_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_order
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3c1aaad4-5b72-45c7-f5de-d787a8cba9f6
+		summarizeBy: sum
+		sourceColumn: risk_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Outage Risk Levels' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "outage_model_risk_levels.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"ratio_min", type number}, {"ratio_max", type number}, {"risk_level", type text}, {"risk_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

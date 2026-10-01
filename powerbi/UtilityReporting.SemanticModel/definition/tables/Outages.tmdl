@@ -45,7 +45,7 @@ table Outages
 		dataType: int64
 		formatString: 0
 		lineageTag: aaccd111-8822-46b3-bb27-0d4036cc2818
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: outage_id
 
 		annotation SummarizationSetBy = Automatic
@@ -76,8 +76,6 @@ table Outages
 		sourceColumn: outage_date
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column duration_min
 		dataType: double

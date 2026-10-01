@@ -1,0 +1,110 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "01c08dbe898efc9482cd",
+  "position": {
+    "x": 20,
+    "y": 485,
+    "z": 9,
+    "width": 500,
+    "height": 215,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outage Backtest"
+                    }
+                  },
+                  "Property": "date"
+                }
+              },
+              "queryRef": "Outage Backtest.date",
+              "nativeQueryRef": "date"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outage Backtest"
+                    }
+                  },
+                  "Property": "Backtest Actual Outages"
+                }
+              },
+              "queryRef": "Outage Backtest.Backtest Actual Outages",
+              "nativeQueryRef": "Backtest Actual Outages"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outage Backtest"
+                    }
+                  },
+                  "Property": "Backtest Predicted Outages"
+                }
+              },
+              "queryRef": "Outage Backtest.Backtest Predicted Outages",
+              "nativeQueryRef": "Backtest Predicted Outages"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Outage Backtest"
+                  }
+                },
+                "Property": "date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Back-test: actual vs predicted outages, Apr-Sep 2026 (held out)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

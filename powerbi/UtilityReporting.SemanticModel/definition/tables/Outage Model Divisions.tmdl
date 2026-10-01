@@ -1,0 +1,55 @@
+table 'Outage Model Divisions'
+	lineageTag: f659258d-d724-7938-b115-8cf15b86e19d
+
+	column division
+		dataType: string
+		lineageTag: 17e58ad3-434c-824b-28ff-e63dec23e512
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers_served
+		dataType: int64
+		formatString: #,0
+		lineageTag: e74a95ac-b53e-a2db-4f16-e5a8abd880a3
+		summarizeBy: sum
+		sourceColumn: customers_served
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: 5cddcc3f-5cd9-844b-7a9c-2a533ad18b59
+		summarizeBy: none
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column longitude
+		dataType: double
+		lineageTag: 9db16a33-48d2-7df4-6a74-efe8cece7d16
+		summarizeBy: none
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column baseline_outages
+		dataType: double
+		lineageTag: b6610765-066e-1fc6-37a5-ab67d1e3e54a
+		summarizeBy: sum
+		sourceColumn: baseline_outages
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Outage Model Divisions' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "outage_model_divisions.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"division", type text}, {"customers_served", Int64.Type}, {"latitude", type number}, {"longitude", type number}, {"baseline_outages", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

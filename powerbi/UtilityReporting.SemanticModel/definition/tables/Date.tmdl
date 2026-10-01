@@ -32,8 +32,6 @@ table Date
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column period_key
 		dataType: int64
 		formatString: 0
@@ -51,8 +49,6 @@ table Date
 		sourceColumn: month_start
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column year_month
 		dataType: string
@@ -90,6 +86,7 @@ table Date
 
 	column day_name
 		dataType: string
+		sortByColumn: day_of_week
 		lineageTag: b434ace6-ff3e-3361-2d1a-1f14ba7202d3
 		summarizeBy: none
 		sourceColumn: day_name

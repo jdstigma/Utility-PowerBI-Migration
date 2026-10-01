@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "def7650ae457295924f6",
+  "position": {
+    "x": 530,
+    "y": 485,
+    "z": 10,
+    "width": 350,
+    "height": 215,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outage Model Bands"
+                    }
+                  },
+                  "Property": "band"
+                }
+              },
+              "queryRef": "Outage Model Bands.band",
+              "nativeQueryRef": "band"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Outage Model Bands"
+                    }
+                  },
+                  "Property": "Historical Outages per 100K"
+                }
+              },
+              "queryRef": "Outage Model Bands.Historical Outages per 100K",
+              "nativeQueryRef": "Historical Outages per 100K"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Outage Model Bands"
+                  }
+                },
+                "Property": "band"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'History: outages per 100K customers by wind gust'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

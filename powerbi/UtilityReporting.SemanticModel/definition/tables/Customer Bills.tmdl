@@ -15,7 +15,7 @@ table 'Customer Bills'
 		dataType: int64
 		formatString: 0
 		lineageTag: 8f58f43b-7686-e633-e35c-4ef6fd9e7d9b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: bill_id
 
 		annotation SummarizationSetBy = Automatic
@@ -38,8 +38,6 @@ table 'Customer Bills'
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column due_date
 		dataType: dateTime
 		formatString: Short Date
@@ -48,8 +46,6 @@ table 'Customer Bills'
 		sourceColumn: due_date
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column period_start
 		dataType: dateTime
@@ -60,8 +56,6 @@ table 'Customer Bills'
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column period_end
 		dataType: dateTime
 		formatString: Short Date
@@ -70,8 +64,6 @@ table 'Customer Bills'
 		sourceColumn: period_end
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column bill_type
 		dataType: string

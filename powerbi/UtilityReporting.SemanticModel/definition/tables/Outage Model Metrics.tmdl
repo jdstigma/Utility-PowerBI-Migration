@@ -1,0 +1,40 @@
+table 'Outage Model Metrics'
+	lineageTag: 2770cc49-4f16-399e-f70a-3d614e45ad67
+
+	column metric
+		dataType: string
+		sortByColumn: metric_order
+		lineageTag: 9ee25f57-5eb8-d80d-3140-7c2d74a6012e
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: string
+		lineageTag: 83603cae-3b2c-def4-7c48-3535e5839f8f
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric_order
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5bd9e23d-302d-a5cd-5f3d-a17ca24679e6
+		summarizeBy: sum
+		sourceColumn: metric_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Outage Model Metrics' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "outage_model_metrics.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"metric", type text}, {"value", type text}, {"metric_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

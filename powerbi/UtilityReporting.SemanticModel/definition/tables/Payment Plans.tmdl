@@ -20,8 +20,6 @@ table 'Payment Plans'
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column plan_type
 		dataType: string
 		lineageTag: c6bc7590-f0a3-629a-7754-b7182075e540

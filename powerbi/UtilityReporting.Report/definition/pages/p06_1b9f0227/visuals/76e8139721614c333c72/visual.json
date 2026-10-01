@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "76e8139721614c333c72",
+  "position": {
+    "x": 20.0,
+    "y": 70,
+    "z": 1,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "7-Day Outages"
+                }
+              },
+              "queryRef": "Weather Forecast.7-Day Outages",
+              "nativeQueryRef": "7-Day Outages"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

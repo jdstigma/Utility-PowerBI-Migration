@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "ac8b0301fb3c8084b65a",
+  "position": {
+    "x": 228.33,
+    "y": 70,
+    "z": 2,
+    "width": 198.33,
+    "height": 90,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "7-Day Customers Out"
+                }
+              },
+              "queryRef": "Weather Forecast.7-Day Customers Out",
+              "nativeQueryRef": "7-Day Customers Out"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

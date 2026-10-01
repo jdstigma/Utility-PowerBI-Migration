@@ -6,11 +6,9 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["BaseUrl", "Period", "Date", "Division", "Revenue Residential", "Revenue Commercial", "AR Aging", "AR Top Accounts", "Payments", "Digital Adoption", "AMI Daily", "Outages", "Work Orders", "Work Order Backlog", "Contact Center", "Collections Orders", "Moratorium Compliance", "Payment Plans", "Billing Exceptions", "Rebills", "Service Orders", "Customer 360", "Customer Bills", "Data Quality"]
+annotation PBI_QueryOrder = ["BaseUrl", "Period", "Date", "Division", "Revenue Residential", "Revenue Commercial", "AR Aging", "AR Top Accounts", "Payments", "Digital Adoption", "AMI Daily", "Outages", "Work Orders", "Work Order Backlog", "Contact Center", "Collections Orders", "Moratorium Compliance", "Payment Plans", "Billing Exceptions", "Rebills", "Service Orders", "Customer 360", "Customer Bills", "Data Quality", "Outage Model Coefficients", "Outage Model Bands", "Outage Model Divisions", "Outage Risk Levels", "Outage Backtest", "Outage Model Metrics", "Weather Forecast"]
 
 annotation __PBI_TimeIntelligenceEnabled = 0
-
-annotation PBI_ProTooling = ["DevMode"]
 
 ref table Period
 ref table Date
@@ -35,4 +33,11 @@ ref table 'Service Orders'
 ref table 'Customer 360'
 ref table 'Customer Bills'
 ref table 'Data Quality'
+ref table 'Outage Model Coefficients'
+ref table 'Outage Model Bands'
+ref table 'Outage Model Divisions'
+ref table 'Outage Risk Levels'
+ref table 'Outage Backtest'
+ref table 'Outage Model Metrics'
+ref table 'Weather Forecast'
 

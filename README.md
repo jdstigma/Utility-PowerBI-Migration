@@ -36,7 +36,8 @@ flowchart LR
 | 6 | Warehouse | `sql/02–05_dw_*.sql` | One shared definition of every measure | 5 dimensions + 11 facts |
 | 7 | Report views | `sql/06_rpt.sql` | The data behind each Excel workbook | 21 `rpt` views |
 | 8 | Publish | `sql/export_powerbi_data.py` → GitHub | SharePoint | 21 Parquet files · 48 MB |
-| 9 | Report | `powerbi/UtilityReporting.pbip` | ~10 Excel workbooks | 83 measures, 12 pages |
+| 9 | Report | `powerbi/UtilityReporting.pbip` | ~10 Excel workbooks | 95 measures, 13 pages |
+| 10 | Outage forecast | `forecast/train_outage_model.py` + live weather API in Power BI | Storm-readiness calls made by phone and gut feel | Poisson model, 16-day forecast by division |
 
 ### Current setup vs. this demo
 
@@ -273,8 +274,8 @@ python sql/export_powerbi_data.py      # ~3 min
 
 **What:** a **Power BI Project** (`powerbi/UtilityReporting.pbip`) that replaces the ~10 Excel workbooks. It's stored as text files, so every change to a measure or visual shows up as a readable diff in git.
 
-- **Semantic model** (`UtilityReporting.SemanticModel/`, TMDL): 23 tables, 31 relationships, **83 DAX measures** defined once and reused on every page. Every table loads straight from this repo's `powerbi_data/` through one `BaseUrl` parameter (`Web.Contents` + `Parquet.Document`), so **Refresh pulls the latest published files**, the way the Excel reports pulled from SharePoint.
-- **Report** (`UtilityReporting.Report/`, PBIR): 12 pages, 109 visuals, with Division and Year slicers on each page.
+- **Semantic model** (`UtilityReporting.SemanticModel/`, TMDL): 30 tables (one fed by a live weather API), 34 relationships, **95 DAX measures** defined once and reused on every page. Every table loads straight from this repo's `powerbi_data/` through one `BaseUrl` parameter (`Web.Contents` + `Parquet.Document`), so **Refresh pulls the latest published files**, the way the Excel reports pulled from SharePoint.
+- **Report** (`UtilityReporting.Report/`, PBIR): 13 pages, 121 visuals, with Division and Year slicers on each page.
 
 | Page | Highlights |
 |---|---|
@@ -290,6 +291,7 @@ python sql/export_powerbi_data.py      # ~3 min
 | Service Orders | Volume and cycle time by order type |
 | Customer 360 | Pick a customer: profile, balances, last 3 months of bills |
 | Data Quality | Every issue the staging layer found and fixed |
+| **Outage Forecast** | Live 16-day weather forecast scored by an outage model trained on history: expected outages, customers out and risk level by day and division (see Stage 10) |
 
 **Open it:**
 1. Open `powerbi/UtilityReporting.pbip` in Power BI Desktop (Sept 2026 or later).
@@ -318,6 +320,55 @@ python powerbi/build_pbip.py --overwrite-report  # start the report over (loses 
 
 **Publishing a new `.pbix`:** after editing the `.pbip`, click **Refresh now** so the data is loaded, then use **File → Save as → .pbix**. Save As switches Desktop to the new `.pbix`, so reopen the `.pbip` before making further edits you want in the repo.
 
+## Stage 10 · Outage forecast (live weather API)
+
+**What:** a model that predicts outages from weather, trained on the warehouse history and scored against a **live 16-day weather forecast** every time the report refreshes. Utilities use this kind of forecast to decide when to stage crews and call in contractors before a storm.
+
+**1. Train on history.** `forecast/train_outage_model.py` reads 730 days × 4 divisions of outages and weather from `UtilityDW` and fits a **Poisson regression**, the standard model for event counts:
+
+```
+log E[outages] = b0 + b1·gust + b2·max(gust−35, 0) + b3·max(gust−50, 0)
+                 + b4·rain + b5·CDD + b6·HDD + b7·summer + log(customers / 100K)
+```
+
+The hinge terms let wind damage accelerate above 35 and 50 mph, and the offset makes it a rate per 100K customers so all divisions share one set of weather effects. Customers interrupted = predicted outages × the historical customers-per-outage for that wind band.
+
+| Term | Effect | Significant? |
+|---|---|---|
+| Wind gust, plus extra slope above 35 mph and above 50 mph | Main driver; risk climbs steeply in high wind | Yes (p < 0.001) |
+| Summer (Jun–Aug) | About +35% (thunderstorm season) | Yes (p < 0.001) |
+| Rain, cooling/heating degree days | Small | No. Storms bring wind and rain together, and wind explains it first |
+
+**Back-test.** The model is trained on Oct 2024 – Mar 2026 and scored on **Apr – Sep 2026, which it never saw**, then refit on all 24 months for the published coefficients:
+
+| Metric | Result |
+|---|---|
+| Correlation, predicted vs actual daily outages | **0.974** |
+| "High/Severe" warnings that were real bad days | **100%** (no false alarms) |
+| Worst 5% of division-days that got a warning | 42% |
+| Mean error per division-day | 2.0 outages (actual average 6.2) |
+
+> The history is synthetic, and the generator made outages rise with wind and rain, so the model recovers a relationship that was built in. The method (features, offset, held-out back-test, risk bands) is what transfers to real OMS and weather data.
+
+**2. Score the live forecast in Power BI.** The `Weather Forecast` table calls [Open-Meteo](https://open-meteo.com) (free, no API key) on every refresh: 16 days of max gust, wind, rain and temperature for each division's customer-weighted centroid. DAX calculated columns score each day with the coefficients (`Outage Model Coefficients` table) and assign a risk level from the ratio to a normal calm day:
+
+| Risk level | Predicted outages vs a normal day |
+|---|---|
+| Normal | under 1.5× |
+| Elevated | 1.5× – 3× |
+| High | 3× – 8× |
+| Severe | 8× or more |
+
+The forecast query only talks to the API. The model tables load separately from `powerbi_data/` and the scoring happens in DAX, so Power BI's privacy firewall never has to combine the two sources in one query. The query requests an uncompressed response because Open-Meteo's `deflate` encoding isn't decodable by Power BI.
+
+**3. The page** shows expected outages and customers out for the next 7 days, max gust, peak risk level and day, a 16-day forecast-vs-wind chart, daily risk by division, the back-test chart, outages per 100K by wind band, and the accuracy table.
+
+```bash
+python forecast/train_outage_model.py   # retrain; writes outage_model_*.parquet to powerbi_data/ and prints a live-forecast check
+```
+
+The first refresh asks how to connect to `api.open-meteo.com`: choose **Anonymous**.
+
 ---
 
 ## Run the whole pipeline
@@ -334,6 +385,7 @@ python lake/build_curated.py
 python lake/download_to_sql.py
 python sql/build_warehouse.py
 python sql/export_powerbi_data.py
+python forecast/train_outage_model.py        # Stage 10: outage model
 python powerbi/build_pbip.py --model-only   # refresh the model; then open powerbi/UtilityReporting.pbip and Refresh
 ```
 

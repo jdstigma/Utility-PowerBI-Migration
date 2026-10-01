@@ -1,0 +1,114 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "ba721d3cb450923efd89",
+  "position": {
+    "x": 20,
+    "y": 175,
+    "z": 7,
+    "width": 820,
+    "height": 300,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "lineClusteredColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "forecast_date"
+                }
+              },
+              "queryRef": "Weather Forecast.forecast_date",
+              "nativeQueryRef": "forecast_date"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "Forecast Outages"
+                }
+              },
+              "queryRef": "Weather Forecast.Forecast Outages",
+              "nativeQueryRef": "Forecast Outages"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "Max Gust (mph)"
+                }
+              },
+              "queryRef": "Weather Forecast.Max Gust (mph)",
+              "nativeQueryRef": "Max Gust (mph)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Weather Forecast"
+                  }
+                },
+                "Property": "forecast_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'16-day forecast: expected outages (columns) vs max wind gust in mph (line)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

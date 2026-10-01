@@ -1,0 +1,46 @@
+table 'Outage Model Coefficients'
+	lineageTag: 748d1ab8-768b-b387-fa61-9445ca6fbf37
+
+	column term
+		dataType: string
+		lineageTag: 89f6172f-a0f8-c7ad-ef67-d9efc0461187
+		summarizeBy: none
+		sourceColumn: term
+
+		annotation SummarizationSetBy = Automatic
+
+	column coefficient
+		dataType: double
+		lineageTag: 127448e2-8b5b-ead8-afec-8714336294c2
+		summarizeBy: sum
+		sourceColumn: coefficient
+
+		annotation SummarizationSetBy = Automatic
+
+	column std_error
+		dataType: double
+		lineageTag: 15b7666d-e1a7-1bd9-21fa-2db74117ed65
+		summarizeBy: sum
+		sourceColumn: std_error
+
+		annotation SummarizationSetBy = Automatic
+
+	column p_value
+		dataType: double
+		lineageTag: 889e2eec-4fb8-0d43-2636-dad2a9e43287
+		summarizeBy: sum
+		sourceColumn: p_value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Outage Model Coefficients' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "outage_model_coefficients.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"term", type text}, {"coefficient", type number}, {"std_error", type number}, {"p_value", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

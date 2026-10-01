@@ -1,0 +1,247 @@
+table 'Weather Forecast'
+	lineageTag: 37bbaffa-8fce-d46e-4ed6-d40ada3db4d0
+
+	measure 'Forecast Outages' = SUM('Weather Forecast'[predicted_outages])
+		formatString: #,0.0
+		displayFolder: Outage Forecast
+		lineageTag: a595e83e-3015-8e19-138b-bc9ae44b216c
+
+	measure 'Forecast Customers Out' = SUM('Weather Forecast'[predicted_customers_out])
+		formatString: #,0
+		displayFolder: Outage Forecast
+		lineageTag: c479c333-82c7-a671-8440-ee86cb31fc5c
+
+	measure '7-Day Outages' = VAR d0 = CALCULATE(MIN('Weather Forecast'[forecast_date]), ALL('Weather Forecast')) RETURN CALCULATE([Forecast Outages], 'Weather Forecast'[forecast_date] < d0 + 7)
+		formatString: #,0.0
+		displayFolder: Outage Forecast
+		lineageTag: beddb52f-5c47-e7f1-f875-954d7979f96f
+
+	measure '7-Day Customers Out' = VAR d0 = CALCULATE(MIN('Weather Forecast'[forecast_date]), ALL('Weather Forecast')) RETURN CALCULATE([Forecast Customers Out], 'Weather Forecast'[forecast_date] < d0 + 7)
+		formatString: #,0
+		displayFolder: Outage Forecast
+		lineageTag: 0df6ac4a-400c-c7b1-e8c5-c5cf86907d81
+
+	measure 'Max Gust (mph)' = MAX('Weather Forecast'[max_gust_mph])
+		formatString: #,0.0
+		displayFolder: Outage Forecast
+		lineageTag: 8e80cd52-1db2-2330-4e4b-d4fd08b34c6b
+
+	measure 'Forecast vs Normal' = DIVIDE([Forecast Outages], SUM('Weather Forecast'[baseline_outages]))
+		formatString: 0.00"x"
+		displayFolder: Outage Forecast
+		lineageTag: 9c94817f-0569-2be5-5344-f2701ee24f00
+
+	measure 'Peak Risk Level' = VAR mx = MAX('Weather Forecast'[risk_order]) RETURN LOOKUPVALUE('Outage Risk Levels'[risk_level], 'Outage Risk Levels'[risk_order], mx)
+		displayFolder: Outage Forecast
+		lineageTag: 786541a8-483f-b1f1-7e91-e6cbe765c7cc
+
+	measure 'Peak Risk Day' = VAR t = ADDCOLUMNS(VALUES('Weather Forecast'[forecast_date]), "o", [Forecast Outages]) RETURN FORMAT(MAXX(TOPN(1, t, [o], DESC), 'Weather Forecast'[forecast_date]), "ddd mmm d")
+		displayFolder: Outage Forecast
+		lineageTag: 81b418f4-71a0-d65b-d02e-3a037e9d1ea7
+
+	measure 'Forecast Retrieved' = MAX('Weather Forecast'[retrieved_at])
+		formatString: mmm d, h:mm AM/PM
+		displayFolder: Outage Forecast
+		lineageTag: 4eb0d3a2-75da-2c53-ae6b-290fd51a8f42
+
+	column division
+		dataType: string
+		lineageTag: 4c892adc-2062-b929-a5d6-106f111b352d
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column forecast_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: df9b8691-b5fa-ff23-6897-5c59906fc05e
+		summarizeBy: none
+		sourceColumn: forecast_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_gust_mph
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 45c3d423-3449-9a97-2b34-d59b0bc7ba60
+		summarizeBy: none
+		sourceColumn: max_gust_mph
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_wind_mph
+		dataType: double
+		formatString: #,0.0
+		lineageTag: e0521303-7ca8-5322-ec53-c5a17e748fdf
+		summarizeBy: none
+		sourceColumn: max_wind_mph
+
+		annotation SummarizationSetBy = Automatic
+
+	column precip_in
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 741fcd9c-cbcc-7b07-97b5-9f21ece42fc8
+		summarizeBy: sum
+		sourceColumn: precip_in
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp_max_f
+		dataType: double
+		formatString: #,0
+		lineageTag: 9ece322d-8e0b-6e96-f5cc-12bd505efa5a
+		summarizeBy: none
+		sourceColumn: temp_max_f
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp_min_f
+		dataType: double
+		formatString: #,0
+		lineageTag: fdd583be-6507-ca49-e645-8d93806a2c19
+		summarizeBy: none
+		sourceColumn: temp_min_f
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp_avg_f
+		dataType: double
+		formatString: #,0.0
+		lineageTag: a864bca4-d529-0a24-1059-b880b5433dc2
+		summarizeBy: none
+		sourceColumn: temp_avg_f
+
+		annotation SummarizationSetBy = Automatic
+
+	column cdd
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 24f4ea60-ed22-88c4-a664-6b73f6f5dddf
+		summarizeBy: sum
+		sourceColumn: cdd
+
+		annotation SummarizationSetBy = Automatic
+
+	column hdd
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 95015c26-3d3f-77c7-195e-8a1e6cb41b4c
+		summarizeBy: sum
+		sourceColumn: hdd
+
+		annotation SummarizationSetBy = Automatic
+
+	column retrieved_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f26a8880-783b-a9cf-6854-dec643082dff
+		summarizeBy: none
+		sourceColumn: retrieved_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers_served = LOOKUPVALUE('Outage Model Divisions'[customers_served], 'Outage Model Divisions'[division], 'Weather Forecast'[division])
+		dataType: int64
+		formatString: #,0
+		lineageTag: 02d668d8-d86a-b474-9730-eaa823803546
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column predicted_outages = VAR g = 'Weather Forecast'[max_gust_mph] VAR summer = IF(MONTH('Weather Forecast'[forecast_date]) IN {6, 7, 8}, 1, 0) RETURN EXP(LOOKUPVALUE('Outage Model Coefficients'[coefficient], 'Outage Model Coefficients'[term], "intercept") + LOOKUPVALUE('Outage Model Coefficients'[coefficient], 'Outage Model Coefficients'[term], "max_gust_mph") * g + LOOKUPVALUE('Outage Model Coefficients'[coefficient], 'Outage Model Coefficients'[term], "gust_over_35") * MAX(g - 35, 0) + LOOKUPVALUE('Outage Model Coefficients'[coefficient], 'Outage Model Coefficients'[term], "gust_over_50") * MAX(g - 50, 0) + LOOKUPVALUE('Outage Model Coefficients'[coefficient], 'Outage Model Coefficients'[term], "precip_in") * 'Weather Forecast'[precip_in] + LOOKUPVALUE('Outage Model Coefficients'[coefficient], 'Outage Model Coefficients'[term], "cdd") * 'Weather Forecast'[cdd] + LOOKUPVALUE('Outage Model Coefficients'[coefficient], 'Outage Model Coefficients'[term], "hdd") * 'Weather Forecast'[hdd] + LOOKUPVALUE('Outage Model Coefficients'[coefficient], 'Outage Model Coefficients'[term], "summer") * summer + LN('Weather Forecast'[customers_served] / 100000))
+		dataType: double
+		formatString: #,0.0
+		lineageTag: e2b85e20-a8ad-e129-b2f8-b3974a64e142
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column baseline_outages = LOOKUPVALUE('Outage Model Divisions'[baseline_outages], 'Outage Model Divisions'[division], 'Weather Forecast'[division])
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 65eb9e9f-07d8-a662-f6c4-37cb7d38b4f8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_ratio = DIVIDE('Weather Forecast'[predicted_outages], 'Weather Forecast'[baseline_outages])
+		dataType: double
+		formatString: 0.00"x"
+		lineageTag: 628c7a59-f9bb-816a-ed57-1b6b98c2607e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_order = VAR r = 'Weather Forecast'[risk_ratio] RETURN MAXX(FILTER('Outage Risk Levels', 'Outage Risk Levels'[ratio_min] <= r && r < 'Outage Risk Levels'[ratio_max]), 'Outage Risk Levels'[risk_order])
+		dataType: int64
+		formatString: 0
+		lineageTag: 79e70235-791b-a1ef-14ce-2fb8508cfffb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_level = LOOKUPVALUE('Outage Risk Levels'[risk_level], 'Outage Risk Levels'[risk_order], 'Weather Forecast'[risk_order])
+		dataType: string
+		lineageTag: b774bb4d-f568-62e5-a40e-17b25df37b66
+		summarizeBy: none
+		sortByColumn: risk_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column wind_band = VAR g = 'Weather Forecast'[max_gust_mph] RETURN MAXX(FILTER('Outage Model Bands', 'Outage Model Bands'[gust_min] <= g && g < 'Outage Model Bands'[gust_max]), 'Outage Model Bands'[band])
+		dataType: string
+		lineageTag: 4d51959a-5a63-4bb0-99bb-467e9c21b6a3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column predicted_customers_out = 'Weather Forecast'[predicted_outages] * LOOKUPVALUE('Outage Model Bands'[customers_per_event], 'Outage Model Bands'[band], 'Weather Forecast'[wind_band])
+		dataType: double
+		formatString: #,0
+		lineageTag: db5686cb-e89c-6c40-365b-5c3b1006367a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column predicted_customer_minutes = 'Weather Forecast'[predicted_customers_out] * LOOKUPVALUE('Outage Model Bands'[minutes_per_event], 'Outage Model Bands'[band], 'Weather Forecast'[wind_band])
+		dataType: double
+		formatString: #,0
+		lineageTag: 553a711f-d37b-05fd-f072-76ce58349a6f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Weather Forecast' = m
+		mode: import
+		source =
+				let
+				    // Open-Meteo daily forecast (free, no key) at each division's customer-weighted centroid
+				    Divisions = {"Central", "Metro", "Palisades", "Southern"},
+				    Response = Json.Document(Web.Contents("https://api.open-meteo.com", [RelativePath = "v1/forecast", Query = [
+				        latitude = "40.4059,40.7276,40.8931,39.9234", longitude = "-74.5402,-74.1545,-74.1139,-75.0325",
+				        daily = "wind_gusts_10m_max,wind_speed_10m_max,precipitation_sum,temperature_2m_max,temperature_2m_min",
+				        wind_speed_unit = "mph", precipitation_unit = "inch", temperature_unit = "fahrenheit",
+				        timezone = "America/New_York", forecast_days = "16"],
+				        // uncompressed: the API answers Accept-Encoding gzip with zlib-wrapped "deflate" that Power BI cannot decode
+				        Headers = [#"Accept-Encoding" = "identity"]])),
+				    PerDivision = List.Transform({0 .. List.Count(Divisions) - 1}, (i) =>
+				        let d = Response{i}[daily], n = List.Count(d[time]) in
+				        Table.FromColumns({List.Repeat({Divisions{i}}, n), d[time], d[wind_gusts_10m_max], d[wind_speed_10m_max],
+				                           d[precipitation_sum], d[temperature_2m_max], d[temperature_2m_min]},
+				            {"division", "forecast_date", "max_gust_mph", "max_wind_mph", "precip_in", "temp_max_f", "temp_min_f"})),
+				    Combined = Table.Combine(PerDivision),
+				    Typed = Table.TransformColumnTypes(Combined, {{"division", type text}, {"forecast_date", type date},
+				        {"max_gust_mph", type number}, {"max_wind_mph", type number}, {"precip_in", type number},
+				        {"temp_max_f", type number}, {"temp_min_f", type number}}, "en-US"),
+				    NoNullRain = Table.ReplaceValue(Typed, null, 0, Replacer.ReplaceValue, {"precip_in"}),
+				    WithAvg = Table.AddColumn(NoNullRain, "temp_avg_f", each ([temp_max_f] + [temp_min_f]) / 2, type number),
+				    WithCdd = Table.AddColumn(WithAvg, "cdd", each List.Max({[temp_avg_f] - 65, 0}), type number),
+				    WithHdd = Table.AddColumn(WithCdd, "hdd", each List.Max({65 - [temp_avg_f], 0}), type number),
+				    Retrieved = Table.AddColumn(WithHdd, "retrieved_at", each DateTime.LocalNow(), type datetime)
+				in
+				    Retrieved
+
+	annotation PBI_ResultType = Table
+

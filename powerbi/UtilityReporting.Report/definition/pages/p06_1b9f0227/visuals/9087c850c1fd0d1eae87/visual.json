@@ -1,0 +1,148 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "9087c850c1fd0d1eae87",
+  "position": {
+    "x": 850,
+    "y": 175,
+    "z": 8,
+    "width": 410,
+    "height": 300,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "forecast_date"
+                }
+              },
+              "queryRef": "Weather Forecast.forecast_date",
+              "nativeQueryRef": "forecast_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "division"
+                }
+              },
+              "queryRef": "Weather Forecast.division",
+              "nativeQueryRef": "division"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "max_gust_mph"
+                }
+              },
+              "queryRef": "Weather Forecast.max_gust_mph",
+              "nativeQueryRef": "max_gust_mph"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "precip_in"
+                }
+              },
+              "queryRef": "Weather Forecast.precip_in",
+              "nativeQueryRef": "precip_in"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "predicted_outages"
+                }
+              },
+              "queryRef": "Weather Forecast.predicted_outages",
+              "nativeQueryRef": "predicted_outages"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Weather Forecast"
+                    }
+                  },
+                  "Property": "risk_level"
+                }
+              },
+              "queryRef": "Weather Forecast.risk_level",
+              "nativeQueryRef": "risk_level"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Weather Forecast"
+                  }
+                },
+                "Property": "forecast_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Daily risk by division'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -122,3 +122,15 @@ relationship eb747e4d-accb-a30e-2190-e51e52628e59
 	fromColumn: 'Customer Bills'.customer_id
 	toColumn: 'Customer 360'.customer_id
 
+relationship a39ba614-f709-4376-5ca2-2865988c7a3e
+	fromColumn: 'Weather Forecast'.division
+	toColumn: Division.division
+
+relationship 06335def-9db3-3826-f918-d9d0a57cd34b
+	fromColumn: 'Outage Backtest'.division
+	toColumn: Division.division
+
+relationship c7356acb-acae-8d43-83ec-9f74c29c8129
+	fromColumn: 'Outage Backtest'.date
+	toColumn: Date.date
+

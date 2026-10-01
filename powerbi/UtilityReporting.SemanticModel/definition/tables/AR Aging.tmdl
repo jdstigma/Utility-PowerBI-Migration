@@ -35,8 +35,6 @@ table 'AR Aging'
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column segment
 		dataType: string
 		lineageTag: 20ca75bd-fa91-cfce-97da-0dc697e81f53
@@ -55,6 +53,7 @@ table 'AR Aging'
 
 	column aging_bucket
 		dataType: string
+		sortByColumn: bucket_order
 		lineageTag: 56962589-4b5b-90d3-2741-b6a16ba58f0d
 		summarizeBy: none
 		sourceColumn: aging_bucket

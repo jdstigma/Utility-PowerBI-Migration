@@ -1,0 +1,100 @@
+table 'Outage Backtest'
+	lineageTag: 281bf4b6-e204-b6d6-8324-861dbc802f05
+
+	measure 'Backtest Actual Outages' = SUM('Outage Backtest'[actual_outages])
+		formatString: #,0
+		displayFolder: Outage Forecast
+		lineageTag: 7e3eb084-a34d-ee45-cade-34c05ed88864
+
+	measure 'Backtest Predicted Outages' = SUM('Outage Backtest'[predicted_outages])
+		formatString: #,0.0
+		displayFolder: Outage Forecast
+		lineageTag: 3dab607d-c751-4498-eb04-6e2c163208b9
+
+	column date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 10986ca3-f000-81b3-437f-ba371c1b2c5d
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 80aaaccc-ce39-906e-d64b-3dc7993c5946
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_outages
+		dataType: int64
+		formatString: #,0
+		lineageTag: aab8c1b2-b3f2-d38d-83b0-b1cd647fa76a
+		summarizeBy: sum
+		sourceColumn: actual_outages
+
+		annotation SummarizationSetBy = Automatic
+
+	column predicted_outages
+		dataType: double
+		lineageTag: 5d690513-4360-0a7b-6e24-f91dcd2c0234
+		summarizeBy: sum
+		sourceColumn: predicted_outages
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_customers_out
+		dataType: int64
+		formatString: #,0
+		lineageTag: 36cc44b9-db76-6830-5b65-c4be6f202fd1
+		summarizeBy: sum
+		sourceColumn: actual_customers_out
+
+		annotation SummarizationSetBy = Automatic
+
+	column predicted_customers_out
+		dataType: double
+		lineageTag: 8a898f91-f35d-8053-6750-8a76a54cc277
+		summarizeBy: sum
+		sourceColumn: predicted_customers_out
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_gust_mph
+		dataType: int64
+		formatString: #,0
+		lineageTag: 91c96abb-de8d-c1ad-705e-c3284d59d010
+		summarizeBy: sum
+		sourceColumn: max_gust_mph
+
+		annotation SummarizationSetBy = Automatic
+
+	column precip_in
+		dataType: double
+		lineageTag: 3a0f1907-8690-b61c-cdad-5c6bdb894edb
+		summarizeBy: sum
+		sourceColumn: precip_in
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_ratio
+		dataType: double
+		lineageTag: 2561d41e-b56a-75ca-0f60-c2ce46259d95
+		summarizeBy: sum
+		sourceColumn: risk_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Outage Backtest' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(Binary.Buffer(Web.Contents(BaseUrl, [RelativePath = "outage_model_backtest.parquet"]))),
+				    Typed = Table.TransformColumnTypes(Source, {{"date", type date}, {"division", type text}, {"actual_outages", Int64.Type}, {"predicted_outages", type number}, {"actual_customers_out", Int64.Type}, {"predicted_customers_out", type number}, {"max_gust_mph", Int64.Type}, {"precip_in", type number}, {"risk_ratio", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+
